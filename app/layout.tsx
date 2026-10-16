@@ -6,6 +6,7 @@ import './globals.css'
 import Image from 'next/image'
 import { ThemeToggle } from './theme-toggle'
 import { FooterContent } from './footer-content'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata = {
   metadataBase: new URL('https://docs.trustless-oss.xyz'),
@@ -88,6 +89,7 @@ export default async function RootLayout({
         >
           {children}
         </Layout>
+        <Analytics />
       </body>
     </html>
   )
