@@ -4,7 +4,7 @@ import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 import './globals.css'
 import Image from 'next/image'
-import { NavbarSocial } from './navbar-social'
+import { ThemeToggle } from './theme-toggle'
 import { FooterContent } from './footer-content'
 
 export const metadata = {
@@ -32,10 +32,10 @@ export const metadata = {
 }
 
 const TossLogo = () => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-    <Image src="/logo.png" alt="Trustless OSS" width={34} height={34} priority />
-    <span style={{ fontSize: '1.25rem', fontWeight: 700, whiteSpace: 'nowrap' }}>
-      Trustless OSS
+  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+    <Image src="/logo.png" alt="Trustless OSS" width={60} height={60} priority />
+    <span style={{ fontSize: '1.85rem', fontWeight: 800, whiteSpace: 'nowrap' }}>
+      Trustless <span style={{ color: 'var(--toss-blue)' }}>OSS</span>
     </span>
   </div>
 )
@@ -54,7 +54,7 @@ const banner = (
 
 const navbar = (
   <Navbar logo={<TossLogo />} projectLink="https://github.com/Trustless-OSS">
-    <NavbarSocial />
+    <ThemeToggle />
   </Navbar>
 )
 
@@ -82,6 +82,7 @@ export default async function RootLayout({
           docsRepositoryBase="https://github.com/Trustless-OSS/trustless-oss-docs/tree/main"
           footer={footer}
           editLink="Edit this page on GitHub"
+          darkMode={false}
           sidebar={{ defaultMenuCollapseLevel: 1 }}
           toc={{ title: 'On This Page' }}
         >

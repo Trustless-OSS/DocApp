@@ -43,74 +43,76 @@ const socials = [
 
 export function FooterContent() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '1.25rem',
-        width: '100%',
-        textAlign: 'center',
-      }}
-    >
-      {/* Brand */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-        <Image src="/logo.png" alt="Trustless OSS" width={26} height={26} />
-        <span style={{ fontWeight: 700, fontSize: '1.05rem' }}>
-          Trustless OSS
-        </span>
-      </div>
+    <div style={{ width: '100%' }}>
+      {/* Top row: brand on the left, social icons on the right */}
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '1rem',
+          width: '100%',
+        }}
+      >
+        {/* Brand — left aligned, larger font, blue "OSS" */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          <Image src="/logo.png" alt="Trustless OSS" width={34} height={34} />
+          <span style={{ fontSize: '1.4rem', fontWeight: 800, lineHeight: 1 }}>
+            Trustless <span style={{ color: 'var(--toss-blue)' }}>OSS</span>
+          </span>
+        </div>
 
-      {/* Social icons */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-        {socials.map((s) => (
-          <a
-            key={s.label}
-            href={s.href}
-            target="_blank"
-            rel="noreferrer"
-            title={s.label}
-            aria-label={s.label}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 24,
-              height: 24,
-              color: 'currentColor',
-              opacity: 0.65,
-              transition: 'opacity 0.2s, transform 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.opacity = '1'
-              e.currentTarget.style.transform = 'translateY(-2px)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.opacity = '0.65'
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
-          >
-            {s.icon}
-          </a>
-        ))}
+        {/* Social icons — right aligned */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.1rem' }}>
+          {socials.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target="_blank"
+              rel="noreferrer"
+              title={s.label}
+              aria-label={s.label}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 24,
+                height: 24,
+                color: 'currentColor',
+                opacity: 0.65,
+                transition: 'opacity 0.2s, transform 0.2s',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.opacity = '1'
+                e.currentTarget.style.transform = 'translateY(-2px)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.opacity = '0.65'
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}
+            >
+              {s.icon}
+            </a>
+          ))}
+        </div>
       </div>
 
       {/* Divider */}
       <div
         style={{
           width: '100%',
-          maxWidth: 480,
           height: 1,
-          background:
-            'linear-gradient(to right, transparent, currentColor, transparent)',
-          opacity: 0.15,
+          margin: '1.25rem 0',
+          background: 'currentColor',
+          opacity: 0.12,
         }}
       />
 
-      {/* Copyright */}
-      <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>
+      {/* Copyright — centered */}
+      <div style={{ textAlign: 'center', fontSize: '0.9rem', opacity: 0.8 }}>
         © {new Date().getFullYear()} Trustless OSS. All rights reserved.
-      </span>
+      </div>
     </div>
   )
 }

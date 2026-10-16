@@ -46,3 +46,6 @@ pnpm-lock.yaml
 # Temporary files
 *.tmp
 *.temp
+
+# Build artifacts
+/public/_pagefind/
