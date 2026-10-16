@@ -1,0 +1,421 @@
+# API Reference
+
+Complete API documentation for Trustless OSS. All API endpoints require authentication via API key.
+
+## Authentication
+
+### API Keys
+
+Generate API keys from your [dashboard](https://dashboard.trustless-oss.xyz/settings/api).
+
+```bash
+# Include API key in headers
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.trustless-oss.xyz/v1/bounties
+```
+
+### Scopes
+
+API keys can be scoped to specific permissions:
+
+| Scope | Description |
+|-------|-------------|
+| `bounties:read` | Read bounties and transactions |
+| `bounties:write` | Create and modify bounties |
+| `organizations:read` | Read organization data |
+| `organizations:write` | Modify organization settings |
+| `webhooks:manage` | Manage webhook subscriptions |
+
+## Base URL
+
+```
+https://api.trustless-oss.xyz/v1
+```
+
+## Rate Limits
+
+- **Free tier**: 1,000 requests/hour
+- **Pro tier**: 10,000 requests/hour  
+- **Enterprise**: Custom limits
+
+Headers included in responses:
+```http
+X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 987
+X-RateLimit-Reset: 1625097600
+```
+
+## Endpoints
+
+### Bounties
+
+#### List Bounties
+```http
+GET /bounties
+```
+
+**Parameters**:
+- `organization` (string): Filter by organization
+- `repository` (string): Filter by repository
+- `status` (string): `active`, `completed`, `cancelled`
+- `limit` (number): Results per page (default: 50)
+- `offset` (number): Pagination offset (default: 0)
+
+**Response**:
+```json
+{
+  "data": [
+    {
+      "id": "bnt_123",
+      "issue_url": "https://github.com/org/repo/issues/42",
+      "amount": "100.00",
+      "currency": "USDC",
+      "status": "active",
+      "created_at": "2024-01-15T10:30:00Z",
+      "deadline": "2024-02-15T10:30:00Z",
+      "contributor": "github:octocat",
+      "conditions": ["tests_passing", "code_review"]
+    }
+  ],
+  "pagination": {
+    "total": 150,
+    "limit": 50,
+    "offset": 0
+  }
+}
+```
+
+#### Create Bounty
+```http
+POST /bounties
+```
+
+**Request Body**:
+```json
+{
+  "issue_url": "https://github.com/org/repo/issues/42",
+  "amount": "100.00",
+  "currency": "USDC",
+  "deadline": "2024-02-15T10:30:00Z",
+  "conditions": ["tests_passing", "code_review"],
+  "metadata": {
+    "labels": ["bug", "bounty"],
+    "priority": "high"
+  }
+}
+```
+
+**Response**:
+```json
+{
+  "id": "bnt_123",
+  "transaction_id": "txn_456",
+  "status": "funding",
+  "escrow_address": "GABCD...XYZ",
+  "funding_url": "https://trustless-oss.xyz/fund/bnt_123"
+}
+```
+
+#### Get Bounty
+```http
+GET /bounties/{bounty_id}
+```
+
+#### Update Bounty
+```http
+PATCH /bounties/{bounty_id}
+```
+
+#### Cancel Bounty
+```http
+POST /bounties/{bounty_id}/cancel
+```
+
+#### Claim Bounty
+```http
+POST /bounties/{bounty_id}/claim
+```
+
+#### Complete Bounty
+```http
+POST /bounties/{bounty_id}/complete
+```
+
+### Organizations
+
+#### List Organizations
+```http
+GET /organizations
+```
+
+#### Get Organization
+```http
+GET /organizations/{org_id}
+```
+
+#### Update Organization
+```http
+PATCH /organizations/{org_id}
+```
+
+### Transactions
+
+#### List Transactions
+```http
+GET /transactions
+```
+
+**Parameters**:
+- `bounty_id` (string): Filter by bounty
+- `type` (string): `funding`, `payout`, `refund`
+- `status` (string): `pending`, `completed`, `failed`
+
+#### Get Transaction
+```http
+GET /transactions/{transaction_id}
+```
+
+### Webhooks
+
+#### List Webhooks
+```http
+GET /webhooks
+```
+
+#### Create Webhook
+```http
+POST /webhooks
+```
+
+**Request Body**:
+```json
+{
+  "url": "https://your-app.com/webhooks/trustless",
+  "events": ["bounty.created", "bounty.completed"],
+  "secret": "your-webhook-secret"
+}
+```
+
+#### Delete Webhook
+```http
+DELETE /webhooks/{webhook_id}
+```
+
+### Users
+
+#### Get Current User
+```http
+GET /users/me
+```
+
+#### Update User
+```http
+PATCH /users/me
+```
+
+## Webhook Events
+
+### Event Types
+
+```json
+{
+  "id": "evt_123",
+  "type": "bounty.created",
+  "data": {
+    "id": "bnt_123",
+    "issue_url": "https://github.com/org/repo/issues/42",
+    "amount": "100.00",
+    "currency": "USDC"
+  },
+  "created_at": "2024-01-15T10:30:00Z"
+}
+```
+
+### Available Events
+
+- `bounty.created` - New bounty created
+- `bounty.funded` - Bounty fully funded
+- `bounty.claimed` - Bounty claimed by contributor
+- `bounty.completed` - Bounty completed and paid
+- `bounty.cancelled` - Bounty cancelled
+- `transaction.completed` - Transaction completed
+- `organization.updated` - Organization settings changed
+
+### Webhook Security
+
+Verify webhook signatures:
+
+```javascript
+const crypto = require('crypto');
+
+function verifySignature(payload, signature, secret) {
+  const hmac = crypto.createHmac('sha256', secret);
+  const digest = hmac.update(payload).digest('hex');
+  return crypto.timingSafeEqual(
+    Buffer.from(signature),
+    Buffer.from(digest)
+  );
+}
+
+// Usage
+const isValid = verifySignature(
+  request.rawBody,
+  request.headers['x-trustless-signature'],
+  process.env.WEBHOOK_SECRET
+);
+```
+
+## Error Handling
+
+### Error Response Format
+
+```json
+{
+  "error": {
+    "code": "invalid_request",
+    "message": "Amount must be greater than 10",
+    "param": "amount",
+    "type": "validation_error"
+  }
+}
+```
+
+### Error Codes
+
+| Code | Description |
+|------|-------------|
+| `invalid_request` | Malformed request |
+| `authentication_required` | Missing or invalid auth |
+| `insufficient_permissions` | Lacks required scopes |
+| `resource_not_found` | Requested resource doesn't exist |
+| `rate_limit_exceeded` | Too many requests |
+| `internal_error` | Server error |
+
+## SDK Examples
+
+### JavaScript/TypeScript
+
+```typescript
+import { TrustlessOSS } from '@trustless-oss/sdk';
+
+const client = new TrustlessOSS({
+  apiKey: 'your-api-key',
+  // Optional configuration
+  timeout: 30000,
+  maxRetries: 3,
+});
+
+// Create a bounty
+const bounty = await client.bounties.create({
+  issueUrl: 'https://github.com/org/repo/issues/42',
+  amount: '100.00',
+  currency: 'USDC',
+  deadline: '30d',
+});
+
+// List bounties with pagination
+const { data, pagination } = await client.bounties.list({
+  organization: 'my-org',
+  status: 'active',
+  limit: 10,
+});
+```
+
+### Python
+
+```python
+from trustless_oss import Client
+
+client = Client(api_key='your-api-key')
+
+# Async support available
+async def create_bounty():
+    bounty = await client.bounties.create(
+        issue_url='https://github.com/org/repo/issues/42',
+        amount='100.00',
+        currency='USDC'
+    )
+    return bounty
+
+# Webhook verification
+from trustless_oss.webhooks import verify_signature
+
+def handle_webhook(request):
+    payload = request.body
+    signature = request.headers['X-Trustless-Signature']
+    
+    if verify_signature(payload, signature, 'your-secret'):
+        # Process webhook
+        pass
+```
+
+### Go
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "log"
+    
+    trustless "github.com/trustless-oss/go-sdk"
+)
+
+func main() {
+    client := trustless.NewClient("your-api-key")
+    
+    ctx := context.Background()
+    
+    // Create bounty
+    bounty, err := client.Bounties.Create(ctx, &trustless.CreateBountyParams{
+        IssueURL: "https://github.com/org/repo/issues/42",
+        Amount:   "100.00",
+        Currency: "USDC",
+    })
+    
+    if err != nil {
+        log.Fatal(err)
+    }
+    
+    fmt.Printf("Created bounty: %s\n", bounty.ID)
+}
+```
+
+## Testing
+
+### Sandbox Environment
+
+Use the sandbox environment for testing:
+
+```
+https://api.sandbox.trustless-oss.xyz/v1
+```
+
+**Test API Key**: `sk_test_1234567890`
+
+### Test Data
+
+```bash
+# Create test bounty
+curl -X POST https://api.sandbox.trustless-oss.xyz/v1/bounties \
+  -H "Authorization: Bearer sk_test_1234567890" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "issue_url": "https://github.com/test-org/test-repo/issues/1",
+    "amount": "25.00",
+    "currency": "USDC"
+  }'
+```
+
+## Versioning
+
+API version is included in the URL path (`/v1`). Breaking changes will increment the version number.
+
+Current version: **v1** (stable)
+
+## Support
+
+- **API Status**: [status.trustless-oss.xyz](https://status.trustless-oss.xyz)
+- **Support Email**: [api@trustless-oss.xyz](mailto:api@trustless-oss.xyz)
+- **Documentation**: [docs.trustless-oss.xyz/api](https://docs.trustless-oss.xyz/api)

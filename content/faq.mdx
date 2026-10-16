@@ -1,0 +1,241 @@
+# FAQ
+
+Frequently asked questions about Trustless OSS.
+
+## General
+
+### What is Trustless OSS?
+Trustless OSS is a platform for escrow-backed GitHub bounties built on the Stellar ecosystem. It enables secure, transparent payments for open source contributions while keeping GitHub as the primary workflow platform.
+
+### How does it work?
+1. **Fund**: Maintainers fund bounties with stablecoins
+2. **Claim**: Contributors claim bounties on GitHub issues
+3. **Work**: Contributors submit work via pull requests
+4. **Verify**: Maintainers review and approve work
+5. **Pay**: Funds release automatically from escrow
+
+### Is it really trustless?
+Yes! Funds are held in Stellar smart contracts that only release when predefined conditions are met. Neither party needs to trust the other - the code enforces the agreement.
+
+## Bounties
+
+### What types of bounties can I create?
+- Bug fixes
+- Feature development
+- Documentation
+- Security audits
+- Performance improvements
+- Translation/localization
+- Design work
+
+### What's the minimum bounty amount?
+$10 USD equivalent in any supported stablecoin.
+
+### What's the maximum bounty amount?
+- Free tier: $1,000
+- Pro tier: $10,000
+- Enterprise: Custom limits
+
+### How long do bounties last?
+Bounties can have deadlines from 1 day to 1 year. Default is 30 days.
+
+### Can I extend a bounty deadline?
+Yes, you can extend deadlines up to 3 times, with a maximum total duration of 1 year.
+
+### What happens if a bounty isn't completed?
+If a bounty expires without completion:
+1. The contributor's claim is released
+2. The bounty becomes available for others to claim
+3. You can choose to extend, cancel, or leave it open
+
+## Payments
+
+### What currencies are supported?
+- USDC (Stellar)
+- EURC (Stellar)
+- BRLT (Stellar)
+- USDT (Stellar)
+- More coming soon
+
+### How are payments processed?
+Payments are processed through Stellar smart contracts:
+1. Funds are locked in escrow
+2. Smart contract verifies completion conditions
+3. Funds automatically transfer to contributor's wallet
+4. Transaction is recorded on the Stellar blockchain
+
+### Are there any fees?
+- **Free tier**: 5% platform fee (minimum $1)
+- **Pro tier**: 3% platform fee
+- **Enterprise**: Custom fee structure
+
+### When do contributors get paid?
+Immediately upon bounty completion and verification. Payments are processed within minutes.
+
+### What about taxes?
+We provide tax documentation (1099 forms for US contributors). Contributors are responsible for reporting income according to their local tax laws.
+
+## Security
+
+### How are funds secured?
+Funds are held in multi-signature Stellar smart contracts that require:
+1. Completion verification
+2. Maintainer approval (optional)
+3. Time-based releases for disputes
+
+### Has the code been audited?
+Yes, our smart contracts undergo regular third-party security audits. We also run a bug bounty program for security researchers.
+
+### What happens if there's a dispute?
+Dispute resolution process:
+1. **48-hour cooling period** after completion claim
+2. **Mediation** by Trustless OSS team (if requested)
+3. **Arbitration** using decentralized oracle (if needed)
+4. **Time-based release** after 7 days if no resolution
+
+### Is my GitHub data safe?
+We only request minimum required permissions:
+- Read access to issues and pull requests
+- Write access to add labels and comments
+- No access to private repository code unless explicitly granted
+
+## Technical
+
+### Do I need to know blockchain to use this?
+No! The platform handles all blockchain interactions automatically. You only need a Stellar wallet for funding and receiving payments.
+
+### Which wallets are supported?
+- Freighter (browser extension)
+- Albedo (web-based)
+- Rabet (mobile)
+- Ledger (hardware)
+- WalletConnect (multi-chain)
+
+### Can I use my existing GitHub workflow?
+Yes! Trustless OSS integrates seamlessly:
+- Works with existing issues and PRs
+- Adds bounty labels and status comments
+- Doesn't require workflow changes
+
+### What if my organization has custom requirements?
+Enterprise tier offers:
+- Custom smart contract conditions
+- Private deployment options
+- Dedicated support and SLAs
+- Custom integration development
+
+## Integration
+
+### Does it work with private repositories?
+Yes, both public and private repositories are supported.
+
+### Can I use it with GitLab/Bitbucket?
+Currently GitHub only. GitLab integration is planned for Q2 2026.
+
+### What about monorepos?
+Yes! You can create bounties for specific packages or directories within monorepos.
+
+### Can I automate bounty creation?
+Yes, via our API:
+```javascript
+// Create bounty via API
+fetch('https://api.trustless-oss.xyz/v1/bounties', {
+  method: 'POST',
+  headers: { 'Authorization': 'Bearer YOUR_API_KEY' },
+  body: JSON.stringify({
+    issue_url: 'https://github.com/org/repo/issues/42',
+    amount: '100.00',
+    currency: 'USDC'
+  })
+})
+```
+
+### What CI/CD platforms are supported?
+- GitHub Actions (native integration)
+- GitLab CI
+- Jenkins
+- CircleCI
+- Travis CI
+- Azure DevOps
+
+## Legal & Compliance
+
+### Terms of Service
+Our Terms of Service are available at [trustless-oss.xyz/terms](https://trustless-oss.xyz/terms).
+
+### Privacy Policy
+Our Privacy Policy is available at [trustless-oss.xyz/privacy](https://trustless-oss.xyz/privacy).
+
+### KYC/AML Requirements
+- **Individuals**: No KYC required for bounties under $1,000
+- **Organizations**: Basic verification required
+- **Enterprise**: Full KYC/AML compliance
+
+### Jurisdiction
+Trustless OSS operates under the laws of the Cayman Islands, with compliance for users in supported jurisdictions.
+
+## Support
+
+### How do I get help?
+- **Documentation**: [docs.trustless-oss.xyz](https://docs.trustless-oss.xyz)
+- **GitHub Issues**: For bugs and technical issues
+- **Discussions**: For questions and community help
+- **Email**: [support@trustless-oss.xyz](mailto:support@trustless-oss.xyz)
+- **Twitter**: [@trustless_oss](https://twitter.com/trustless_oss)
+
+### Response times
+- **Critical issues**: < 2 hours
+- **General support**: < 24 hours
+- **Feature requests**: Weekly review
+
+### Status monitoring
+Check our status page: [status.trustless-oss.xyz](https://status.trustless-oss.xyz)
+
+## Community
+
+### How can I get involved?
+1. **Contribute code**: See our [contributing guide](./contributing)
+2. **Join discussions**: GitHub Discussions or Discord
+3. **Attend events**: Virtual meetups and hackathons
+4. **Spread the word**: Share with your community
+
+### Are there community guidelines?
+Yes, we follow the Contributor Covenant Code of Conduct. Be respectful, inclusive, and constructive.
+
+### Can I suggest features?
+Absolutely! Use GitHub Discussions or email [features@trustless-oss.xyz](mailto:features@trustless-oss.xyz).
+
+### Do you have a roadmap?
+Our public roadmap is available at [trustless-oss.xyz/roadmap](https://trustless-oss.xyz/roadmap).
+
+## Troubleshooting
+
+### GitHub App not appearing
+1. Check you have admin permissions on the repository
+2. Verify the app is installed on the organization
+3. Try reinstalling the app
+
+### Transaction failed
+1. Check your wallet has sufficient balance for fees
+2. Verify you're on the correct network (Mainnet vs Testnet)
+3. Check Stellar network status
+
+### Bounty not updating
+1. Refresh the page
+2. Check GitHub webhook deliveries
+3. Contact support with bounty ID
+
+### Payment not received
+1. Verify the bounty was completed and approved
+2. Check your wallet address is correct
+3. View transaction on Stellar Explorer
+4. Contact support with transaction hash
+
+### API issues
+1. Verify your API key is valid and has correct scopes
+2. Check rate limits in response headers
+3. Ensure you're using the correct API version
+
+---
+
+*Question not answered? Contact us at [faq@trustless-oss.xyz](mailto:faq@trustless-oss.xyz)*

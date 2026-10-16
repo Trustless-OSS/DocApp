@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Trustless OSS Banner</title>
+  <style>
+    body { margin: 0; padding: 0; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="1200" height="400"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Background gradient
+    const bgGrad = ctx.createLinearGradient(0, 0, 1200, 400);
+    bgGrad.addColorStop(0, '#FFFFFF');
+    bgGrad.addColorStop(1, '#E6F0FF');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, 1200, 400);
+    
+    // Decorative waves
+    const blueGrad = ctx.createLinearGradient(0, 300, 1200, 400);
+    blueGrad.addColorStop(0, '#0066CC');
+    blueGrad.addColorStop(1, '#1D6FF2');
+    
+    ctx.fillStyle = blueGrad;
+    ctx.globalAlpha = 0.15;
+    ctx.beginPath();
+    ctx.moveTo(0, 350);
+    for (let x = 0; x <= 1200; x += 10) {
+      const y = 350 + Math.sin(x / 100) * 20;
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(1200, 400);
+    ctx.lineTo(0, 400);
+    ctx.fill();
+    
+    ctx.globalAlpha = 1;
+    
+    // Text
+    ctx.fillStyle = '#1A1A2E';
+    ctx.font = 'bold 72px Arial';
+    ctx.fillText('Trustless', 80, 200);
+    
+    ctx.fillStyle = '#0066CC';
+    ctx.font = 'bold 72px Arial';
+    ctx.fillText('OSS', 80, 280);
+    
+    ctx.fillStyle = '#0066CC';
+    ctx.font = '20px Arial';
+    ctx.fillText('Documentation • Escrow-backed GitHub Bounties on Stellar', 80, 340);
+    
+    // Download
+    canvas.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'banner.png';
+      a.click();
+    });
+  </script>
+</body>
+</html>

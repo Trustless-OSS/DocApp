@@ -1,0 +1,34 @@
+/*
+ * Trustless OSS — minimal theme tweaks on top of nextra-theme-docs.
+ *
+ * The docs theme already handles light/dark mode, navbar, sidebar, footer,
+ * code blocks and typography. We only add a few brand touches here and let
+ * the theme's own CSS variables (driven by the <Head color> prop) do the
+ * heavy lifting so nothing fights the built-in theme.
+ */
+
+:root {
+  --toss-blue: #1d6ff2;
+  --toss-blue-dark: #0066cc;
+}
+
+/* Slightly larger, comfortable reading size for docs content. */
+html {
+  font-size: 17px;
+}
+
+/* Brand-blue accent bar under the main page title. */
+.nextra-content h1 {
+  border-bottom: 2px solid var(--toss-blue);
+  padding-bottom: 0.4rem;
+}
+
+/* Make table headers use the brand blue for a bit of identity. */
+.nextra-content table th {
+  background-color: color-mix(in srgb, var(--toss-blue) 12%, transparent);
+}
+
+/* Keep the logo text from wrapping on narrow navbars. */
+.nextra-navbar a span {
+  white-space: nowrap;
+}

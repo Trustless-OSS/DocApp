@@ -1,0 +1,101 @@
+# Get Started
+
+This guide will help you set up Trustless OSS for your project or organization.
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+1. **GitHub account** with repository access
+2. **Stellar wallet** (we recommend [Freighter](https://freighter.app/) or [Lobstr](https://lobstr.co/))
+3. **USDC or other supported stablecoins** for funding bounties
+
+## Installation
+
+### For Repository Maintainers
+
+```bash
+# Install the GitHub App
+# Visit: https://github.com/apps/trustless-oss
+```
+
+1. Navigate to the [Trustless OSS GitHub App](https://github.com/apps/trustless-oss)
+2. Click "Install" and select the repositories you want to enable
+3. Configure the app settings for your organization
+
+### For Developers/Contributors
+
+```bash
+# No installation required for contributors
+# Simply connect your GitHub account when prompted
+```
+
+## Creating Your First Bounty
+
+### Step 1: Configure Repository Settings
+
+1. Go to your GitHub repository settings
+2. Navigate to "Trustless OSS" section
+3. Enable bounty creation for issues
+
+### Step 2: Fund a Bounty
+
+```javascript
+// Example using Stellar SDK
+const transaction = await trustlessOSS.createBounty({
+  issueNumber: 42,
+  repository: "your-org/your-repo",
+  amount: "100", // USDC amount
+  deadline: "30d", // 30 days deadline
+});
+```
+
+### Step 3: Wait for Contributions
+
+Once funded, contributors can:
+1. Claim the bounty by commenting on the issue
+2. Submit their work via pull requests
+3. Receive automatic payment upon merge
+
+## Dashboard Access
+
+Access your dashboard at [dashboard.trustless-oss.xyz](https://dashboard.trustless-oss.xyz) to:
+
+- Track all your bounties
+- View transaction history
+- Manage organization settings
+- Monitor community contributions
+
+## Best Practices
+
+### For Maintainers
+- Start with small bounties (25-100 USDC)
+- Clearly define acceptance criteria
+- Set reasonable deadlines
+- Be responsive to contributor questions
+
+### For Contributors
+- Only claim bounties you can complete
+- Communicate progress regularly
+- Submit clean, well-tested code
+- Follow the repository's contribution guidelines
+
+## Troubleshooting
+
+### Common Issues
+
+**Issue**: "GitHub App not showing in repository settings"
+**Solution**: Ensure you have admin permissions on the repository
+
+**Issue**: "Unable to fund bounty"
+**Solution**: Check your Stellar wallet balance and network connection
+
+**Issue**: "Payment not released after merge"
+**Solution**: Verify the PR is merged to the correct branch and all checks pass
+
+## Next Steps
+
+Once you've set up your first bounty, explore:
+- [Advanced features](./features) like multi-sig and custom workflows
+- [API integration](./integrations) for programmatic access
+- [Community guidelines](./contributing) for best practices
