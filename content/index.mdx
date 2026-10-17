@@ -1,75 +1,88 @@
-# Trustless OSS Documentation
+---
+title: Trustless OSS
+description: Pay for open source work without middlemen. Fund the work, merge the proof, release the reward.
+---
 
-Welcome to the official documentation for **Trustless OSS** — an escrow-backed GitHub bounty system built on the Stellar ecosystem.
+# Trustless OSS
 
-## What is Trustless OSS?
+**Escrow-backed bounties for GitHub.** Fund open source with stablecoins (USDC), release payment when the PR merges. No escrow company, no platform fees.
 
-Trustless OSS is a platform that enables escrow-backed bounties for open source contributions. It follows the contribution lifecycle maintainers already know, while keeping reward states visible and GitHub as the primary place where work happens.
+## Pick your role
 
-### Core Principles
+<div className="grid md:grid-cols-2 gap-6 my-8">
+  <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+    <h3 className="text-xl font-bold mb-3">💰 I'm a Maintainer</h3>
+    <p className="text-gray-600 dark:text-gray-400 mb-4">I want to fund bounties on GitHub issues and pay contributors.</p>
+    <a
+      href="/m-01-sign-in"
+      className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold hover:underline"
+    >
+      Start here →
+    </a>
+  </div>
 
-<FeatureGrid>
-  <FeatureCard icon="eye" title="Transparency">
-    All bounty states are publicly visible and verifiable on-chain.
-  </FeatureCard>
-  <FeatureCard icon="shield" title="Security">
-    Funds are held in escrow using Stellar smart contracts until conditions are met.
-  </FeatureCard>
-  <FeatureCard icon="users" title="Community-First">
-    Built for the open source community, by the community.
-  </FeatureCard>
-  <FeatureCard icon="github" title="GitHub Native">
-    Seamlessly integrates with the GitHub workflows you already use.
-  </FeatureCard>
-</FeatureGrid>
-
-## Quick Start
-
-<Steps>
-  <Step n={1} icon="github" title="Connect your GitHub account">
-    Install the Trustless OSS GitHub App on your repositories or organization.
-  </Step>
-  <Step n={2} icon="wallet" title="Fund a bounty">
-    Lock stablecoins (USDC) into escrow against a GitHub issue.
-  </Step>
-  <Step n={3} icon="merge" title="Merge the proof">
-    Review and merge the contributor's pull request when the work is done.
-  </Step>
-  <Step n={4} icon="reward" title="Release the reward">
-    The smart contract pays the contributor automatically.
-  </Step>
-</Steps>
-
-## Features
-
-<FeatureGrid>
-  <FeatureCard icon="shield" title="Escrow-backed bounties">
-    Secure payments using Stellar smart contracts.
-  </FeatureCard>
-  <FeatureCard icon="github" title="GitHub integration">
-    Works directly inside your repositories and issues.
-  </FeatureCard>
-  <FeatureCard icon="coins" title="Multi-currency support">
-    Accept payments in a range of supported stablecoins.
-  </FeatureCard>
-  <FeatureCard icon="activity" title="Transparent tracking">
-    Real-time visibility into every bounty's status.
-  </FeatureCard>
-  <FeatureCard icon="vote" title="Community governance">
-    Built with community input and real contributor needs.
-  </FeatureCard>
-  <FeatureCard icon="rocket" title="Fast payouts">
-    Rewards settle on Stellar within seconds of approval.
-  </FeatureCard>
-</FeatureGrid>
-
-## Getting Help
-
-- **Website**: [trustless-oss.xyz](https://trustless-oss.xyz)
-- **GitHub**: [github.com/Trustless-OSS](https://github.com/Trustless-OSS)
-- **Twitter**: [@trustless_oss](https://twitter.com/trustless_oss)
-- **LinkedIn**: [Trustless OSS](https://www.linkedin.com/company/trustless-oss)
+  <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+    <h3 className="text-xl font-bold mb-3">🚀 I'm a Contributor</h3>
+    <p className="text-gray-600 dark:text-gray-400 mb-4">I want to find bounties, submit work, and get paid in USDC.</p>
+    <a
+      href="/c-01-find-bounty"
+      className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold hover:underline"
+    >
+      Start here →
+    </a>
+  </div>
+</div>
 
 ---
 
-*Trustless OSS © 2026 — For the community, by the community.*
+## How it works in 3 steps
+
+<Steps>
+  <Step n={1} icon="git-branch" title="Fund a bounty">
+    Maintainer labels a GitHub issue and funds it with USDC. The money is locked in escrow.
+  </Step>
+  <Step n={2} icon="git-merge" title="Do the work">
+    Contributor gets assigned, connects their wallet, opens a PR with `Closes #issue`.
+  </Step>
+  <Step n={3} icon="zap" title="Release the reward">
+    Merge the PR → USDC is released to the contributor's wallet. Takes seconds.
+  </Step>
+</Steps>
+
+{/* MEDIA-SLOT
+  id: home-flow-overview
+  type: video
+  file: /media/home/flow-overview.mp4
+  show: 3-step flow animation (fund → work → pay) with USDC transfer on merge
+  length: 30
+  script:
+    - Maintainer labels issue with "rewarded" and "medium" labels
+    - Contributor sees bounty link, clicks "Connect wallet"
+    - Contributor opens PR with "Closes #123"
+    - Maintainer merges PR
+    - USDC appears in contributor's wallet
+  caption: The complete bounty flow from start to finish
+  alt: Animated walkthrough of bounty creation, work, and payout
+*/}
+
+---
+
+## Why Trustless OSS?
+
+- **No middleman.** Your money goes directly to contributors via Stellar escrow. No platform company touches it.
+- **On GitHub.** Issues, PRs, labels, and commands all live in your existing workflow. No new account needed.
+- **In USDC.** Fund in digital dollars. No crypto knowledge required.
+- **Transparent.** Every bounty state is visible and on-chain. Contributor can verify money is locked before starting work.
+- **Fast.** Payouts settle in seconds after merge.
+
+---
+
+## Next steps
+
+**New to crypto?** Start with [What is Trustless OSS?](/what-is-trustless-oss) and the [Glossary](/glossary).
+
+**Ready to go?**
+- Maintainers: [Set up your wallet](/choose-wallet), then [sign in](/m-01-sign-in)
+- Contributors: [Set up your wallet](/choose-wallet), then [find a bounty](/c-01-find-bounty)
+
+**Looking for something?** Use search (Cmd+K / Ctrl+K) or visit [Troubleshooting](/troubleshooting).

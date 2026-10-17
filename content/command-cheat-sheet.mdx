@@ -1,0 +1,150 @@
+---
+title: Command Cheat Sheet
+description: Quick reference for all Trustless OSS bot commands.
+---
+
+# Command Cheat Sheet
+
+All commands start with `@Trustless-OSS` in a comment on the **bounty issue** (not a PR or unrelated issue).
+
+---
+
+## Maintainer commands
+
+### Set a custom bounty amount
+
+<CommandBlock
+  command="@Trustless-OSS 150"
+  description="Set bounty to 150 USDC (use with rewarded + custom labels)"
+  where="Comment on the bounty issue"
+/>
+
+**Use when:** Issue has both `rewarded` and `custom` labels.
+
+---
+
+### Pay out early (partial payment)
+
+| Command | Effect | Use |
+|---------|--------|-----|
+| `@Trustless-OSS /pay 75` | Release 75% of the bounty now | Work is 75% done, rest waits for merge |
+| `@Trustless-OSS /split 60` | Release 60% now | Alias of `/pay` |
+| `@Trustless-OSS /work 50` | Release 50% now | Alias of `/pay` |
+| `@Trustless-OSS /work-completion 80` | Release 80% as work-completion | Track work progress |
+
+Example:
+<CommandBlock
+  command="@Trustless-OSS /pay 75"
+  description="Contributor gets 75% now; 25% releases on merge"
+  where="Comment on the bounty issue"
+/>
+
+---
+
+### Reject work
+
+| Command | Effect |
+|---------|--------|
+| `@Trustless-OSS /reject` | Reject the work; start dispute flow |
+| `@Trustless-OSS /rejected` | Alias of `/reject` |
+| `@Trustless-OSS /no` | Alias of `/reject` |
+
+Example:
+<CommandBlock
+  command="@Trustless-OSS /reject"
+  description="Work doesn't meet requirements; dispute begins"
+  where="Comment on the bounty issue"
+/>
+
+---
+
+### Retry a failed payout
+
+<CommandBlock
+  command="@Trustless-OSS /retry"
+  description="Retry the last payout transaction (if it failed)"
+  where="Comment on the bounty issue"
+/>
+
+---
+
+## Contributor commands
+
+### Connect payout wallet
+
+| Command | Effect |
+|---------|--------|
+| `@Trustless-OSS /wallet` | Get wallet connection link |
+| `@Trustless-OSS /address` | Alias of `/wallet` |
+| `@Trustless-OSS /connect` | Alias of `/wallet` |
+
+Example:
+<CommandBlock
+  command="@Trustless-OSS /wallet"
+  description="Get the link to connect your wallet for this bounty"
+  where="Comment on the bounty issue after being assigned"
+/>
+
+---
+
+### Change payout wallet
+
+<CommandBlock
+  command="@Trustless-OSS /change-address"
+  description="Get a link to switch to a different wallet for this bounty"
+  where="Comment on the bounty issue"
+/>
+
+---
+
+## Anyone
+
+### Get help
+
+<CommandBlock
+  command="@Trustless-OSS /help"
+  description="Bot replies with the full command list"
+  where="Comment on any issue"
+/>
+
+---
+
+## Labels (Bounty setup)
+
+Use these GitHub labels to configure bounties:
+
+| Label | Purpose | Always pair with |
+|-------|---------|------------------|
+| `rewarded` | Marks the issue as a bounty | One tier label (`low`, `medium`, `high`, `custom`) |
+| `low` | Low-tier bounty | `rewarded` |
+| `medium` | Medium-tier bounty | `rewarded` |
+| `high` | High-tier bounty | `rewarded` |
+| `custom` | Custom USDC amount (set via bot command) | `rewarded` + bot amount command |
+
+**Example setup:**
+- Issue labeled `rewarded` + `medium` → bounty worth your "medium" tier USDC amount
+- Issue labeled `rewarded` + `custom` + bot comment `@Trustless-OSS 250` → bounty worth 250 USDC
+
+---
+
+## Quick tips
+
+- **Always start with @Trustless-OSS** even for just an amount (`@Trustless-OSS 100`)
+- **Comment on the issue**, not the PR or other issues
+- **One command per comment** (to avoid bot confusion)
+- **Wait 1–2 seconds** for the bot to reply before repeating
+- **Labels must include `rewarded`** — without it, the issue isn't a bounty
+
+---
+
+## Need help with a command?
+
+Comment on any issue:
+
+<CommandBlock
+  command="@Trustless-OSS /help"
+  description="Bot lists all available commands"
+  where="Comment on any issue"
+/>
+
+Or visit [Troubleshooting](/troubleshooting).

@@ -1,0 +1,135 @@
+---
+title: 8. Pay out
+description: Merge the PR and release the bounty.
+---
+
+# 8. Pay out
+
+<TimeEstimate minutes={3} forRole="Maintainers" needs="PR ready for merge + issue labeled as bounty" />
+
+**What you'll do:** Merge the PR. The bounty releases automatically.
+
+---
+
+## Prerequisites
+
+Before merging, confirm:
+
+- ✅ Issue is labeled `rewarded` + a tier (or `rewarded` + `custom` with amount set)
+- ✅ PR is open and linked to the issue (description says `Closes #123`, `Fixes #123`, or `Resolves #123`)
+- ✅ Contributor is assigned to the issue
+- ✅ Contributor has connected their wallet (they received the wallet link when assigned)
+- ✅ Escrow has USDC (check the dashboard)
+- ✅ PR passes your tests and checks
+
+---
+
+## Step 1: Review the PR
+
+Check the PR code as you normally would.
+
+In the PR description, **verify the link to the issue**:
+
+- `Closes #123` ✅
+- `Fixes #456` ✅
+- `Resolves #789` ✅
+
+If the PR doesn't link the issue, add a comment asking the contributor to update the description.
+
+{/* MEDIA-SLOT
+  id: m-payout-01
+  type: image
+  file: /media/maintainer/pr-closes-issue.png
+  show: GitHub PR with "Closes #123" in the description
+  caption: PR must link the issue with "Closes", "Fixes", or "Resolves"
+  alt: PR with issue link
+*/}
+
+---
+
+## Step 2: Approve the PR
+
+Give your standard approval (code review, comments, etc.).
+
+---
+
+## Step 3: Merge the PR
+
+Click **"Merge pull request"** on GitHub.
+
+{/* MEDIA-SLOT
+  id: m-payout-02
+  type: image
+  file: /media/maintainer/pr-merge-button.png
+  show: GitHub PR page with "Merge pull request" button and dropdown
+  caption: Click to merge the PR
+  alt: Merge button on GitHub PR
+*/}
+
+Select your merge strategy (Squash, Rebase, or Merge commit) and confirm.
+
+---
+
+## Step 4: Wait for the payout
+
+Within 10–30 seconds:
+1. The bot detects the merge
+2. Escrow releases the USDC
+3. Contributor's wallet receives it
+
+{/* MEDIA-SLOT
+  id: m-payout-03
+  type: image
+  file: /media/maintainer/pr-merged.png
+  show: GitHub PR showing "Merged" status with contributor's wallet address in bot comment
+  caption: PR is merged; payout is processing
+  alt: Merged PR status
+*/}
+
+---
+
+## Verify the payout
+
+The bot will comment on the issue with confirmation:
+
+```
+✅ **Payout released**
+Amount: 50 USDC
+To: contributor's wallet address
+Time: 2:34 PM (3 seconds)
+```
+
+The contributor will also see USDC in their wallet.
+
+---
+
+## What if the payout failed?
+
+If you don't see confirmation within 30 seconds, comment:
+
+<CommandBlock
+  command="@Trustless-OSS /retry"
+  description="Retry the payout"
+  where="Comment on the bounty issue"
+/>
+
+---
+
+## Done
+
+The contributor has received their USDC. The bounty is complete.
+
+---
+
+**Done when:**
+- PR is merged
+- Bot confirms payout in a comment
+- Contributor's wallet shows USDC balance increased
+
+---
+
+**Next:** [Withdraw funds](/m-withdraw) (optional) or [Remove a repository](/m-remove-repo)
+
+**Or:** [Back to dashboard](/m-dashboard-tour)
+
+**Stuck?** See [Troubleshooting](/troubleshooting).

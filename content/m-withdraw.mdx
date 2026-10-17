@@ -1,0 +1,110 @@
+---
+title: Withdraw funds
+description: Remove USDC from your repository's escrow.
+---
+
+# Withdraw funds
+
+<TimeEstimate minutes={2} forRole="Maintainers" needs="Repository with funded escrow" />
+
+**What you'll do:** Move unused USDC back to your wallet.
+
+---
+
+## When to withdraw
+
+- You funded too much and want the money back
+- You're archiving the repository and don't need bounties anymore
+- You want to use the funds elsewhere
+
+---
+
+## Step 1: Click "Withdraw"
+
+On your repository page, click the **"Withdraw"** button (or look for it in the escrow balance card).
+
+{/* MEDIA-SLOT
+  id: m-withdraw-01
+  type: image
+  file: /media/maintainer/repo-withdraw-button.png
+  show: Repository page with "Withdraw" button visible
+  caption: Click to withdraw funds
+  alt: Withdraw button on repo page
+*/}
+
+---
+
+## Step 2: Choose the amount
+
+A dialog will appear with a slider. Drag to select how much USDC to withdraw.
+
+{/* MEDIA-SLOT
+  id: m-withdraw-02
+  type: image
+  file: /media/maintainer/withdraw-dialog.png
+  show: Withdraw dialog with amount slider and "Max" button
+  caption: Select the amount or click "Max" to withdraw all
+  alt: Withdraw amount dialog
+*/}
+
+Click **"Confirm"**.
+
+---
+
+## Step 3: Warning (if withdrawing all)
+
+If you're withdrawing **all** funds, a warning appears:
+
+<Callout type="warning">
+  **A full withdrawal will cancel ALL active bounties and cannot be undone.**
+
+  Any contributor currently working on a bounty will not be paid, and the money will return to your wallet.
+
+  Are you sure?
+</Callout>
+
+Click **"Yes, withdraw everything"** to confirm, or **"Cancel"** to stop.
+
+---
+
+## Step 4: Approve in wallet
+
+Your wallet will pop up to confirm the transfer.
+
+{/* MEDIA-SLOT
+  id: m-withdraw-03
+  type: image
+  file: /media/maintainer/wallet-approve-withdraw.png
+  show: Wallet popup showing USDC transfer from escrow to maintainer's wallet
+  caption: Approve the withdrawal in your wallet
+  alt: Wallet approval for withdrawal
+*/}
+
+Click **"Approve"** or **"Sign"**.
+
+---
+
+## Step 5: Done
+
+The USDC returns to your wallet. The repository's escrow balance decreases.
+
+{/* MEDIA-SLOT
+  id: m-withdraw-04
+  type: image
+  file: /media/maintainer/repo-withdrawn.png
+  show: Repository page with escrow balance reduced (e.g., from 50 USDC to 0 USDC)
+  caption: Funds withdrawn successfully
+  alt: Repository after withdrawal
+*/}
+
+---
+
+## Important
+
+**Partial withdrawal:** Only withdraws that specific amount. Active bounties are unaffected.
+
+**Full withdrawal:** Cancels all active bounties. Contributors won't be paid. Trustless OSS will refund money to their accounts (or hold it pending manual review). {/* TODO-VERIFY: exact refund flow */}
+
+---
+
+**Stuck?** See [Troubleshooting](/troubleshooting).

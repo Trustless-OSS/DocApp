@@ -1,0 +1,190 @@
+---
+title: Troubleshooting
+description: Solve common problems.
+---
+
+# Troubleshooting
+
+## Bot didn't reply to my command
+
+**Symptom:** You commented `@Trustless-OSS /command` but the bot didn't respond.
+
+**Causes:**
+- Wrong mention (used `@toss`, `@trustless-oss-bot`, etc. instead of `@Trustless-OSS`)
+- Command not in the same comment as `@Trustless-OSS`
+- Commented on a PR instead of the issue
+- Issue not labeled with `rewarded` (for bounty commands)
+- Bot temporarily down or rate-limited (rare)
+
+**Fixes:**
+1. Check the mention: must be **`@Trustless-OSS`** (capital T, capital O, capital S)
+2. Check the comment: `@Trustless-OSS` and your command must be in the **same comment**
+3. Check the location: command on the **issue**, not a PR
+4. Check labels: issue has **`rewarded`** label? If so, continue; if not, add it
+5. Try again: wait 10 seconds and repeat your command
+
+---
+
+## I got "Access denied" on the wallet link
+
+**Symptom:** You clicked the wallet connection link and got "Access denied" or "Permission denied".
+
+**Cause:** The link is only valid for the contributor assigned to this bounty. If you're not assigned, you can't use it.
+
+**Fixes:**
+1. Make sure you've been assigned to the bounty. Check the GitHub issue: does it show your name under "Assignees"?
+2. If not, request assignment: Comment `@Trustless-OSS /connect` on the issue
+3. Wait for the maintainer to assign you or the bot to respond with a new link
+
+---
+
+## Payout didn't release after merge
+
+**Symptom:** PR was merged, but you didn't receive USDC.
+
+**Causes:**
+- PR doesn't link the issue (missing `Closes #N`)
+- PR wasn't actually merged (you can't see "Merged" status)
+- Escrow balance too low (maintainer didn't fund enough)
+- Bot temporarily had an error
+- Wallet connection failed (you weren't connected when PR merged)
+
+**Fixes:**
+1. **Check the PR description:** Does it say `Closes #123`, `Fixes #123`, or `Resolves #123`? If not, ask the contributor/maintainer to update it and re-merge.
+2. **Check merge status:** Go to the PR on GitHub. Does it show "Merged"? If not, it hasn't merged yet.
+3. **Check escrow balance:** On the dashboard repo page, is there enough USDC? If not, maintainer needs to fund it.
+4. **Retry the payout:** Comment on the issue `@Trustless-OSS /retry` (if you're the maintainer)
+5. **Check wallet connection:** Go to your profile. Under "Payout wallet", is your wallet connected? If not, connect it.
+
+---
+
+## My wallet doesn't show USDC
+
+**Symptom:** You set up a wallet but USDC isn't showing up.
+
+**Causes:**
+- Trustline not added (wallet not set up to hold USDC)
+- Wrong network (looking at testnet instead of mainnet)
+- Wrong wallet address (USDC went to a different wallet)
+
+**Fixes:**
+1. **Add USDC trustline:** Go to your wallet, find "Assets" or "Add Currency", search for USDC (Centre issuer), and add it. See [Add USDC (trustline)](/add-usdc).
+2. **Check the network:** In your wallet settings, confirm you're on **Stellar mainnet** (not testnet).
+3. **Check your address:** Your Stellar address starts with "G". Go to [Stellar Expert](https://stellar.expert/explorer/public) or your wallet, paste your address, and see if USDC appears. If it does, the trustline is the problem (step 1).
+
+---
+
+## Wallet popup doesn't appear / times out
+
+**Symptom:** You clicked "Connect wallet" but the wallet app/popup never showed up.
+
+**Causes:**
+- Wallet app not installed
+- Popup blocker in browser
+- Wrong wallet type selected (chose Freighter but you have xBull)
+- Browser not compatible with wallet
+
+**Fixes:**
+1. **Check wallet is installed:** Make sure you have the wallet app or extension installed. Go to [Choose a wallet](/choose-wallet) and download if needed.
+2. **Check popup blocker:** Browser may be blocking popups. Disable it for this website and try again.
+3. **Check you selected the right wallet:** The connector asks which wallet you use. If you chose "Freighter" but you have "xBull", nothing appears. Try again with the correct wallet.
+4. **Try a different browser:** If on mobile, try a different app that supports wallets.
+5. **Try the web version:** If you have a browser extension (Freighter), try the web wallet instead.
+
+---
+
+## Can't withdraw or delete repo (button disabled)
+
+**Symptom:** The "Withdraw" or "Delete" button is grayed out / disabled.
+
+**Causes:**
+- **Withdraw:** Might still be processing or have active bounties
+- **Delete:** Escrow balance is not zero (must withdraw first)
+
+**Fixes:**
+1. **To withdraw:** Wait 10 seconds, refresh the page, try again. If active bounties exist and you want to keep them, you can't withdraw all funds—only partial.
+2. **To delete:** First, [withdraw all funds](/m-withdraw) so the balance is 0 USDC. Then the delete button will appear.
+
+---
+
+## Repo doesn't appear after install
+
+**Symptom:** You installed the GitHub App but the repository doesn't show on the Trustless OSS dashboard.
+
+**Causes:**
+- Installation still processing (takes a minute)
+- You installed on a different account
+- Sync button wasn't clicked
+
+**Fixes:**
+1. **Wait:** Installation can take 30–60 seconds. Refresh the page.
+2. **Click Sync:** On the dashboard, find the Sync button (refresh icon) and click it to manually refresh from GitHub.
+3. **Check GitHub:** Go to GitHub settings → Installed Apps → Trustless OSS. Confirm it's installed and the correct repository is selected.
+4. **Reinstall:** If still missing, go to dashboard, click "Add repository", and install again on that specific repo.
+
+---
+
+## Escrow has insufficient funds
+
+**Symptom:** You labeled a bounty but the bot said "Escrow balance insufficient" or similar.
+
+**Cause:** You set a bounty amount (low/medium/high tier, or custom) larger than the USDC in the escrow.
+
+**Fixes:**
+1. **Fund the escrow:** On the dashboard, click the repository, click "Fund", and add more USDC.
+2. **Or lower the bounty:** Reduce the tier amount in settings, or use a custom amount smaller than the escrow balance.
+
+---
+
+## Got "invalid issuer" when adding USDC
+
+**Symptom:** When adding USDC to your wallet, you got an error about "invalid issuer" or "unverified asset".
+
+**Cause:** You tried to add a fake USDC (scam) or wrong issuer address.
+
+**Fixes:**
+1. **Delete the bad asset:** Remove it from your wallet.
+2. **Add the real USDC:** The correct issuer address is `GA5ZSEJYB37JRC5AVCIA5MOP4IC2BTNXYVYCYRDLW34RBWXVLCNQO5P` (Centre). See [Add USDC (trustline)](/add-usdc) and copy/paste carefully.
+
+{/* TODO-VERIFY: official USDC issuer address link */}
+
+---
+
+## Bot command has wrong amount
+
+**Symptom:** You typed `@Trustless-OSS 150` but the bot set the bounty to a different amount.
+
+**Causes:**
+- Typo in your command
+- Issue doesn't have both `rewarded` and `custom` labels
+- Bot had a transient error
+
+**Fixes:**
+1. Comment again: `@Trustless-OSS 150` (copy/paste to avoid typos)
+2. Make sure labels are exactly `rewarded` + `custom` (nothing else)
+3. Wait 10 seconds for the bot to respond
+
+---
+
+## PR was rejected, how do I appeal?
+
+**Symptom:** Maintainer used `@Trustless-OSS /reject` and you think it's unfair.
+
+**Cause:** Maintainer decided the work didn't meet requirements.
+
+**Fixes:**
+1. **Comment on the issue:** Explain why you think the work should be accepted. Ask the maintainer to reconsider.
+2. **Request changes:** Offer to update the PR if the maintainer gives feedback.
+3. **Ask for a refund:** If you can't resolve it, Trustless OSS support can help mediate.
+
+{/* TODO-VERIFY: exact dispute resolution and refund process */}
+
+---
+
+## Still stuck?
+
+- **Check the Glossary:** [Glossary](/glossary)
+- **Read FAQ:** [FAQ](/faq)
+- **Verify command syntax:** [Command Cheat Sheet](/command-cheat-sheet)
+- **Email support:** support@trustless-oss.xyz {/* TODO-VERIFY: correct support email */}
+

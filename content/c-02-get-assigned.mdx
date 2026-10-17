@@ -1,0 +1,73 @@
+---
+title: 2. Get assigned
+description: Request to work on a bounty.
+---
+
+# 2. Get assigned
+
+<TimeEstimate minutes={1} forRole="Contributors" needs="GitHub account + open bounty issue" />
+
+**What you'll do:** Let the maintainer know you want to work on this bounty.
+
+---
+
+## How to request assignment
+
+Comment on the GitHub issue:
+
+<CommandBlock
+  command="@Trustless-OSS /connect"
+  description="Request to be assigned and get the wallet connection link"
+  where="Comment on the bounty issue"
+/>
+
+Or use these aliases (same effect):
+
+<CommandBlock
+  command="@Trustless-OSS /wallet"
+  description="Same as /connect"
+  where="Comment on the bounty issue"
+/>
+
+<CommandBlock
+  command="@Trustless-OSS /address"
+  description="Same as /connect"
+  where="Comment on the bounty issue"
+/>
+
+---
+
+## What happens next
+
+The bot will reply with:
+- A link to connect your payout wallet
+- Confirmation that you're assigned
+
+{/* MEDIA-SLOT
+  id: c-assigned-01
+  type: image
+  file: /media/contributor/bot-wallet-link.png
+  show: Bot comment with wallet connection link and assignment confirmation
+  caption: The bot provides your wallet connection link
+  alt: Bot response with wallet link
+*/}
+
+---
+
+## Can anyone get assigned?
+
+Not if the bounty is already assigned. The maintainer decides who to assign.
+
+**If you comment and the bounty is already assigned,** the bot will tell you.
+
+---
+
+## Manual assignment by maintainer
+
+If the maintainer assigns you directly (via GitHub "Assignees" button), you'll still get the wallet link. Just comment with one of the commands above if you don't see the link.
+
+---
+
+**Next:** [Connect payout wallet](/c-03-connect-wallet)
+
+**Stuck?** See [Troubleshooting](/troubleshooting).

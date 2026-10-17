@@ -1,0 +1,129 @@
+---
+title: 7. Manage a bounty
+description: Assign contributors, pay out, or reject work.
+---
+
+# 7. Manage a bounty
+
+<TimeEstimate minutes={2} forRole="Maintainers" needs="A funded bounty issue + PR" />
+
+**What you'll do:** Handle the bounty lifecycle (assign → review → pay).
+
+---
+
+## Assigning a contributor
+
+Once you've labeled an issue as a bounty, contributors can comment `@Trustless-OSS /connect` (or similar) to request assignment.
+
+To assign:
+
+1. **In GitHub**, click **"Assignees"** on the right sidebar
+2. Select the contributor
+3. GitHub saves the assignment
+
+The bot will notify the contributor they're assigned and provide a wallet connection link.
+
+---
+
+## Partial payouts (before merge)
+
+If work is partial or you want to pay incrementally:
+
+Comment on the **issue**:
+
+<CommandBlock
+  command="@Trustless-OSS /pay 50"
+  description="Release 50% of the bounty now; remaining 50% waits for merge"
+  where="Comment on the bounty issue"
+/>
+
+Alternatively, use these aliases (same effect):
+
+<CommandBlock
+  command="@Trustless-OSS /split 75"
+  description="Release 75% of the bounty"
+  where="Comment on the bounty issue"
+/>
+
+<CommandBlock
+  command="@Trustless-OSS /work 60"
+  description="Release 60% for work completion"
+  where="Comment on the bounty issue"
+/>
+
+{/* TODO-VERIFY: exact semantics — is /pay 50 "50 USDC" or "50% of bounty"? Assumed %. */}
+
+<Callout type="info">
+  **What's left?** If bounty is 100 USDC and you `/pay 60`, the contributor gets 60 USDC now. The remaining 40 USDC waits for merge. When the PR merges, they get 40 USDC automatically.
+</Callout>
+
+---
+
+## Rejecting work
+
+If the PR doesn't meet your standards:
+
+Comment on the **issue**:
+
+<CommandBlock
+  command="@Trustless-OSS /reject"
+  description="Reject the work; start the refund flow"
+  where="Comment on the bounty issue"
+/>
+
+Or use these aliases:
+
+<CommandBlock
+  command="@Trustless-OSS /rejected"
+  description="Same as /reject"
+  where="Comment on the bounty issue"
+/>
+
+<CommandBlock
+  command="@Trustless-OSS /no"
+  description="Same as /reject"
+  where="Comment on the bounty issue"
+/>
+
+<Callout type="warning">
+  **What happens:** The bounty moves to a "disputed" state. The contributor can contest the rejection, or you can provide feedback to reopen the bounty.
+
+  {/* TODO-VERIFY: exact dispute resolution flow */}
+</Callout>
+
+---
+
+## Retrying a failed payout
+
+If a payout failed (network error, timeout, etc.):
+
+Comment on the **issue**:
+
+<CommandBlock
+  command="@Trustless-OSS /retry"
+  description="Retry the last payout transaction"
+  where="Comment on the bounty issue"
+/>
+
+---
+
+## Did I get assigned?
+
+If a contributor commented asking to be assigned, you can:
+- **Assign them in GitHub** (click "Assignees", select their name)
+- **Or assign via bot** in a comment `@Trustless-OSS /assign @username` {/* TODO-VERIFY: exact bot command */}
+
+---
+
+## Before the PR merges
+
+- ✅ Bounty is labeled (`rewarded` + tier)
+- ✅ Money is in escrow (bot confirmed)
+- ✅ Contributor is assigned
+- ✅ Contributor has connected their wallet (they got the link from the bot)
+
+---
+
+**Next:** [Pay out (merge the PR)](/m-08-pay-out)
+
+**Stuck?** See [Troubleshooting](/troubleshooting).

@@ -1,0 +1,50 @@
+---
+title: How money flows
+description: Visual diagram of the money flow in Trustless OSS.
+---
+
+# How money flows
+
+<TimeEstimate minutes={2} />
+
+{/* MEDIA-SLOT
+  id: money-flow-diagram
+  type: image
+  file: /media/diagrams/money-flow.png
+  show: Diagram with three columns (Maintainer, Escrow, Contributor) and arrows showing: USDC flows in → waits → releases on merge
+  caption: Money goes from maintainer's wallet → escrow contract → contributor's wallet
+  alt: Flow diagram showing money entering escrow and releasing to contributor
+*/}
+
+## Step by step
+
+### Before work starts
+
+1. **Maintainer funds escrow.** Sends USDC from their wallet to a smart contract on Stellar. Money is now locked and can't be spent.
+2. **Maintainer labels the issue** with `rewarded` + a tier (`low`, `medium`, `high`, or `custom`).
+3. **Contributor sees the bounty.** Gets assigned, clicks the link to connect their wallet. Now they know money is real (it's in escrow).
+
+### When work is done
+
+4. **Contributor opens a PR** with `Closes #123` in the description (links to the issue).
+5. **Maintainer merges the PR.** GitHub records the merge timestamp.
+6. **Escrow releases USDC** to the contributor's wallet automatically. (This happens on the Stellar blockchain.)
+
+### If something goes wrong
+
+- **PR is rejected** (`@Trustless-OSS /reject`): Money stays in escrow. Maintainer can retry or return it.
+- **PR is only partially merged** or needs more work (`@Trustless-OSS /pay 50`): Maintainer pays 50% now; remaining 50% waits.
+- **Contributor never merged PR**: Money stays in escrow; maintainer can hold, retry, or withdraw.
+
+## The escrow (what is it?)
+
+An **escrow** is a locked container for money. It sits on the Stellar blockchain. The rules are:
+- Money can only be released when the PR is merged and the contract's conditions are met.
+- Maintainer can't touch the money once locked (except to withdraw all of it, which cancels bounties).
+- Only the Trustless OSS system can trigger the release (automatically when it detects a merge).
+
+This is why it's "trustless"—you don't need to trust a company to hold or release the money. The blockchain and code do it for you.
+
+---
+
+**Next:** [Glossary](/glossary) · [Set up your wallet](/choose-wallet)

@@ -1,0 +1,88 @@
+---
+title: 2. Connect a repository
+description: Install the Trustless OSS GitHub App on your repository.
+---
+
+# 2. Connect a repository
+
+<TimeEstimate minutes={2} forRole="Maintainers" needs="Admin access to a GitHub repo" />
+
+**What you'll do:** Install the Trustless OSS GitHub App so the system can read issues, PRs, and labels.
+
+---
+
+## Step 1: Click "Add repository"
+
+On the dashboard, click **"Add repository"** or **"+"**.
+
+{/* MEDIA-SLOT
+  id: m-connect-repo-01
+  type: image
+  file: /media/maintainer/dashboard-add-repo.png
+  show: Dashboard with "Add repository" or install app button highlighted
+  caption: Click to install the GitHub App
+  alt: Add repository button in dashboard
+*/}
+
+---
+
+## Step 2: Install GitHub App
+
+You'll be taken to GitHub. Click **"Install"** to give Trustless OSS permission to access this repository.
+
+{/* MEDIA-SLOT
+  id: m-connect-repo-02
+  type: image
+  file: /media/maintainer/github-app-install.png
+  show: GitHub App installation page for Trustless OSS with "Install" button
+  caption: Choose the repository and confirm the install
+  alt: GitHub App installation page
+*/}
+
+---
+
+## Step 3: Select repositories
+
+GitHub will ask which repositories to install on. You can:
+- Install on **all repositories** in your account (easier later to add more)
+- Install on **specific repositories only** (more secure; can change later in GitHub settings)
+
+Pick one or more, then **confirm**.
+
+{/* MEDIA-SLOT
+  id: m-connect-repo-03
+  type: image
+  file: /media/maintainer/github-app-repos.png
+  show: GitHub app installation dialog with repo checkboxes
+  caption: Select which repository (or all) to install on
+  alt: Select repositories for GitHub App
+*/}
+
+---
+
+## Step 4: Return to dashboard
+
+You'll be redirected back to the dashboard. Your repository should now appear in the **"Repositories"** list.
+
+{/* MEDIA-SLOT
+  id: m-connect-repo-04
+  type: image
+  file: /media/maintainer/dashboard-repo-listed.png
+  show: Dashboard with newly installed repository in the list (showing repo name, escrow status "Not deployed", etc.)
+  caption: Repository is now listed on the dashboard
+  alt: Repository in dashboard list
+*/}
+
+---
+
+## Done
+
+The repository is now connected. The Trustless OSS system can now read your issues and PRs.
+
+**Status:** Escrow is not yet deployed (you'll do that next).
+
+---
+
+**Next:** [Deploy escrow](/m-03-deploy-escrow)
+
+**Stuck?** See [Troubleshooting](/troubleshooting).

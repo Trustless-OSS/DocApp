@@ -1,0 +1,96 @@
+---
+title: 3. Deploy escrow
+description: Create a Stellar escrow contract for your repository.
+---
+
+# 3. Deploy escrow
+
+<TimeEstimate minutes={2} forRole="Maintainers" needs="Stellar wallet with XLM (fee ~$0.50)" />
+
+**What you'll do:** Create a smart contract on the Stellar blockchain to hold bounty funds for this repository.
+
+---
+
+## What you're doing
+
+An **escrow** is a container on the Stellar blockchain that holds USDC bounty funds. Once deployed, only your system's commands can release the money (when PRs merge).
+
+---
+
+## Step 1: Click on your repository
+
+On the dashboard, click your repository name.
+
+{/* MEDIA-SLOT
+  id: m-deploy-01
+  type: image
+  file: /media/maintainer/dashboard-click-repo.png
+  show: Dashboard repository list with one repo highlighted or clicked
+  caption: Open the repository page
+  alt: Repository in dashboard list
+*/}
+
+---
+
+## Step 2: Click "Deploy Escrow"
+
+On the repository page, you'll see a **"Deploy Escrow"** button.
+
+{/* MEDIA-SLOT
+  id: m-deploy-02
+  type: image
+  file: /media/maintainer/repo-deploy-button.png
+  show: Repository page with "Deploy Escrow" button (status: "Not deployed")
+  caption: The Deploy Escrow button
+  alt: Deploy Escrow button on repo page
+*/}
+
+---
+
+## Step 3: Approve wallet connection
+
+Your Stellar wallet will pop up and ask to approve the deployment.
+
+{/* MEDIA-SLOT
+  id: m-deploy-03
+  type: image
+  file: /media/maintainer/wallet-approve-deploy.png
+  show: Wallet popup showing deployment transaction (amount: fee in XLM, destination: Trustless OSS contract)
+  caption: Approve the deployment transaction
+  alt: Wallet approval popup
+*/}
+
+Click **"Approve"** or **"Sign"**.
+
+<Callout type="warning">
+  **Do not refresh the page** while the wallet is open. Wait for the transaction to complete.
+</Callout>
+
+---
+
+## Step 4: Wait for confirmation
+
+The blockchain will process the transaction (usually 5–10 seconds). The button will change to show **"Escrow Deployed"**.
+
+{/* MEDIA-SLOT
+  id: m-deploy-04
+  type: image
+  file: /media/maintainer/repo-escrow-deployed.png
+  show: Repository page with status changed to "Escrow Deployed" and balance showing "0.00 USDC"
+  caption: Escrow is now live on the blockchain
+  alt: Escrow deployed status
+*/}
+
+---
+
+## Done
+
+Your escrow is now deployed. The contract lives on Stellar and is ready to hold funds.
+
+**Next:** Fund it with USDC.
+
+---
+
+**Next:** [Fund escrow](/m-04-fund-escrow)
+
+**Stuck?** See [Troubleshooting](/troubleshooting).

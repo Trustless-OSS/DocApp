@@ -1,0 +1,117 @@
+---
+title: 3. Connect payout wallet
+description: Connect your Stellar wallet to receive bounty payments.
+---
+
+# 3. Connect payout wallet
+
+<TimeEstimate minutes={2} forRole="Contributors" needs="Stellar wallet with USDC trustline" />
+
+**What you'll do:** Link your wallet to Trustless OSS so you can receive bounty payouts.
+
+---
+
+## Step 1: Get your wallet link
+
+After you're assigned, the bot comments with a link. Click it.
+
+{/* MEDIA-SLOT
+  id: c-wallet-01
+  type: image
+  file: /media/contributor/bot-wallet-link.png
+  show: Bot comment with "Connect wallet" link URL
+  caption: Click the wallet connection link from the bot
+  alt: Bot wallet link
+*/}
+
+Or request it again with:
+
+<CommandBlock
+  command="@Trustless-OSS /wallet"
+  description="Get the wallet connection link"
+  where="Comment on the bounty issue"
+/>
+
+---
+
+## Step 2: Open the link
+
+The link takes you to a page that looks like:
+
+```
+app.trustless-oss.xyz/connect?bounty=xyz
+```
+
+{/* MEDIA-SLOT
+  id: c-wallet-02
+  type: image
+  file: /media/contributor/wallet-connect-page.png
+  show: Wallet connection page showing "Connect wallet" button and warning about only the assigned contributor having access
+  caption: The wallet connection page
+  alt: Wallet connection page
+*/}
+
+---
+
+## Step 3: Click "Connect wallet"
+
+A wallet selector appears. Choose your wallet (LOBSTR, Freighter, xBull, Albedo, or Rabet).
+
+{/* MEDIA-SLOT
+  id: c-wallet-03
+  type: image
+  file: /media/contributor/wallet-selector.png
+  show: Wallet selector with options: LOBSTR, Freighter, xBull, Albedo, Rabet
+  caption: Select your wallet type
+  alt: Wallet selector
+*/}
+
+---
+
+## Step 4: Approve in wallet
+
+Your wallet will pop up asking to approve the connection.
+
+{/* MEDIA-SLOT
+  id: c-wallet-04
+  type: image
+  file: /media/contributor/wallet-approve.png
+  show: Wallet popup showing authorization request with contributor's wallet address
+  caption: Approve the connection in your wallet"
+  alt: Wallet approval popup
+*/}
+
+Click **"Approve"** or **"Sign"**.
+
+<Callout type="warning">
+  **Only the assigned contributor can use this link.** If anyone else tries, they'll see "Access denied". This protects your bounty from being stolen.
+</Callout>
+
+---
+
+## Step 5: Done
+
+The page redirects back to the GitHub issue. Your wallet is now connected.
+
+When the PR merges, USDC will go directly to your wallet.
+
+---
+
+## Verify your connection
+
+(Optional) Go to your [Profile page](https://app.trustless-oss.xyz/profile) on the dashboard and look for **"Payout wallet"**. You should see your Stellar address.
+
+{/* MEDIA-SLOT
+  id: c-wallet-05
+  type: image
+  file: /media/contributor/profile-wallet.png
+  show: Profile page with "Payout wallet" section showing connected Stellar address
+  caption: Your payout wallet is now connected
+  alt: Profile with connected wallet
+*/}
+
+---
+
+**Next:** [Open a PR](/c-04-open-pr)
+
+**Stuck?** See [Troubleshooting](/troubleshooting).

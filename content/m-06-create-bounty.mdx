@@ -1,0 +1,113 @@
+---
+title: 6. Create a bounty
+description: Label a GitHub issue to create a bounty.
+---
+
+# 6. Create a bounty
+
+<TimeEstimate minutes={3} forRole="Maintainers" needs="GitHub repo with open issue" />
+
+**What you'll do:** Label an issue with `rewarded` + a tier so contributors can see it's a bounty.
+
+---
+
+## Step 1: Go to a GitHub issue
+
+Open your repository on GitHub. Find an issue you want to fund.
+
+Click to open it.
+
+{/* MEDIA-SLOT
+  id: m-bounty-01
+  type: image
+  file: /media/maintainer/github-issue.png
+  show: GitHub issue page with comments, labels section, assignee section, etc.
+  caption: Open an issue in your GitHub repository
+  alt: GitHub issue page
+*/}
+
+---
+
+## Step 2: Add the "rewarded" label
+
+On the right side, find **"Labels"**.
+
+Click to add labels. Search for **"rewarded"** and click it.
+
+{/* MEDIA-SLOT
+  id: m-bounty-02
+  type: image
+  file: /media/maintainer/github-labels.png
+  show: GitHub issue sidebar with Labels section and label selector dropdown showing "rewarded" option
+  caption: Add the "rewarded" label
+  alt: Labels dropdown in GitHub
+*/}
+
+---
+
+## Step 3: Add a tier label
+
+Still in **"Labels"**, search for and click your reward tier: **"low"**, **"medium"**, or **"high"**.
+
+{/* MEDIA-SLOT
+  id: m-bounty-03
+  type: image
+  file: /media/maintainer/github-labels-tier.png
+  show: Labels dropdown with "low", "medium", "high" options visible, with one checked
+  caption: Select a reward tier
+  alt: Tier label selection
+*/}
+
+---
+
+## Step 4: (Optional) Custom amount
+
+If you want a custom USDC amount instead of a preset tier:
+1. Add **"rewarded"** + **"custom"** labels (instead of "low"/"medium"/"high")
+2. Comment on the issue: `@Trustless-OSS 75` (the amount)
+
+{/* MEDIA-SLOT
+  id: m-bounty-04
+  type: image
+  file: /media/maintainer/github-custom-amount.png
+  show: GitHub issue with "rewarded" and "custom" labels, and a bot command comment "@Trustless-OSS 75"
+  caption: For custom amounts, use a bot command
+  alt: Custom bounty amount with bot command
+*/}
+
+---
+
+## Step 5: Wait for the bot to confirm
+
+Within 1–2 minutes, `@Trustless-OSS` will comment on the issue confirming the bounty:
+
+```
+🎯 **Bounty created**
+Amount: 50 USDC
+Escrow status: Funded ✓
+```
+
+{/* MEDIA-SLOT
+  id: m-bounty-05
+  type: image
+  file: /media/maintainer/github-bounty-confirmed.png
+  show: GitHub issue with Trustless OSS bot comment confirming bounty (amount, escrow status, wallet connection link)
+  caption: The bot confirms the bounty is live
+  alt: Bounty confirmation comment from bot
+*/}
+
+---
+
+## Done
+
+The bounty is now live. Contributors can see it and request assignment.
+
+---
+
+**Done when:** The issue shows both `rewarded` + tier labels, and the bot has commented with confirmation.
+
+---
+
+**Next:** [Manage a bounty](/m-07-manage-bounty)
+
+**Stuck?** See [Troubleshooting](/troubleshooting).

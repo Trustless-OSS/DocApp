@@ -1,0 +1,75 @@
+---
+title: Remove a repository
+description: Unlink a repository from Trustless OSS.
+---
+
+# Remove a repository
+
+<TimeEstimate minutes={1} forRole="Maintainers" needs="Repository with 0 USDC escrow balance" />
+
+**What you'll do:** Remove a repository from Trustless OSS and revoke the GitHub App connection.
+
+---
+
+## When to remove
+
+- You're archiving the repository
+- You no longer want to offer bounties
+- You want to start fresh with a new repository
+
+---
+
+## Requirements
+
+**The escrow must be empty (0 USDC).** If there's any USDC left, [withdraw it first](/m-withdraw).
+
+---
+
+## Step 1: Click "Remove"
+
+On your repository page, click the **"Delete"** or **"Remove"** button.
+
+{/* MEDIA-SLOT
+  id: m-remove-01
+  type: image
+  file: /media/maintainer/repo-remove-button.png
+  show: Repository page with "Remove" or "Delete" button (may be in a menu or disabled if balance > 0)
+  caption: Click to remove the repository
+  alt: Remove repository button
+*/}
+
+---
+
+## Step 2: Confirm removal
+
+A confirmation dialog appears:
+
+<Callout type="warning">
+  **This will:**
+  - Remove the repository from Trustless OSS
+  - Delete all tracked bounty records and issue data
+  - Revoke the GitHub App connection for this repository
+  - Refund any active bounties (funds return to escrow or contributor accounts)
+
+  **This cannot be undone.**
+
+  Type "yes" or click "Confirm" to proceed.
+</Callout>
+
+---
+
+## Step 3: Done
+
+The repository is removed from your dashboard and Trustless OSS no longer monitors it.
+
+GitHub labels and issues remain, but Trustless OSS will no longer react to them.
+
+---
+
+## Reconnecting later
+
+If you change your mind, you can reinstall the GitHub App and reconnect the repository. This creates a new escrow (fresh start).
+
+---
+
+**Stuck?** See [Troubleshooting](/troubleshooting).

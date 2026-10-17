@@ -1,0 +1,74 @@
+---
+title: Glossary
+description: Plain-English definitions of every crypto and bounty term you'll see.
+---
+
+# Glossary
+
+**Look up any term here.** Hover or tap each word to see the definition.
+
+---
+
+## Bounty
+
+A reward (usually in USDC) that a maintainer attaches to a GitHub issue. When a contributor's PR closes the issue, they get paid.
+
+## USDC
+
+A "stablecoin"—a digital dollar. 1 USDC = 1 US dollar. It lives on Stellar (a blockchain) and moves between wallets instantly. You don't mine it or trade it; you buy it or receive it as payment.
+
+## Wallet
+
+An app that holds your money (USDC, XLM, etc.). It's like a digital bank account, except you control the keys. Examples: Freighter, LOBSTR, xBull, Albedo, Rabet.
+
+## Stellar
+
+A blockchain (like Bitcoin or Ethereum, but simpler and faster). Trustless OSS uses Stellar to hold escrow and process payments. You don't interact with Stellar directly—Trustless OSS handles it.
+
+## Escrow
+
+A locked container for money. In Trustless OSS, USDC sits in an escrow contract on Stellar until the PR merges. Then it's released automatically. Maintainer can't touch it; contributor can't touch it; only the system can release it.
+
+## Smart Contract
+
+A program that runs on a blockchain. In Trustless OSS, the escrow is a smart contract. It has rules (if PR merges, release the money) and enforces them automatically.
+
+## Trustline
+
+A one-time permission that lets your wallet hold a particular asset (like USDC). Think of it like adding a new currency to your bank account. You set it up once, and it stays.
+
+## XLM
+
+Stellar's native cryptocurrency. Used to pay network fees (like gas in Ethereum) and to keep a Stellar account open. You don't need much—usually $1–5 worth lasts months.
+
+## Network Fee
+
+The small cost to send a transaction on Stellar (similar to Bitcoin or Ethereum's "gas"). When you move USDC or merge a bounty, a tiny amount of XLM is deducted. Trustless OSS covers most fees; you only pay a few cents per transaction.
+
+## Mainnet
+
+The real Stellar network where real money lives. If you see "mainnet" in docs, it means this is not a test—the USDC is real dollars.
+
+## Recovery Phrase (Seed Phrase)
+
+A list of 12–24 secret words that give full control of your wallet. Anyone with this phrase can take all your money. Never share it, never type it into a website, never take a screenshot. Trustless OSS will never ask for it.
+
+## Merge (PR Merge)
+
+When a maintainer accepts and combines a contributor's pull request into the main codebase. On Trustless OSS, merging the PR triggers the payout.
+
+## Closes #N
+
+A GitHub shorthand that links a PR to an issue. If a PR description says "Closes #42", GitHub marks issue #42 as closed when the PR merges. Trustless OSS uses this to detect when a bounty should pay out.
+
+## Bot
+
+An automated account that runs commands on GitHub. On Trustless OSS, the bot is `@Trustless-OSS`. You mention it in comments to trigger actions (set amount, pay out, retry, etc.).
+
+## Payout
+
+The USDC released to a contributor. "Partial payout" means the maintainer is releasing part of the reward now and saving the rest for later.
+
+---
+
+**Next:** [Choose a wallet](/choose-wallet)

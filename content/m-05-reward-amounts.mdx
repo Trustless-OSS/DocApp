@@ -1,0 +1,101 @@
+---
+title: 5. Set reward amounts
+description: Configure low, medium, and high bounty tiers.
+---
+
+# 5. Set reward amounts
+
+<TimeEstimate minutes={2} forRole="Maintainers" needs="Repository page" />
+
+**What you'll do:** Decide what "low", "medium", and "high" bounties are worth in USDC.
+
+---
+
+## Why tiers?
+
+Tiers are shortcuts. Instead of typing `@Trustless-OSS 50` every time, you label an issue with the `medium` label, and it automatically means 50 USDC.
+
+---
+
+## Step 1: Go to repository settings
+
+On your repository page, click **"Settings"** or **"Reward Tiers"** (or look for a gear icon).
+
+{/* MEDIA-SLOT
+  id: m-tiers-01
+  type: image
+  file: /media/maintainer/repo-settings-button.png
+  show: Repository page with Settings or gear icon button
+  caption: Access repository settings
+  alt: Settings button on repo page
+*/}
+
+---
+
+## Step 2: Find "Reward Tiers" or "Labels"
+
+You'll see a section for **"Reward Tiers"** or **"Reward Parameters"**.
+
+{/* MEDIA-SLOT
+  id: m-tiers-02
+  type: image
+  file: /media/maintainer/tiers-page.png
+  show: Settings page with list of tiers (low, medium, high, custom) and their USDC amounts
+  caption: Current reward tier settings
+  alt: Reward tiers configuration
+*/}
+
+---
+
+## Step 3: Edit each tier
+
+Click **"Edit"** on each tier (or create new ones). Set amounts in USDC:
+
+- **Low:** e.g., 25 USDC (quick fixes, documentation)
+- **Medium:** e.g., 50 USDC (feature work, bug fixes)
+- **High:** e.g., 100 USDC (major features, complex bugs)
+- **Custom:** e.g., any amount (type manually per issue)
+
+{/* MEDIA-SLOT
+  id: m-tiers-03
+  type: image
+  file: /media/maintainer/edit-tier.png
+  show: Edit tier dialog with label name and USDC amount field
+  caption: Edit a tier to set its USDC value
+  alt: Edit tier dialog
+*/}
+
+---
+
+## Step 4: Save
+
+Click **"Save"** or **"Apply"**.
+
+The tiers are now live. When you label a GitHub issue with `low`, `medium`, or `high`, Trustless OSS knows the reward amount.
+
+---
+
+## Default labels
+
+The system will automatically create GitHub labels for these tiers if they don't exist. You can:
+- **Keep the defaults** and add custom labels later
+- **Edit labels** in GitHub and re-sync here
+- **Delete a tier** (optional: also delete the GitHub label)
+
+{/* TODO-VERIFY: exact behavior when deleting a tier — does it delete the GitHub label? */}
+
+<Callout type="info">
+  **Tip:** Start with 25/50/100 USDC. You can adjust any time. Every bounty you create after the change uses the new amounts.
+</Callout>
+
+---
+
+## Done
+
+Reward tiers are set. You're ready to create bounties.
+
+---
+
+**Next:** [Create a bounty](/m-06-create-bounty)
+
+**Stuck?** See [Troubleshooting](/troubleshooting).

@@ -1,0 +1,182 @@
+---
+title: Dashboard tour
+description: Understand the dashboard layout and features.
+---
+
+# Dashboard tour
+
+<TimeEstimate minutes={3} forRole="Maintainers" />
+
+**What you'll do:** Learn your way around the Trustless OSS dashboard.
+
+---
+
+## Main page (Repositories)
+
+The **Repositories** view is your home on the dashboard.
+
+{/* MEDIA-SLOT
+  id: m-dashboard-01
+  type: image
+  file: /media/maintainer/dashboard-repos.png
+  show: Dashboard repositories page with search, filters (All, Deployed, Not deployed, etc.), pagination, repo cards
+  caption: The main dashboard showing all your repositories
+  alt: Dashboard repositories view
+*/}
+
+**Features:**
+- **Search:** Find a repo by name
+- **Filters:** All / Deployed / Not deployed / Newest / Name A–Z
+- **Pagination:** 15 repos per page
+- **Add repository:** Button to install the GitHub App on a new repo
+- **Sync button:** Refresh repo data from GitHub
+
+---
+
+## Repository page
+
+Click a repository to open its detail page.
+
+{/* MEDIA-SLOT
+  id: m-dashboard-02
+  type: image
+  file: /media/maintainer/dashboard-repo-detail.png
+  show: Repository page with escrow balance, Fund/Withdraw/Delete buttons, reward tiers, bounties table
+  caption: A single repository's management page
+  alt: Repository detail page
+*/}
+
+**Sections:**
+
+### Escrow balance
+Shows how much USDC is locked. Quick actions: **Fund**, **Withdraw**, **Delete**.
+
+### Reward tiers
+Current bounty amounts (low, medium, high, custom). Click to edit.
+
+### Bounties table
+All issues labeled as bounties. Columns: Issue #, Title, Tier, Reward, Status, Contributor, Actions.
+
+**Status values:**
+- `Open` — Not yet claimed
+- `In progress` — Contributor assigned, waiting for PR
+- `PR pending review` — PR open, awaiting merge
+- `Completed` — PR merged, payment released
+- `Rejected` — Contributor's work rejected
+- `Disputed` — Payment hold pending review
+
+**Actions menu** (for each bounty):
+- `Retry` — Retry a failed payout
+- `Release` — Manually release payment (if PR merged but bot missed it)
+- `Approve` — Approve work (manual approval before merge)
+- `Reject` — Mark work as rejected
+- `Hold` — Temporarily hold a bounty (pause it)
+
+---
+
+## Profile page
+
+Click your avatar or name in the top right.
+
+{/* MEDIA-SLOT
+  id: m-dashboard-03
+  type: image
+  file: /media/maintainer/profile-page.png
+  show: Profile page with name, bio, location, website, skills, socials, payout wallet section
+  caption: Your profile page
+  alt: Profile page in dashboard
+*/}
+
+**Edit:**
+- Name, bio, location, website
+- Skills (tags)
+- Social links (Twitter, GitHub, etc.)
+- **Payout wallet:** Your Stellar address (where bounty payouts go if you complete work)
+
+---
+
+## Activity page
+
+Click **"Activity"** in the main menu.
+
+{/* MEDIA-SLOT
+  id: m-dashboard-04
+  type: image
+  file: /media/maintainer/activity-page.png
+  show: Activity page with transaction ledger, filters (All, Funded, Paid out, Rejected, etc.), timestamps
+  caption: A ledger of all your transactions
+  alt: Activity ledger page
+*/}
+
+**Ledger shows:**
+- All escrow deposits (funding)
+- All payouts (PR merged → USDC released)
+- Rejections and refunds
+- Timestamps and amounts
+
+**Filters:** All, Funded, Paid out, Rejected, Pending
+
+---
+
+## Leaderboard page
+
+Click **"Leaderboard"** in the main menu.
+
+{/* MEDIA-SLOT
+  id: m-dashboard-05
+  type: image
+  file: /media/maintainer/leaderboard.png
+  show: Leaderboard page ranking contributors by bounties earned (name, avatar, earnings, bounties completed)
+  caption: Top contributors by earnings
+  alt: Leaderboard
+*/}
+
+Shows top contributors across all repositories. Columns:
+- Contributor name
+- Total earned (USDC)
+- Bounties completed
+- Avg reward per bounty
+
+---
+
+## Notifications
+
+Click the **bell icon** in the top right.
+
+Notifies you of:
+- Bounty claimed (new contributor assigned)
+- PR opened (linked to bounty)
+- Payout failed (retry needed)
+- Contributor feedback or disputes
+
+---
+
+## Settings
+
+Click the **gear icon** or **Settings**.
+
+Access:
+- Account settings (profile, email)
+- Notification preferences
+- GitHub App permissions
+- Export data
+
+---
+
+## Light / Dark mode
+
+Click the **sun/moon icon** in the top right to toggle themes.
+
+---
+
+## Navigation tips
+
+- **Search is global:** Use Cmd+K / Ctrl+K to search repo names, bounty issues, and contributor names
+- **Breadcrumbs:** At the top, shows your current location (Home > Repos > RepositoryName)
+- **Back button:** Sidebar collapses by default; expand it to see all pages
+
+---
+
+**Done?** Start creating bounties or check [Set reward amounts](/m-05-reward-amounts).
+
+**Stuck?** See [Troubleshooting](/troubleshooting).

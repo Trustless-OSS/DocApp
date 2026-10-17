@@ -1,0 +1,50 @@
+---
+title: What is Trustless OSS?
+description: 60-second explainer of how Trustless OSS works.
+---
+
+# What is Trustless OSS?
+
+<TimeEstimate minutes={2} />
+
+**Trustless OSS** is an escrow-backed bounty system that runs on GitHub. It replaces the job board middle-man and lets maintainers fund open source issues with stablecoins (USDC). When a contributor's PR merges, the money releases automatically.
+
+## The problem it solves
+
+- **Maintainers** want to pay for work but don't trust payment platforms, and contributors don't trust them either.
+- **Contributors** don't know if money is real until they've already done the work.
+- **Most bounty platforms** take a cut and add friction (new logins, new UI, delays).
+
+## How it's different
+
+Trustless OSS keeps bounties on GitHub where they already live. You use labels to mark an issue as a bounty, comment bot commands to manage it, and merge PRs as normal. Behind the scenes, USDC is held in escrow on Stellar (a blockchain) and released when the maintainer merges.
+
+- **GitHub-native:** No new websites. All work happens in PRs and issues.
+- **Trustless:** Money is locked in a smart contract. Contributor can verify it's there before starting.
+- **Direct:** Your USDC goes straight to the contributor's wallet. No platform company in between.
+- **Fast:** Payouts settle in seconds. No waiting for the company to process transfers.
+
+## Who uses it?
+
+- Open source maintainers who want to fund specific issues
+- Contributors who want to earn money for their PRs
+- Organizations building in public and rewarding community
+
+## The money flow
+
+1. **Maintainer** signs in with GitHub → connects a repo → deploys an escrow contract → funds it with USDC
+2. **Maintainer** labels an issue as a bounty (e.g., `rewarded` + `medium`)
+3. **Contributor** is assigned → clicks the link → connects their wallet
+4. **Contributor** opens a PR with `Closes #issue` in the description
+5. **Maintainer** reviews and merges the PR
+6. **USDC** releases to the contributor's wallet automatically (within seconds)
+
+That's it. No dispute resolution UI, no withdrawal forms. GitHub is the arbiter; merging is the trigger.
+
+---
+
+**Ready to start?** Pick your role:
+- [I'm a maintainer](/m-01-sign-in)
+- [I'm a contributor](/c-01-find-bounty)
+
+**New to crypto?** Read the [Glossary](/glossary) first.

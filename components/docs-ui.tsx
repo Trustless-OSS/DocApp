@@ -142,9 +142,9 @@ export function Step({
           {title}
         </div>
         {children ? (
-          <p style={{ margin: '0.25rem 0 0', opacity: 0.85, lineHeight: 1.6 }}>
+          <div style={{ margin: '0.25rem 0 0', opacity: 0.85, lineHeight: 1.6 }}>
             {children}
-          </p>
+          </div>
         ) : null}
       </div>
     </div>
