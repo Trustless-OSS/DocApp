@@ -13,9 +13,7 @@ import { SidebarTitle } from '../components/sidebar-title'
 const meta: MetaRecord = {
   // --- Home ---
   index: {
-    title: (
-      <SidebarTitle icon={<BookOpen size={18} />}>Home</SidebarTitle>
-    ),
+    title: <SidebarTitle icon={<BookOpen size={18} />}>Home</SidebarTitle>,
   },
 
   // --- Section: Start Here ---
@@ -25,12 +23,16 @@ const meta: MetaRecord = {
   },
   'what-is-trustless-oss': {
     title: (
-      <SidebarTitle icon={<BookOpen size={18} />}>What is Trustless OSS?</SidebarTitle>
+      <SidebarTitle icon={<BookOpen size={18} />}>
+        What is Trustless OSS?
+      </SidebarTitle>
     ),
   },
   'how-money-flows': {
     title: (
-      <SidebarTitle icon={<Terminal size={18} />}>How payouts work</SidebarTitle>
+      <SidebarTitle icon={<Terminal size={18} />}>
+        How payouts work
+      </SidebarTitle>
     ),
   },
   glossary: {
@@ -49,12 +51,16 @@ const meta: MetaRecord = {
   },
   'create-wallet': {
     title: (
-      <SidebarTitle icon={<Wallet size={18} />}>Create your wallet</SidebarTitle>
+      <SidebarTitle icon={<Wallet size={18} />}>
+        Create your wallet
+      </SidebarTitle>
     ),
   },
   'add-usdc': {
     title: (
-      <SidebarTitle icon={<Wallet size={18} />}>Add USDC (trustline)</SidebarTitle>
+      <SidebarTitle icon={<Wallet size={18} />}>
+        Add USDC (trustline)
+      </SidebarTitle>
     ),
   },
   'get-xlm': {
@@ -75,12 +81,16 @@ const meta: MetaRecord = {
   },
   'm-01-sign-in': {
     title: (
-      <SidebarTitle icon={<Code2 size={18} />}>1. Sign in with GitHub</SidebarTitle>
+      <SidebarTitle icon={<Code2 size={18} />}>
+        1. Sign in with GitHub
+      </SidebarTitle>
     ),
   },
   'm-02-connect-repo': {
     title: (
-      <SidebarTitle icon={<Code2 size={18} />}>2. Connect a repository</SidebarTitle>
+      <SidebarTitle icon={<Code2 size={18} />}>
+        2. Connect a repository
+      </SidebarTitle>
     ),
   },
   'm-03-deploy-escrow': {
@@ -95,7 +105,9 @@ const meta: MetaRecord = {
   },
   'm-05-reward-amounts': {
     title: (
-      <SidebarTitle icon={<Code2 size={18} />}>5. Set reward tiers</SidebarTitle>
+      <SidebarTitle icon={<Code2 size={18} />}>
+        5. Set reward tiers
+      </SidebarTitle>
     ),
   },
   'm-06-create-bounty': {
@@ -109,9 +121,7 @@ const meta: MetaRecord = {
     ),
   },
   'm-08-pay-out': {
-    title: (
-      <SidebarTitle icon={<Code2 size={18} />}>8. Pay out</SidebarTitle>
-    ),
+    title: <SidebarTitle icon={<Code2 size={18} />}>8. Pay out</SidebarTitle>,
   },
   'm-withdraw': {
     title: (
@@ -120,7 +130,9 @@ const meta: MetaRecord = {
   },
   'm-remove-repo': {
     title: (
-      <SidebarTitle icon={<Wrench size={18} />}>Remove a repository</SidebarTitle>
+      <SidebarTitle icon={<Wrench size={18} />}>
+        Remove a repository
+      </SidebarTitle>
     ),
   },
   'm-dashboard-tour': {
@@ -136,7 +148,9 @@ const meta: MetaRecord = {
   },
   'c-01-find-bounty': {
     title: (
-      <SidebarTitle icon={<Terminal size={18} />}>1. Find a bounty</SidebarTitle>
+      <SidebarTitle icon={<Terminal size={18} />}>
+        1. Find a bounty
+      </SidebarTitle>
     ),
   },
   'c-02-get-assigned': {
@@ -146,7 +160,9 @@ const meta: MetaRecord = {
   },
   'c-03-connect-wallet': {
     title: (
-      <SidebarTitle icon={<Terminal size={18} />}>3. Connect payout wallet</SidebarTitle>
+      <SidebarTitle icon={<Terminal size={18} />}>
+        3. Connect payout wallet
+      </SidebarTitle>
     ),
   },
   'c-04-open-pr': {
@@ -161,7 +177,9 @@ const meta: MetaRecord = {
   },
   'c-change-wallet': {
     title: (
-      <SidebarTitle icon={<Terminal size={18} />}>Change payout wallet</SidebarTitle>
+      <SidebarTitle icon={<Terminal size={18} />}>
+        Change payout wallet
+      </SidebarTitle>
     ),
   },
 
@@ -172,12 +190,16 @@ const meta: MetaRecord = {
   },
   'command-cheat-sheet': {
     title: (
-      <SidebarTitle icon={<Terminal size={18} />}>Command Cheat Sheet</SidebarTitle>
+      <SidebarTitle icon={<Terminal size={18} />}>
+        Command Cheat Sheet
+      </SidebarTitle>
     ),
   },
   troubleshooting: {
     title: (
-      <SidebarTitle icon={<HelpCircle size={18} />}>Troubleshooting</SidebarTitle>
+      <SidebarTitle icon={<HelpCircle size={18} />}>
+        Troubleshooting
+      </SidebarTitle>
     ),
   },
   faq: {

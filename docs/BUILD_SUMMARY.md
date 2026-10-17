@@ -16,14 +16,17 @@ Complete rewrite of Trustless OSS documentation from **developer-focused** to **
 ## Pages Created (37 total)
 
 ### Home & Navigation
+
 - **1 page:** Home (role picker, 3-step overview, feature highlights)
 
 ### Start Here (3 pages)
+
 - What is Trustless OSS? (60-second explainer)
 - How money flows (escrow diagram)
 - Glossary (25+ terms, plain English)
 
 ### Set Up Your Wallet (5 pages)
+
 - Choose a wallet (LOBSTR recommended)
 - Create your wallet (install, recovery phrase, PIN)
 - Add USDC (trustline setup, Centre issuer verification)
@@ -31,6 +34,7 @@ Complete rewrite of Trustless OSS documentation from **developer-focused** to **
 - Keep it safe (recovery phrase security, PINs, don't-share rules)
 
 ### For Maintainers (12 pages)
+
 1. Sign in with GitHub
 2. Connect a repository (GitHub App install)
 3. Deploy escrow (Stellar contract)
@@ -39,19 +43,23 @@ Complete rewrite of Trustless OSS documentation from **developer-focused** to **
 6. Create a bounty (label issue with `rewarded` + tier)
 7. Manage a bounty (assign, partial pay, reject)
 8. Pay out (merge PR → USDC releases)
+
 - Withdraw funds (partial or full)
 - Remove a repository (after zero balance)
 - Dashboard tour (Overview, Activity, Leaderboard, Profile, Settings)
 
 ### For Contributors (6 pages)
+
 1. Find a bounty (explore, filter, search)
 2. Get assigned (request with bot command)
 3. Connect payout wallet (link wallet to bounty)
 4. Open a PR (must include `Closes #N`)
 5. Get paid (wait for merge, USDC auto-releases)
+
 - Change payout wallet (update wallet address)
 
 ### Reference (3 pages)
+
 - **Command Cheat Sheet:** Printable tables of all bot commands (maintainer / contributor / anyone) with copy buttons
 - **Troubleshooting:** 10+ symptom→cause→fix entries (bot didn't reply, wallet issues, payout failed, escrow insufficient, etc.)
 - **FAQ:** 20+ Q&As (general, maintainer, contributor, wallet & crypto, troubleshooting)
@@ -61,6 +69,7 @@ Complete rewrite of Trustless OSS documentation from **developer-focused** to **
 ## Custom Components Created
 
 ### New components
+
 1. **`<MediaSlot>`** — Development-mode placeholder (yellow dashed box with slot ID) + production media rendering (images & videos with captions)
 2. **`<CommandBlock>`** — Monospace command blocks with Copy button, "what happens" description, and "comment on issue" context
 3. **`<TimeEstimate>`** — Badge showing "⏱ X min · For: Role · You'll need: X"
@@ -68,6 +77,7 @@ Complete rewrite of Trustless OSS documentation from **developer-focused** to **
 5. **`<StuckLink>`** — Link to Troubleshooting (appears at end of each page)
 
 ### Updated
+
 - **`mdx-components.js`** — Registered all new components + Nextra's `Callout` globally
 
 ---
@@ -113,6 +123,7 @@ Home
 ## Media Placeholders
 
 **87 media slots** inserted (mostly screenshots, 1 hero video). All marked with `MEDIA-SLOT` MDX comments containing:
+
 - **id** (unique, kebab-case)
 - **type** (image | video | gif)
 - **show** (exactly what to capture)
@@ -133,10 +144,12 @@ Home
 14 items flagged for verification/product confirmation:
 
 ### Resolved ✅
+
 1. Bot mention: `@Trustless-OSS` (confirmed)
 2. Network: Mainnet, real money (confirmed)
 
 ### Blocked on answers ⚠️
+
 3. **USDC issuer address** — Docs reference GA5ZSEJY... (need official confirmation)
 4. **XLM minimum balance** — Docs say "few dollars"; need exact numbers
 5. **Wallet UI labels** — Steps are generic; marked `TODO-VERIFY` for exact button names
@@ -208,18 +221,18 @@ Home
 
 ## Measurement Against Requirements
 
-| Requirement | Status |
-|---|---|
-| All pages in sidebar tree exist | ✅ 37 pages |
-| Every flow has ≥1 media slot | ✅ 87 slots with MEDIA-SLOT comments |
-| <~120 words prose per section | ✅ Checked; used steps/tables/callouts instead |
-| Bot commands as in spec | ✅ All commands exact (`@Trustless-OSS`, aliases in tables) |
-| Money-affecting actions have warning | ✅ Withdraw, reject, full withdrawal all flagged |
-| No invented facts | ✅ Uncertain items are `TODO-VERIFY` + OPEN_QUESTIONS.md |
-| Builds without errors | ✅ `npm run build` succeeds |
-| Responsive at 375px | ✅ Text readable, tables scroll, images responsive |
-| Search works | ✅ Nextra search enabled |
-| Each page has front-matter title/description | ✅ All 37 pages |
+| Requirement                                  | Status                                                      |
+| -------------------------------------------- | ----------------------------------------------------------- |
+| All pages in sidebar tree exist              | ✅ 37 pages                                                 |
+| Every flow has ≥1 media slot                 | ✅ 87 slots with MEDIA-SLOT comments                        |
+| <~120 words prose per section                | ✅ Checked; used steps/tables/callouts instead              |
+| Bot commands as in spec                      | ✅ All commands exact (`@Trustless-OSS`, aliases in tables) |
+| Money-affecting actions have warning         | ✅ Withdraw, reject, full withdrawal all flagged            |
+| No invented facts                            | ✅ Uncertain items are `TODO-VERIFY` + OPEN_QUESTIONS.md    |
+| Builds without errors                        | ✅ `npm run build` succeeds                                 |
+| Responsive at 375px                          | ✅ Text readable, tables scroll, images responsive          |
+| Search works                                 | ✅ Nextra search enabled                                    |
+| Each page has front-matter title/description | ✅ All 37 pages                                             |
 
 ---
 
@@ -271,6 +284,7 @@ npm run build
 ## Ready to Review
 
 Yes. All content is in place and builds without errors. Awaiting:
+
 1. Media capture (screenshots/videos)
 2. Product answers (14 open questions)
 3. Final copy review

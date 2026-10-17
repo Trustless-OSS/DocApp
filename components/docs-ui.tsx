@@ -68,10 +68,24 @@ export function FeatureCard({
       >
         <Icon size={24} strokeWidth={2} />
       </div>
-      <h3 style={{ margin: '0 0 0.4rem', fontSize: '1.15rem', border: 'none', padding: 0 }}>
+      <h3
+        style={{
+          margin: '0 0 0.4rem',
+          fontSize: '1.15rem',
+          border: 'none',
+          padding: 0,
+        }}
+      >
         {title}
       </h3>
-      <p style={{ margin: 0, fontSize: '0.95rem', opacity: 0.85, lineHeight: 1.6 }}>
+      <p
+        style={{
+          margin: 0,
+          fontSize: '0.95rem',
+          opacity: 0.85,
+          lineHeight: 1.6,
+        }}
+      >
         {children}
       </p>
     </div>
@@ -138,11 +152,15 @@ export function Step({
             fontSize: '1.05rem',
           }}
         >
-          {Icon ? <Icon size={18} style={{ color: 'var(--toss-blue)' }} /> : null}
+          {Icon ? (
+            <Icon size={18} style={{ color: 'var(--toss-blue)' }} />
+          ) : null}
           {title}
         </div>
         {children ? (
-          <div style={{ margin: '0.25rem 0 0', opacity: 0.85, lineHeight: 1.6 }}>
+          <div
+            style={{ margin: '0.25rem 0 0', opacity: 0.85, lineHeight: 1.6 }}
+          >
             {children}
           </div>
         ) : null}

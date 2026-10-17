@@ -25,11 +25,13 @@ A modern documentation website for Trustless OSS built with Nextra (Docs Theme).
 ### Development
 
 1. Install dependencies:
+
    ```bash
    pnpm install
    ```
 
 2. Start development server:
+
    ```bash
    pnpm dev
    ```
@@ -79,6 +81,7 @@ pnpm lint
 3. Write content using MDX (Markdown + JSX)
 
 Example page:
+
 ```mdx
 # Page Title
 
@@ -92,6 +95,7 @@ More content...
 ## Theme Configuration
 
 Customize the theme in `theme.config.tsx`:
+
 - Logo and branding
 - Navigation links
 - Color scheme
@@ -112,6 +116,7 @@ Customize the theme in `theme.config.tsx`:
 ### Other Platforms
 
 The site can be deployed to any platform that supports Next.js:
+
 - **Netlify**: `next build && next export`
 - **AWS Amplify**: Configure for Next.js
 - **Railway**: One-click deployment
@@ -129,6 +134,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 ## Contributing
 
 See our [Contributing Guide](./pages/contributing) for details on:
+
 - Code standards
 - Pull request process
 - Testing requirements

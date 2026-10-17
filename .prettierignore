@@ -1,0 +1,23 @@
+# Dependencies
+node_modules
+
+# Build output
+.next
+out
+build
+
+# Lockfiles
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Generated search index
+public/_pagefind
+
+# MDX content — Prettier mangles MDX comment blocks ({/* */} -> {/_ _/}),
+# which breaks the Nextra/acorn parser. Leave MDX authoring to the author.
+content/**/*.mdx
+
+# Misc
+*.min.js
+*.min.css
