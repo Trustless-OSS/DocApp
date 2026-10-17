@@ -1,88 +1,63 @@
 ---
 title: 2. Connect a repository
-description: Install the Trustless OSS GitHub App on your repository.
+description: Install the TOSS GitHub App and sync the repos you want to use.
 ---
 
 # 2. Connect a repository
 
-<TimeEstimate minutes={2} forRole="Maintainers" needs="Admin access to a GitHub repo" />
 
-**What you'll do:** Install the Trustless OSS GitHub App so the system can read issues, PRs, and labels.
+**What you'll do:** Install the TOSS GitHub App on your repositories, then sync them into the dashboard.
+
+TOSS reads issues, labels, assignments, and PRs through a GitHub App installation, and receives signed webhooks for each event. Installing the App is what grants that access.
 
 ---
 
-## Step 1: Click "Add repository"
+## Install and sync
 
-On the dashboard, click **"Add repository"** or **"+"**.
+<Steps>
+### Click "Add repository"
+From the dashboard, this opens the GitHub App installation page.
+
+### Choose repositories on GitHub
+Install on **all** repos, or select specific ones. You can change this later in GitHub's installed-apps settings. Private and forked repos are skipped — TOSS syncs public, non-fork repos.
+
+### Return to the dashboard
+After installing, you land back on the dashboard. Your repos appear in the Repositories list.
+
+### Press Sync if a repo is missing
+The **Sync** (refresh) button pulls the latest installation state from GitHub. Use it if a freshly installed repo hasn't appeared yet.
+</Steps>
 
 {/* MEDIA-SLOT
-  id: m-connect-repo-01
-  type: image
-  file: /media/maintainer/dashboard-add-repo.png
-  show: Dashboard with "Add repository" or install app button highlighted
-  caption: Click to install the GitHub App
-  alt: Add repository button in dashboard
+  id: m-connect-01
+  type: video
+  file: /media/maintainer/connect-repo.mp4
+  show: Click Add repository → GitHub App install page → select a repo → back on dashboard → repo appears (or press Sync to reveal it)
+  length: 30
+  script:
+    - Dashboard with an empty or short Repositories list, click Add repository
+    - GitHub App install page; choose "Only select repositories" and pick one
+    - Confirm install, redirect back to dashboard
+    - Repo appears in the list with status "Not deployed"
+    - Show the Sync button and click it to refresh
+  caption: Install the App, then sync repos into the dashboard
+  alt: Screen recording of installing the GitHub App and syncing a repo
 */}
 
----
-
-## Step 2: Install GitHub App
-
-You'll be taken to GitHub. Click **"Install"** to give Trustless OSS permission to access this repository.
-
-{/* MEDIA-SLOT
-  id: m-connect-repo-02
-  type: image
-  file: /media/maintainer/github-app-install.png
-  show: GitHub App installation page for Trustless OSS with "Install" button
-  caption: Choose the repository and confirm the install
-  alt: GitHub App installation page
-*/}
+<Callout type="info">
+**Only public, non-fork repos sync.** If a repo you installed on doesn't show up, confirm it's public and not a fork, then press **Sync**.
+</Callout>
 
 ---
 
-## Step 3: Select repositories
+## Filters and search
 
-GitHub will ask which repositories to install on. You can:
-- Install on **all repositories** in your account (easier later to add more)
-- Install on **specific repositories only** (more secure; can change later in GitHub settings)
-
-Pick one or more, then **confirm**.
-
-{/* MEDIA-SLOT
-  id: m-connect-repo-03
-  type: image
-  file: /media/maintainer/github-app-repos.png
-  show: GitHub app installation dialog with repo checkboxes
-  caption: Select which repository (or all) to install on
-  alt: Select repositories for GitHub App
-*/}
+The Repositories list supports search, filters (All / Deployed / Not deployed / Newest / Name A–Z), and pagination at 15 per page — handy once you've connected several repos.
 
 ---
 
-## Step 4: Return to dashboard
+## Done when
 
-You'll be redirected back to the dashboard. Your repository should now appear in the **"Repositories"** list.
+Your repository appears in the dashboard with status **Not deployed**. The App is installed and TOSS is receiving its events.
 
-{/* MEDIA-SLOT
-  id: m-connect-repo-04
-  type: image
-  file: /media/maintainer/dashboard-repo-listed.png
-  show: Dashboard with newly installed repository in the list (showing repo name, escrow status "Not deployed", etc.)
-  caption: Repository is now listed on the dashboard
-  alt: Repository in dashboard list
-*/}
-
----
-
-## Done
-
-The repository is now connected. The Trustless OSS system can now read your issues and PRs.
-
-**Status:** Escrow is not yet deployed (you'll do that next).
-
----
-
-**Next:** [Deploy escrow](/m-03-deploy-escrow)
-
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Deploy escrow](/m-03-deploy-escrow) · **Stuck?** [Troubleshooting](/troubleshooting)

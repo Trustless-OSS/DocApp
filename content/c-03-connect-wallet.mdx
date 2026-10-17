@@ -1,117 +1,70 @@
 ---
-title: 3. Connect payout wallet
-description: Connect your Stellar wallet to receive bounty payments.
+title: 3. Connect your payout wallet
+description: Link your Stellar wallet to the bounty so it can be paid.
 ---
 
-# 3. Connect payout wallet
+# 3. Connect your payout wallet
 
-<TimeEstimate minutes={2} forRole="Contributors" needs="Stellar wallet with USDC trustline" />
 
-**What you'll do:** Link your wallet to Trustless OSS so you can receive bounty payouts.
+**What you'll do:** Connect the Stellar wallet that will receive this bounty. Connecting locks the reward as an on-chain milestone addressed to you.
 
 ---
 
-## Step 1: Get your wallet link
+## Get your link
 
-After you're assigned, the bot comments with a link. Click it.
-
-{/* MEDIA-SLOT
-  id: c-wallet-01
-  type: image
-  file: /media/contributor/bot-wallet-link.png
-  show: Bot comment with "Connect wallet" link URL
-  caption: Click the wallet connection link from the bot
-  alt: Bot wallet link
-*/}
-
-Or request it again with:
+The bot posts a personal connect link when you're assigned. If you don't see it, request one:
 
 <CommandBlock
-  command="@Trustless-OSS /wallet"
-  description="Get the wallet connection link"
+  command="@trustless-oss wallet"
+  description="The bot replies with your personal link to connect (or change) the wallet for this bounty."
   where="Comment on the bounty issue"
 />
 
----
-
-## Step 2: Open the link
-
-The link takes you to a page that looks like:
-
-```
-app.trustless-oss.xyz/connect?bounty=xyz
-```
-
-{/* MEDIA-SLOT
-  id: c-wallet-02
-  type: image
-  file: /media/contributor/wallet-connect-page.png
-  show: Wallet connection page showing "Connect wallet" button and warning about only the assigned contributor having access
-  caption: The wallet connection page
-  alt: Wallet connection page
-*/}
-
----
-
-## Step 3: Click "Connect wallet"
-
-A wallet selector appears. Choose your wallet (LOBSTR, Freighter, xBull, Albedo, or Rabet).
-
-{/* MEDIA-SLOT
-  id: c-wallet-03
-  type: image
-  file: /media/contributor/wallet-selector.png
-  show: Wallet selector with options: LOBSTR, Freighter, xBull, Albedo, Rabet
-  caption: Select your wallet type
-  alt: Wallet selector
-*/}
-
----
-
-## Step 4: Approve in wallet
-
-Your wallet will pop up asking to approve the connection.
-
-{/* MEDIA-SLOT
-  id: c-wallet-04
-  type: image
-  file: /media/contributor/wallet-approve.png
-  show: Wallet popup showing authorization request with contributor's wallet address
-  caption: Approve the connection in your wallet"
-  alt: Wallet approval popup
-*/}
-
-Click **"Approve"** or **"Sign"**.
-
 <Callout type="warning">
-  **Only the assigned contributor can use this link.** If anyone else tries, they'll see "Access denied". This protects your bounty from being stolen.
+**The link is tied to the assigned contributor.** If someone who isn't the assignee opens it, they get **Access denied**. This stops anyone else from redirecting your payout.
 </Callout>
 
 ---
 
-## Step 5: Done
+## Connect
 
-The page redirects back to the GitHub issue. Your wallet is now connected.
+<Steps>
+### Open the link
+It takes you to the TOSS connect page for this bounty.
 
-When the PR merges, USDC will go directly to your wallet.
+### Choose your wallet
+Pick your Stellar wallet. The page prompts it to open.
 
----
+### Approve the connection
+Your wallet asks you to authorize. Approve it. TOSS verifies your account can receive USDC (trustline present) before accepting.
 
-## Verify your connection
-
-(Optional) Go to your [Profile page](https://app.trustless-oss.xyz/profile) on the dashboard and look for **"Payout wallet"**. You should see your Stellar address.
+### Get redirected back to the issue
+On success, you're sent back to the GitHub issue. The milestone is now locked on-chain to your wallet, and the automation resumes.
+</Steps>
 
 {/* MEDIA-SLOT
-  id: c-wallet-05
-  type: image
-  file: /media/contributor/profile-wallet.png
-  show: Profile page with "Payout wallet" section showing connected Stellar address
-  caption: Your payout wallet is now connected
-  alt: Profile with connected wallet
+  id: c-wallet-01
+  type: video
+  file: /media/contributor/connect-wallet.mp4
+  show: Open connect link → choose wallet → wallet sign prompt → approve → redirect back to GitHub issue
+  length: 25
+  script:
+    - Click the bot's connect link, land on the TOSS connect page
+    - Choose a wallet from the selector
+    - Wallet opens with an authorization request; approve
+    - Success state, then redirect to the GitHub issue
+  caption: Connecting your wallet locks the reward to you
+  alt: Screen recording of connecting a payout wallet
 */}
+
+<Callout type="info">
+TOSS checks your account has a **USDC trustline** before accepting the wallet. If it doesn't, the connection is refused — [add the trustline](/add-usdc) and try again.
+</Callout>
 
 ---
 
-**Next:** [Open a PR](/c-04-open-pr)
+## Done when
 
-**Stuck?** See [Troubleshooting](/troubleshooting).
+You're redirected back to the issue and the bounty has advanced past "waiting for wallet". Your reward is now locked on-chain against your address.
+
+**Next:** [Open a PR](/c-04-open-pr) · **Stuck?** [Troubleshooting](/troubleshooting)

@@ -1,112 +1,50 @@
 ---
 title: 1. Find a bounty
-description: Search for open bounties across projects.
+description: Where TOSS bounties live and how to spot a funded one.
 ---
 
 # 1. Find a bounty
 
-<TimeEstimate minutes={2} forRole="Contributors" needs="Trustless OSS account (GitHub login)" />
 
-**What you'll do:** Find bounties that match your skills.
-
----
-
-## Where are bounties?
-
-Bounties live on GitHub issues labeled with `rewarded` + a tier (`low`, `medium`, `high`, or `custom`).
-
-You don't need a special site. They're in the repositories themselves.
+**What you'll do:** Find an issue with a funded bounty you can take on.
 
 ---
 
-## Step 1: Go to the Trustless OSS explorer
+## Where bounties live
 
-Visit [explorer.trustless-oss.xyz](https://explorer.trustless-oss.xyz) or [bounties.trustless-oss.xyz](https://bounties.trustless-oss.xyz).
+A bounty is a GitHub issue labeled `rewarded` plus a tier (`low`/`medium`/`high`) or `manual`. The TOSS bot comments on each one confirming the reward amount and linking the on-chain escrow, so you can verify the money exists before you start.
+
+Look for:
+
+- The `rewarded` label plus a tier/`manual` label on the issue.
+- A TOSS bot comment stating the reward in USDC with an escrow viewer link.
+- Status `open` (unassigned) — an assigned bounty is already taken.
 
 {/* MEDIA-SLOT
   id: c-find-01
   type: image
-  file: /media/contributor/bounty-explorer.png
-  show: Bounty explorer page with search, filters (status, amount, language, etc.), and list of bounties
-  caption: Browse all available bounties
-  alt: Trustless OSS bounty explorer
+  file: /media/contributor/bounty-issue.png
+  show: A GitHub issue with "rewarded" + "medium" labels and the TOSS bot's "Bounty Created" comment showing the USDC amount and an escrow viewer link
+  caption: A funded bounty, confirmed on-chain by the bot
+  alt: GitHub issue with bounty labels and bot confirmation
 */}
 
 ---
 
-## Step 2: Filter by your interests
+## Verify it's really funded
 
-Use the filters to narrow down:
-- **Status:** Open, In progress, Completed
-- **Amount:** Low / Medium / High / Custom
-- **Language:** JavaScript, Python, Rust, etc.
-- **Repository:** Search by name
-- **Sort by:** Newest, Highest reward, Recently updated
-
-{/* MEDIA-SLOT
-  id: c-find-02
-  type: image
-  file: /media/contributor/bounty-filters.png
-  show: Filter sidebar with checkboxes for status, amount, language, and sort options
-  caption: Filter bounties to find what suits you
-  alt: Bounty filters
-*/}
+Because the escrow is on-chain, you don't have to take anyone's word for it. The bot's comment links the escrow in a viewer — open it and confirm the balance covers the reward. This is the point of a trustless bounty: proof before work.
 
 ---
 
-## Step 3: Click a bounty
+## Pick something you can finish
 
-Click on a bounty you're interested in.
-
-{/* MEDIA-SLOT
-  id: c-find-03
-  type: image
-  file: /media/contributor/bounty-card.png
-  show: Bounty card showing repo, issue title, reward amount, repo description, and "View on GitHub" button
-  caption: A single bounty listing
-  alt: Bounty card in explorer
-*/}
-
-You'll see:
-- **Issue title** and description
-- **Reward amount** (USDC)
-- **Repository name** and link
-- **Status** (Open, In progress, etc.)
+Standard contributor judgment applies: read the issue and its discussion, check the acceptance criteria, and make sure the scope is clear. If anything's ambiguous, ask in the thread before requesting assignment — maintainers assign people who understand the work.
 
 ---
 
-## Step 4: Go to the issue on GitHub
+## Done when
 
-Click **"View on GitHub"** to open the issue.
+You've found an open, bot-confirmed bounty whose scope you understand and whose escrow you've verified.
 
-{/* MEDIA-SLOT
-  id: c-find-04
-  type: image
-  file: /media/contributor/github-issue.png
-  show: GitHub issue page with bounty labels, description, and bot confirmation comment
-  caption: The full issue on GitHub
-  alt: GitHub issue page
-*/}
-
----
-
-## Read the issue carefully
-
-- **Title and description:** What work is needed?
-- **Labels:** `rewarded` + tier show it's a bounty
-- **Bot comment:** Confirms the reward amount and escrow status
-- **Comments:** Other contributors' feedback or maintainer requirements
-
----
-
-## Before you request assignment
-
-- Do you understand the work?
-- Can you do it?
-- Is the bounty open (not already assigned)?
-
----
-
-**Next:** [Get assigned](/c-02-get-assigned)
-
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Get assigned](/c-02-get-assigned) · **Stuck?** [Troubleshooting](/troubleshooting)

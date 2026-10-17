@@ -14,7 +14,7 @@
 
 /* Slightly larger, comfortable reading size for docs content. */
 html {
-  font-size: 17px;
+  font-size: 16px;
 }
 
 /* Brand-blue accent bar under the main page title. */
@@ -65,7 +65,7 @@ aside.nextra-sidebar {
 .nextra-sidebar li > button {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  font-size: 0.95rem;
+  font-size: 0.93rem;
 }
 
 /*
@@ -77,7 +77,7 @@ aside.nextra-sidebar {
 .nextra-sidebar li.x\:not-first\:mt-5,
 .nextra-sidebar li > span.x\:font-semibold,
 .nextra-sidebar .x\:text-sm.x\:font-semibold {
-  font-size: 0.72rem !important;
+  font-size: 0.7rem !important;
   font-weight: 700 !important;
   letter-spacing: 0.07em;
   text-transform: uppercase;

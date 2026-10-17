@@ -1,113 +1,95 @@
 ---
 title: 6. Create a bounty
-description: Label a GitHub issue to create a bounty.
+description: Turn a GitHub issue into a funded bounty with labels or a manual amount.
 ---
 
 # 6. Create a bounty
 
-<TimeEstimate minutes={3} forRole="Maintainers" needs="GitHub repo with open issue" />
 
-**What you'll do:** Label an issue with `rewarded` + a tier so contributors can see it's a bounty.
+**What you'll do:** Label an issue so TOSS reserves a reward from your escrow and opens the bounty.
+
+A bounty always needs two things: the `rewarded` label (which turns the issue into a bounty) and an amount (from a tier label or set manually).
 
 ---
 
-## Step 1: Go to a GitHub issue
+## Option A — Priced by tier
 
-Open your repository on GitHub. Find an issue you want to fund.
+<Steps>
+### Open the issue on GitHub
+Pick the issue you want to fund.
 
-Click to open it.
+### Add `rewarded`
+This marks the issue as a bounty.
+
+### Add a tier label
+Add `low`, `medium`, `high`, or any tier you configured. TOSS reserves that tier's USDC amount from the escrow balance.
+</Steps>
 
 {/* MEDIA-SLOT
   id: m-bounty-01
   type: image
-  file: /media/maintainer/github-issue.png
-  show: GitHub issue page with comments, labels section, assignee section, etc.
-  caption: Open an issue in your GitHub repository
-  alt: GitHub issue page
+  file: /media/maintainer/issue-labels.png
+  show: GitHub issue sidebar Labels popover with "rewarded" and "medium" both checked
+  caption: rewarded + a tier label is all a priced bounty needs
+  alt: GitHub labels popover with rewarded and medium selected
 */}
 
 ---
 
-## Step 2: Add the "rewarded" label
+## Option B — Manual amount
 
-On the right side, find **"Labels"**.
+Use this for a one-off amount that doesn't fit a tier.
 
-Click to add labels. Search for **"rewarded"** and click it.
+<Steps>
+### Add `rewarded` + `manual`
+This creates the bounty in an **unpriced** state — no funds reserved yet.
+
+### Set the amount
+Comment the amount, or put it in the issue body before labeling.
+</Steps>
+
+<CommandBlock
+  command="@trustless-oss 150"
+  description="Sets the manual reward to 150 USDC and reserves it from escrow. 'USDC' after the number is optional."
+  where="Comment on the bounty issue"
+/>
 
 {/* MEDIA-SLOT
   id: m-bounty-02
   type: image
-  file: /media/maintainer/github-labels.png
-  show: GitHub issue sidebar with Labels section and label selector dropdown showing "rewarded" option
-  caption: Add the "rewarded" label
-  alt: Labels dropdown in GitHub
+  file: /media/maintainer/manual-amount-comment.png
+  show: GitHub issue with "rewarded" + "manual" labels and a maintainer comment "@trustless-oss 150", followed by the bot's "Bounty Created" reply showing 150 USDC and an escrow viewer link
+  caption: Manual bounties take their amount from a comment
+  alt: Manual bounty comment and bot confirmation
 */}
 
 ---
 
-## Step 3: Add a tier label
+## What the bot confirms
 
-Still in **"Labels"**, search for and click your reward tier: **"low"**, **"medium"**, or **"high"**.
+Once an amount is set, the bot comments with the reward, the level, and a link to view the escrow on-chain. For an unpriced `rewarded` issue, it instead tells you to add a tier label or a manual amount.
 
-{/* MEDIA-SLOT
-  id: m-bounty-03
-  type: image
-  file: /media/maintainer/github-labels-tier.png
-  show: Labels dropdown with "low", "medium", "high" options visible, with one checked
-  caption: Select a reward tier
-  alt: Tier label selection
-*/}
+| Issue state | Bot comment |
+| --- | --- |
+| `rewarded` only, no amount | "Bounty Created — no reward set yet. Add a label or comment an amount." |
+| `rewarded` + tier | "Bounty Created — the reward in USDC, with the tier as the level." |
+| `rewarded` + `manual` + amount | "Bounty Created — the reward in USDC, level `manual`." |
+| Escrow too low for the amount | "Insufficient Escrow Balance — top up." |
 
 ---
 
-## Step 4: (Optional) Custom amount
+## Changing the amount later
 
-If you want a custom USDC amount instead of a preset tier:
-1. Add **"rewarded"** + **"custom"** labels (instead of "low"/"medium"/"high")
-2. Comment on the issue: `@Trustless-OSS 75` (the amount)
+You can relabel or re-comment a new amount **as long as the bounty hasn't locked on-chain** — that is, while it's still open, or assigned but without a connected contributor wallet yet. After the milestone is pushed on-chain, the amount is fixed.
 
-{/* MEDIA-SLOT
-  id: m-bounty-04
-  type: image
-  file: /media/maintainer/github-custom-amount.png
-  show: GitHub issue with "rewarded" and "custom" labels, and a bot command comment "@Trustless-OSS 75"
-  caption: For custom amounts, use a bot command
-  alt: Custom bounty amount with bot command
-*/}
+<Callout type="warning">
+Only the escrow's available balance can be reserved. If you label a bounty larger than the escrow's free balance, the bot refuses it and asks you to [fund the escrow](/m-04-fund-escrow) first. Funds already reserved by other open bounties are not available.
+</Callout>
 
 ---
 
-## Step 5: Wait for the bot to confirm
+## Done when
 
-Within 1–2 minutes, `@Trustless-OSS` will comment on the issue confirming the bounty:
+The bot has commented confirming the reward amount and level, and the issue shows `rewarded` + its tier (or `manual`).
 
-```
-🎯 **Bounty created**
-Amount: 50 USDC
-Escrow status: Funded ✓
-```
-
-{/* MEDIA-SLOT
-  id: m-bounty-05
-  type: image
-  file: /media/maintainer/github-bounty-confirmed.png
-  show: GitHub issue with Trustless OSS bot comment confirming bounty (amount, escrow status, wallet connection link)
-  caption: The bot confirms the bounty is live
-  alt: Bounty confirmation comment from bot
-*/}
-
----
-
-## Done
-
-The bounty is now live. Contributors can see it and request assignment.
-
----
-
-**Done when:** The issue shows both `rewarded` + tier labels, and the bot has commented with confirmation.
-
----
-
-**Next:** [Manage a bounty](/m-07-manage-bounty)
-
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Manage a bounty](/m-07-manage-bounty) · **Stuck?** [Troubleshooting](/troubleshooting)

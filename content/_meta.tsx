@@ -30,7 +30,7 @@ const meta: MetaRecord = {
   },
   'how-money-flows': {
     title: (
-      <SidebarTitle icon={<Terminal size={18} />}>How money flows</SidebarTitle>
+      <SidebarTitle icon={<Terminal size={18} />}>How payouts work</SidebarTitle>
     ),
   },
   glossary: {
@@ -95,7 +95,7 @@ const meta: MetaRecord = {
   },
   'm-05-reward-amounts': {
     title: (
-      <SidebarTitle icon={<Code2 size={18} />}>5. Set reward amounts</SidebarTitle>
+      <SidebarTitle icon={<Code2 size={18} />}>5. Set reward tiers</SidebarTitle>
     ),
   },
   'm-06-create-bounty': {

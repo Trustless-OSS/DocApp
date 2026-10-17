@@ -1,97 +1,61 @@
 ---
 title: 5. Get paid
-description: The maintainer merges your PR and you receive USDC.
+description: What happens on merge, and how to confirm your USDC arrived.
 ---
 
 # 5. Get paid
 
-<TimeEstimate minutes={2} forRole="Contributors" needs="PR merged by maintainer" />
 
-**What you'll do:** Wait for the maintainer to merge your PR. USDC releases automatically.
-
----
-
-## What happens when the PR merges
-
-1. **Maintainer merges** your PR on GitHub
-2. **Trustless OSS detects** the merge (usually within 10 seconds)
-3. **USDC releases** from escrow to your wallet (via Stellar blockchain)
-4. **Bot confirms** the payout in a comment on the issue
+**What you'll do:** Nothing — the payout is automatic once your PR merges. Here's how to confirm it.
 
 ---
 
-## Check your wallet
+## What happens on merge
 
-Open your Stellar wallet (LOBSTR, Freighter, etc.) and look at your **USDC balance**.
+When the maintainer merges your PR, a background worker re-checks everything against live state and releases the USDC:
 
-You should see the bounty amount appear.
+1. Confirms the PR is merged, the issue closed, and you're the author.
+2. Confirms the on-chain milestone matches the amount and targets your current wallet.
+3. Releases the USDC to your wallet — applying a split if the maintainer saved one.
+4. Comments on the issue to confirm.
+
+Typically this is done within seconds.
 
 {/* MEDIA-SLOT
   id: c-paid-01
   type: image
-  file: /media/contributor/wallet-usdc-received.png
-  show: Wallet home screen showing USDC balance increased (e.g., 50 USDC)
-  caption: Your payout appears in your wallet
-  alt: USDC received in wallet
+  file: /media/contributor/payout-received.png
+  show: Split view — bot "payout released" comment on the GitHub issue, and the wallet showing an increased USDC balance
+  caption: The bot confirms the release; your wallet shows the USDC
+  alt: Payout confirmation comment and wallet balance
 */}
 
 ---
 
-## Bot confirmation
+## If a split was applied
 
-The bot will comment on the issue:
-
-```
-✅ **Payout released**
-Amount: 50 USDC
-To: your-wallet-address
-Time: 2:34 PM (3 seconds)
-```
-
-{/* MEDIA-SLOT
-  id: c-paid-02
-  type: image
-  file: /media/contributor/bot-payout-confirmed.png
-  show: GitHub issue with bot comment confirming payout
-  caption: The bot confirms your payment
-  alt: Bot payout confirmation
-*/}
+If the maintainer saved `@trustless-oss pay <n>` before merging, you receive that percentage and the rest returns to them. The bot's split-saved comment showed the exact amounts ahead of time.
 
 ---
 
-## What if the payout didn't arrive?
+## If it doesn't arrive
 
-Check:
-- ✅ PR is merged (merged status shows on GitHub)
-- ✅ PR has `Closes #N` (or similar) linking the issue
-- ✅ Your wallet is connected to the bounty
-- ✅ Your wallet has the USDC trustline set up
+The automation retries transient failures on its own, so give it a minute. Then check:
 
-If all checks pass and still no payment after 30 seconds, comment:
+- Your PR is **merged** (not just closed), and its body has `Closes #<issue>`.
+- **You** are the PR author (matches the assignee).
+- Your wallet still has the **USDC trustline** and is the one you connected.
 
-<CommandBlock
-  command="@Trustless-OSS /retry"
-  description="Ask the maintainer to retry the payout"
-  where="Comment on the bounty issue or ask the maintainer"
-/>
+If all of that holds and it still hasn't landed, ask the maintainer to run `@trustless-oss retry`, or see the payout section of [Troubleshooting](/troubleshooting).
+
+<Callout type="info">
+Changed wallets after connecting? The system re-points the milestone to your current wallet before paying, so a wallet switch won't lose your payout — it just may take an extra moment.
+</Callout>
 
 ---
 
-## Transfer your USDC
+## Done when
 
-Your USDC is now in your wallet. You can:
-- **Keep it** (hold for later)
-- **Trade it** on an exchange for another currency
-- **Withdraw** to your bank account (depends on the exchange)
+The bot has confirmed the release and your wallet balance reflects the USDC.
 
----
-
-## Next bounty?
-
-Great job! Ready for another bounty? Go back to [Find a bounty](/c-01-find-bounty).
-
----
-
-**Done when:** USDC shows in your wallet.
-
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Change your payout wallet](/c-change-wallet) · [Find another bounty](/c-01-find-bounty)

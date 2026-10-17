@@ -1,148 +1,91 @@
 ---
 title: FAQ
-description: Answers to frequently asked questions.
+description: Common questions about TOSS, from both sides of a bounty.
 ---
 
 # FAQ
 
 ## General
 
-### What does "Trustless OSS" mean?
+### What does "trustless" mean here?
+No custodian holds your money. Funds sit in a per-repo escrow contract on Stellar, and its on-chain rules — not a company — decide when they release. You sign your own transactions; the platform never holds keys.
 
-"Trustless" means you don't need to trust a company to hold or release the money. The Stellar blockchain enforces the rules automatically. "OSS" is open source software.
+### Is there a platform fee?
+No platform cut. You pay only Stellar's network fees, which are fractions of a cent per transaction, in XLM.
 
-### How is Trustless OSS different from other bounty platforms?
+### Which network and asset?
+Stellar **mainnet**, paid in **USDC**. These docs assume mainnet — balances are real money.
 
-- **GitHub-native:** Issues and PRs are your workspace. No new accounts or websites.
-- **Trustless:** Money is in a smart contract, not a company's bank account. You can verify it's there.
-- **Direct:** No middle-man. Your USDC goes straight to the contributor. No platform fees.
-
-### Can I use Trustless OSS for private repositories?
-
-Yes. The GitHub App works on private repos. Only people with access to the repo can see bounties and issues.
-
-### Is there a fee?
-
-No platform fee. You only pay Stellar network fees (micro-fractions of a cent per transaction).
+### Do private repos work?
+TOSS syncs **public, non-fork** repos. Private and forked repos are skipped during sync.
 
 ---
 
-## For Maintainers
+## For maintainers
 
-### How much does it cost to deploy an escrow?
+### What's the difference between a tier and a manual bounty?
+A **tier** is a reusable `(label, amount)` pair — label an issue `rewarded` + `medium` and it uses the medium amount. **Manual** is a one-off: label `rewarded` + `manual` and set the amount with `@trustless-oss <amount>`.
 
-Just the Stellar network fee: ~$0.01 in XLM. Your wallet needs a few dollars in XLM to cover this.
+### Can I rename or remove the default tiers?
+Yes. `low`/`medium`/`high` are just defaults. Edit their amounts, remap them to other GitHub labels, delete them, or add new tiers. Adding a tier with a new name creates that label on GitHub. See [Set reward tiers](/m-05-reward-amounts).
 
-### Can I edit reward amounts after creating bounties?
+### Can I change a bounty's amount after creating it?
+Only while it's still editable — `open`, or `assigned` without a connected wallet. Once the milestone locks on-chain, the amount is fixed so the database and escrow can't desync.
 
-Yes. Change the tier amounts in settings. Future bounties use the new amounts. Existing bounties keep their original amount.
+### How do partial payouts work?
+Before merging, comment `@trustless-oss pay <percentage>` (1–99). On merge, the contributor gets that percentage and the rest returns to your wallet. It's an intent you can change until merge.
 
-### What if I accidentally label an issue as a bounty?
+### What does rejecting do to the money?
+`@trustless-oss reject` (or the `rejected` label) disputes the milestone on-chain and resolves it back to your wallet, refunding the reserved reward and cancelling the bounty. It's irreversible.
 
-Remove the `rewarded` label, and the issue will no longer be a bounty. Existing bounties (already funded) won't be affected.
+### What happens to funds if I withdraw?
+Withdrawal refunds the escrow balance to your wallet and **cancels every active bounty** on the repo, returning their reservations. The dashboard reports the refunded amount and the number of cancelled bounties.
 
-### Can I pause a bounty?
-
-Yes. Remove the `rewarded` label to pause it (the USDC stays in escrow). Re-add it to activate it again.
-
-### What happens if a contributor abandons the bounty?
-
-The USDC stays in escrow. You can reassign the bounty to another contributor, reject it, or withdraw the funds.
-
-### Can I pay partial amounts before merge?
-
-Yes. Use `@Trustless-OSS /pay 75` to pay 75% early. The remaining 25% waits for merge (or you can manually release it later).
-
-### What if there's a dispute after merge?
-
-If a PR merges but the contributor's work was poor, you can't reverse the payout (the blockchain transaction is final). Contact Trustless OSS support for resolution. {/* TODO-VERIFY: dispute process */}
+### Do I need to press "release" after merging?
+No. Merging a linked PR is the trigger. A background worker verifies the rules and releases automatically; `@trustless-oss retry` only exists as a manual nudge and can't force a refused payout.
 
 ---
 
-## For Contributors
+## For contributors
 
-### Can I work on multiple bounties at once?
+### How do I get paid?
+Get assigned, connect a Stellar wallet (locks the reward to you), open a PR with `Closes #<issue>`, and get it merged. The escrow releases to your wallet automatically.
 
-Yes. You can be assigned to multiple issues and have multiple PRs open simultaneously.
+### Do I need USDC already to receive a payout?
+No — you just need the USDC **trustline** so your account can hold USDC. The reward arrives as a balance when it releases.
 
-### Do I need USDC in my wallet to receive a payout?
+### Can I switch wallets after connecting?
+Yes. Use `@trustless-oss change-address` (or `wallet`) for a specific bounty, or update your profile's payout wallet. If you switch after the milestone locks, the system re-points it to your new wallet before paying.
 
-No. Your wallet just needs the **trustline** (permission) to hold USDC. The USDC will be added to your balance when you earn it.
+### Why do I see "Access denied" on the connect link?
+The link is bound to the assigned contributor. If you're not the assignee, you can't use it. If you are, request a fresh one with `@trustless-oss wallet`.
 
-### What if I want to change which wallet receives the payout?
+### Can two people split a bounty?
+The payout targets the single assigned contributor's wallet. The maintainer can hold back part of it with `pay <percentage>`, but TOSS pays one assignee per bounty.
 
-Go to your [Profile page](https://app.trustless-oss.xyz/profile) and click "Change" under "Payout wallet". Or comment `@Trustless-OSS /change-address` on a specific bounty.
-
-### Can I claim a bounty if someone else is already assigned?
-
-No. A bounty can only have one contributor assigned at a time. If it's already assigned, you can't claim it. Ask the maintainer if you'd like to collaborate.
-
-### What if I need more time to complete the bounty?
-
-Comment on the issue and ask the maintainer. They can agree to extend the deadline (or note: Trustless OSS doesn't have hard deadlines, just expectations).
-
-### What if I submitted a PR but it wasn't merged?
-
-The maintainer reviews it. They might ask for changes, reject it, or merge it. If rejected, you don't get paid. If merged, you do (automatically).
-
-### Can I withdraw USDC to a bank account?
-
-Depends on the exchange you use. USDC is on your Stellar wallet; you can trade it on Uphold, Kraken, Coinbase, or similar to withdraw to your bank. (Different exchanges have different fees and limits.)
-
-### How long does it take to get paid after merge?
-
-Usually 3–10 seconds after the maintainer merges the PR. You should see USDC in your wallet within 30 seconds.
+### Can I work on several bounties at once?
+Yes. You can be assigned to multiple issues across repos; each tracks independently.
 
 ---
 
-## Wallet & Crypto
+## Wallets & crypto
 
-### Do I need to know about blockchain/crypto to use this?
+### Do I need to understand blockchains to use this?
+No. You install a wallet, add a USDC trustline, keep a little XLM for fees, and approve sign prompts. Everything on-chain is handled for you.
 
-No. We abstract it away. You just install a wallet, add USDC, and receive payments. The blockchain part is behind the scenes.
+### Why do I need XLM if I'm paid in USDC?
+XLM covers Stellar's network fees and the account's minimum reserve. A few dollars of XLM lasts a long time. {/* TODO-VERIFY: exact minimum reserve and typical fee figures */}
 
-### Why do I need XLM?
+### What if I lose my recovery phrase?
+There's no recovery path — whoever holds the phrase controls the wallet, and losing it means losing access. Store it offline. See [Keep it safe](/keep-wallet-safe).
 
-XLM is Stellar's network currency. Every transaction (sending USDC, setting up trustlines, etc.) costs a tiny fee in XLM. You need a small amount (~$5) to cover fees for months.
-
-### Is my USDC safe in my wallet?
-
-Yes, as long as you keep your recovery phrase safe. Your wallet is cryptographically secured. The bigger risk is losing your recovery phrase (then you lose access forever).
-
-### What's a "trustline"?
-
-A permission that lets your wallet hold a specific asset. Once you add a trustline to USDC, your wallet can receive it. It's a one-time setup (no ongoing cost).
-
-### Can I use a cold wallet?
-
-Technically yes, but it's more complex. Most people use hot wallets (LOBSTR, Freighter, xBull, etc.) for convenience.
-
-### What happens if I lose my recovery phrase?
-
-You lose access to your wallet forever. The money can't be recovered. That's why we emphasize writing it down and storing it safely.
+### Will TOSS ever ask for my recovery phrase or keys?
+Never. Any request for your recovery phrase, PIN, or private key is a scam.
 
 ---
 
-## Troubleshooting
+## More
 
-### The bot isn't responding to my commands
-
-See [Bot didn't reply to my command](/troubleshooting#bot-didnt-reply-to-my-command).
-
-### My payout didn't arrive
-
-See [Payout didn't release after merge](/troubleshooting#payout-didnt-release-after-merge).
-
-### I can't withdraw from my wallet to my bank
-
-Contact your exchange (Uphold, Kraken, etc.). Trustless OSS only handles USDC on Stellar. Withdrawal to bank is your exchange's process.
-
----
-
-## More questions?
-
-- **Check Troubleshooting:** [Full troubleshooting guide](/troubleshooting)
-- **Check Glossary:** [Glossary](/glossary)
-- **Check Command Cheat Sheet:** [All bot commands](/command-cheat-sheet)
-- **Email support:** support@trustless-oss.xyz {/* TODO-VERIFY: correct email */}
-
+- Every command: [Command Cheat Sheet](/command-cheat-sheet)
+- Release rules: [How payouts work](/how-money-flows)
+- Fixes: [Troubleshooting](/troubleshooting)

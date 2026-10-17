@@ -1,129 +1,65 @@
 ---
 title: 4. Open a PR
-description: Submit your work and link it to the bounty issue.
+description: Submit your work with a PR that closes the bounty issue.
 ---
 
 # 4. Open a PR
 
-<TimeEstimate minutes={5} forRole="Contributors" needs="Work completed + Git and GitHub" />
 
-**What you'll do:** Push your work and open a pull request that closes the bounty issue.
+**What you'll do:** Open a pull request that closes the bounty issue, so a merge triggers your payout.
 
----
-
-## Step 1: Commit your work
-
-Follow the repository's contribution guidelines. Commit your changes:
-
-```bash
-git add .
-git commit -m "Fix: description of your work"
-git push origin your-branch-name
-```
+Two things must be true for the payout to fire on merge: the **PR body links the issue**, and **you (the assignee) are the PR author**.
 
 ---
 
-## Step 2: Open a PR on GitHub
+## Link the issue in the PR body
 
-Go to the repository on GitHub. Click **"New Pull Request"**.
+TOSS matches a merged PR to its bounty by parsing the PR body for a closing keyword and issue number.
 
-{/* MEDIA-SLOT
-  id: c-pr-01
-  type: image
-  file: /media/contributor/github-new-pr.png
-  show: GitHub repository page with "New Pull Request" button
-  caption: Click to create a new PR
-  alt: New PR button
-*/}
-
----
-
-## Step 3: Select your branch
-
-Choose your feature branch (where you pushed your code).
-
-{/* MEDIA-SLOT
-  id: c-pr-02
-  type: image
-  file: /media/contributor/github-branch-select.png
-  show: PR creation page with branch selector (main ← your-branch)
-  caption: Select your branch with the work
-  alt: Branch selector
-*/}
-
----
-
-## Step 4: Link the issue in the PR description
-
-In the PR description, add a line that links to the bounty issue:
-
-```
+```markdown
 Closes #123
 ```
 
-Or use these alternatives:
-```
-Fixes #456
-```
-```
-Resolves #789
-```
-
-{/* MEDIA-SLOT
-  id: c-pr-03
-  type: image
-  file: /media/contributor/github-pr-description.png
-  show: PR description field with "Closes #123" at the top
-  caption: Add "Closes #N" to link the issue
-  alt: PR description with issue link
-*/}
+`Fixes #123` and `Resolves #123` work too (and their past-tense variants). Put it in the PR **description**, not just a commit message.
 
 <Callout type="warning">
-  **This is critical.** Without the "Closes" link, the system won't detect that your PR closes the bounty issue. The payout won't trigger.
-
-  Check: PR description includes `Closes #N` (where N is the issue number).
+No closing reference in the PR body means TOSS can't link the PR to the bounty, and merging **won't** release anything. Double-check `Closes #<issue>` is in the description before you request review.
 </Callout>
 
 ---
 
-## Step 5: Describe your work
+## Author must be the assignee
 
-Write a brief description of what you did:
-- What problem does it solve?
-- How did you test it?
-- Any breaking changes?
+The merge-time check compares the PR author's GitHub ID to the assigned contributor's. If they differ, the bot aborts the payout and comments. If you're pairing or someone else pushed the branch, make sure the PR is opened by the assigned account.
 
 ---
 
-## Step 6: Click "Create Pull Request"
+## Open it
 
-Submit the PR.
+<Steps>
+### Push your branch
+Commit your work and push to your fork or branch.
+
+### Open the PR
+Target the repo's default branch. In the description, add `Closes #<issue>`.
+
+### Fill in the description
+Explain what changed and how you verified it — standard review hygiene. The maintainer reviews as usual.
+</Steps>
 
 {/* MEDIA-SLOT
-  id: c-pr-04
+  id: c-pr-01
   type: image
-  file: /media/contributor/github-pr-submit.png
-  show: PR creation page with "Create Pull Request" button
-  caption: Submit your PR
-  alt: Submit PR button
+  file: /media/contributor/pr-body-closes.png
+  show: GitHub "Open a pull request" form with "Closes #123" at the top of the description field
+  caption: The closing keyword in the PR body is what links it to the bounty
+  alt: PR description containing Closes #123
 */}
-
----
-
-## The maintainer reviews your work
-
-- They'll review the code
-- They may request changes
-- You can push more commits to the same branch (PR updates automatically)
 
 ---
 
 ## Done when
 
-Your PR is open, linked to the issue (shows "Closes #N"), and ready for review.
+Your PR is open, authored by your assigned account, with `Closes #<issue>` in the description. Now it's on the maintainer to review and merge.
 
----
-
-**Next:** [Get paid](/c-05-get-paid)
-
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Get paid](/c-05-get-paid) · **Stuck?** [Troubleshooting](/troubleshooting)

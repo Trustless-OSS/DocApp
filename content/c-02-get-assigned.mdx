@@ -1,73 +1,46 @@
 ---
 title: 2. Get assigned
-description: Request to work on a bounty.
+description: Signal interest and get assigned to a bounty on GitHub.
 ---
 
 # 2. Get assigned
 
-<TimeEstimate minutes={1} forRole="Contributors" needs="GitHub account + open bounty issue" />
 
-**What you'll do:** Let the maintainer know you want to work on this bounty.
+**What you'll do:** Get the maintainer to assign you, so the bounty is reserved for your work.
 
----
-
-## How to request assignment
-
-Comment on the GitHub issue:
-
-<CommandBlock
-  command="@Trustless-OSS /connect"
-  description="Request to be assigned and get the wallet connection link"
-  where="Comment on the bounty issue"
-/>
-
-Or use these aliases (same effect):
-
-<CommandBlock
-  command="@Trustless-OSS /wallet"
-  description="Same as /connect"
-  where="Comment on the bounty issue"
-/>
-
-<CommandBlock
-  command="@Trustless-OSS /address"
-  description="Same as /connect"
-  where="Comment on the bounty issue"
-/>
+Only the **assigned** contributor can connect a wallet and get paid for a bounty. Assignment is how TOSS knows the reward is yours.
 
 ---
 
-## What happens next
+## How assignment happens
 
-The bot will reply with:
-- A link to connect your payout wallet
-- Confirmation that you're assigned
+Assignment is a normal GitHub action — the maintainer sets you as the issue's **Assignee**. There's no bot command to self-assign; comment on the issue to express interest and let the maintainer assign you.
+
+<Steps>
+### Comment to express interest
+Say you'd like to take it, and anything relevant about your approach. Maintainers assign people they're confident in.
+
+### Wait for the assignment
+When the maintainer assigns you, the bot comments with a link to connect your payout wallet.
+</Steps>
 
 {/* MEDIA-SLOT
   id: c-assigned-01
   type: image
-  file: /media/contributor/bot-wallet-link.png
-  show: Bot comment with wallet connection link and assignment confirmation
-  caption: The bot provides your wallet connection link
-  alt: Bot response with wallet link
+  file: /media/contributor/assigned-bot-comment.png
+  show: GitHub issue where the contributor is set as Assignee, and the bot's comment with a "Connect wallet" link addressed to them
+  caption: Once you're assigned, the bot links your wallet-connect page
+  alt: Bot comment with wallet connect link after assignment
 */}
 
----
-
-## Can anyone get assigned?
-
-Not if the bounty is already assigned. The maintainer decides who to assign.
-
-**If you comment and the bounty is already assigned,** the bot will tell you.
+<Callout type="info">
+No wallet connected yet? That's fine. The bounty **parks** and waits for you — it won't error or expire while it waits. Connect whenever you're ready and it resumes.
+</Callout>
 
 ---
 
-## Manual assignment by maintainer
+## Done when
 
-If the maintainer assigns you directly (via GitHub "Assignees" button), you'll still get the wallet link. Just comment with one of the commands above if you don't see the link.
+You're listed as the issue's assignee and the bot has posted your wallet-connect link.
 
----
-
-**Next:** [Connect payout wallet](/c-03-connect-wallet)
-
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Connect your payout wallet](/c-03-connect-wallet) · **Stuck?** [Troubleshooting](/troubleshooting)

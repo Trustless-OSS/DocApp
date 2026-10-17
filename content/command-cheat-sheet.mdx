@@ -1,150 +1,113 @@
 ---
 title: Command Cheat Sheet
-description: Quick reference for all Trustless OSS bot commands.
+description: Every TOSS bot command, the labels that create bounties, and who can run what.
 ---
 
 # Command Cheat Sheet
 
-All commands start with `@Trustless-OSS` in a comment on the **bounty issue** (not a PR or unrelated issue).
+The bot is **`@trustless-oss`**. Mention it anywhere in an issue or PR comment, followed by a command. Commands are case-insensitive, and a leading slash is optional — `@trustless-oss pay 70` and `@trustless-oss /pay 70` both work.
+
+Comment a command on the **bounty issue**. Payout and reject commands also work on a **PR comment**, as long as the PR body links the issue (`Closes #123`).
 
 ---
 
 ## Maintainer commands
 
-### Set a custom bounty amount
+Only repository **owners, members, and collaborators** can run these. Comments from anyone else are ignored for privileged commands.
+
+| Goal | Command | What happens |
+| --- | --- | --- |
+| Set a manual bounty amount | `@trustless-oss 150` | Sets the reward to 150 USDC. Works while the issue is still open or assigned-but-unlocked. |
+| Split the payout | `@trustless-oss pay 70` | Saves a 70/30 split. On merge, the contributor gets 70%, you get the remaining 30% back. |
+| Reject the work | `@trustless-oss reject` | Disputes the milestone, refunds the escrow to your wallet, and cancels the bounty. |
+| Force a re-check | `@trustless-oss retry` | Re-runs the automation now. Rarely needed — payouts advance on their own. |
 
 <CommandBlock
-  command="@Trustless-OSS 150"
-  description="Set bounty to 150 USDC (use with rewarded + custom labels)"
+  command="@trustless-oss 150"
+  description="Sets a manual bounty to 150 USDC. The issue must have the 'rewarded' + 'manual' labels, or you can set the amount before adding a difficulty label."
   where="Comment on the bounty issue"
 />
 
-**Use when:** Issue has both `rewarded` and `custom` labels.
-
----
-
-### Pay out early (partial payment)
-
-| Command | Effect | Use |
-|---------|--------|-----|
-| `@Trustless-OSS /pay 75` | Release 75% of the bounty now | Work is 75% done, rest waits for merge |
-| `@Trustless-OSS /split 60` | Release 60% now | Alias of `/pay` |
-| `@Trustless-OSS /work 50` | Release 50% now | Alias of `/pay` |
-| `@Trustless-OSS /work-completion 80` | Release 80% as work-completion | Track work progress |
-
-Example:
 <CommandBlock
-  command="@Trustless-OSS /pay 75"
-  description="Contributor gets 75% now; 25% releases on merge"
-  where="Comment on the bounty issue"
+  command="@trustless-oss pay 70"
+  description="Saves a split. On merge the contributor receives 70% and 30% returns to you. Percentage must be 1–99. Change it anytime before merging."
+  where="Comment on the bounty issue or the linked PR"
 />
 
----
-
-### Reject work
-
-| Command | Effect |
-|---------|--------|
-| `@Trustless-OSS /reject` | Reject the work; start dispute flow |
-| `@Trustless-OSS /rejected` | Alias of `/reject` |
-| `@Trustless-OSS /no` | Alias of `/reject` |
-
-Example:
 <CommandBlock
-  command="@Trustless-OSS /reject"
-  description="Work doesn't meet requirements; dispute begins"
-  where="Comment on the bounty issue"
+  command="@trustless-oss reject"
+  description="Rejects the work, refunds escrow to your wallet, and cancels the bounty. Irreversible."
+  where="Comment on the bounty issue or the linked PR"
 />
 
----
-
-### Retry a failed payout
-
-<CommandBlock
-  command="@Trustless-OSS /retry"
-  description="Retry the last payout transaction (if it failed)"
-  where="Comment on the bounty issue"
-/>
+<Callout type="info">
+**Aliases.** `pay` also accepts `split`, `work`, `work-completion`, and `completion`. `reject` also accepts `rejected`, `no`, and `invalid`. Stick to `pay` and `reject` — the aliases exist so the bot is forgiving, not so you have to remember them.
+</Callout>
 
 ---
 
 ## Contributor commands
 
-### Connect payout wallet
+Anyone can run these.
 
-| Command | Effect |
-|---------|--------|
-| `@Trustless-OSS /wallet` | Get wallet connection link |
-| `@Trustless-OSS /address` | Alias of `/wallet` |
-| `@Trustless-OSS /connect` | Alias of `/wallet` |
-
-Example:
-<CommandBlock
-  command="@Trustless-OSS /wallet"
-  description="Get the link to connect your wallet for this bounty"
-  where="Comment on the bounty issue after being assigned"
-/>
-
----
-
-### Change payout wallet
+| Goal | Command | What happens |
+| --- | --- | --- |
+| Connect or change your payout wallet | `@trustless-oss wallet` | The bot replies with a personal link to connect (or switch) your Stellar wallet for this bounty. |
 
 <CommandBlock
-  command="@Trustless-OSS /change-address"
-  description="Get a link to switch to a different wallet for this bounty"
+  command="@trustless-oss wallet"
+  description="The bot replies with a link to connect or update the wallet that will receive this bounty's payout."
   where="Comment on the bounty issue"
 />
+
+<Callout type="info">
+`wallet` also accepts `address`, `connect`, `change-address`, `ch-wallet`, `ch-address`, and `ch-add`. They all do the same thing: return your connect link.
+</Callout>
 
 ---
 
 ## Anyone
 
-### Get help
+| Goal | Command | What happens |
+| --- | --- | --- |
+| List the commands | `@trustless-oss help` | The bot posts the full command list in the thread. |
 
 <CommandBlock
-  command="@Trustless-OSS /help"
-  description="Bot replies with the full command list"
-  where="Comment on any issue"
+  command="@trustless-oss help"
+  description="Posts the command list as a comment. Also accepts 'h' and '--h'."
+  where="Comment on any issue or PR"
 />
 
 ---
 
-## Labels (Bounty setup)
+## Labels
 
-Use these GitHub labels to configure bounties:
+Labels are how an issue becomes a bounty. The bot reads them from GitHub webhook events.
 
-| Label | Purpose | Always pair with |
-|-------|---------|------------------|
-| `rewarded` | Marks the issue as a bounty | One tier label (`low`, `medium`, `high`, `custom`) |
-| `low` | Low-tier bounty | `rewarded` |
-| `medium` | Medium-tier bounty | `rewarded` |
-| `high` | High-tier bounty | `rewarded` |
-| `custom` | Custom USDC amount (set via bot command) | `rewarded` + bot amount command |
+| Label | Role | Notes |
+| --- | --- | --- |
+| `rewarded` | **Required.** Turns the issue into a bounty. | Pair it with exactly one difficulty label. |
+| `low` / `medium` / `high` | Reward tier. | Uses the USDC amount you configured for that tier in the dashboard. |
+| `manual` | Reward set per-issue. | Set the amount with `@trustless-oss <amount>` or by putting the amount in the issue body. |
+| `rejected` | Cancels the bounty. | Same effect as `@trustless-oss reject`: refunds escrow and cancels. |
 
-**Example setup:**
-- Issue labeled `rewarded` + `medium` → bounty worth your "medium" tier USDC amount
-- Issue labeled `rewarded` + `custom` + bot comment `@Trustless-OSS 250` → bounty worth 250 USDC
+<Callout type="info">
+**Tiers are just labels with an amount.** The dashboard ships three defaults — `low`, `medium`, `high` — but you can rename them, delete them, or add your own tiers mapped to any GitHub label. See [Set reward tiers](/m-05-reward-amounts).
+</Callout>
 
----
-
-## Quick tips
-
-- **Always start with @Trustless-OSS** even for just an amount (`@Trustless-OSS 100`)
-- **Comment on the issue**, not the PR or other issues
-- **One command per comment** (to avoid bot confusion)
-- **Wait 1–2 seconds** for the bot to reply before repeating
-- **Labels must include `rewarded`** — without it, the issue isn't a bounty
+<Callout type="warning">
+`rewarded` on its own, with no difficulty label and no amount, creates an **unpriced** bounty. It stays inactive until you add a tier label or set a manual amount. Funds are only reserved once the bounty has an amount.
+</Callout>
 
 ---
 
-## Need help with a command?
+## How the amount gets locked
 
-Comment on any issue:
+Understanding this prevents most "why didn't it update?" confusion.
 
-<CommandBlock
-  command="@Trustless-OSS /help"
-  description="Bot lists all available commands"
-  where="Comment on any issue"
-/>
+1. While the issue is **open** (or assigned but not yet locked on-chain), you can change the reward freely — relabel it, or comment a new manual amount.
+2. Once a contributor connects a wallet and the **milestone is pushed on-chain**, the amount is **locked**. Relabeling or re-commenting an amount after that is ignored, because the database and the escrow contract must stay in sync.
 
-Or visit [Troubleshooting](/troubleshooting).
+---
+
+**Next:** [Troubleshooting](/troubleshooting) · [How payouts work](/how-money-flows)

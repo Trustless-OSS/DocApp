@@ -1,117 +1,56 @@
 ---
 title: Get XLM for fees
-description: Buy a small amount of XLM to pay for network transactions.
+description: Fund your account with a small amount of XLM to cover network fees and the minimum reserve.
 ---
 
 # Get XLM for fees
 
-<TimeEstimate minutes={5} forRole="Everyone" needs="Wallet created + $5–10 to buy XLM" />
 
-**What you'll do:** Buy a small amount of XLM to cover network fees and your account's minimum balance.
+**What you'll do:** Put a small amount of XLM in your wallet so you can pay network fees and meet Stellar's account reserve.
 
----
-
-## Why XLM?
-
-XLM is Stellar's native currency. It powers the network (like gas on Ethereum). Every transaction—sending USDC, setting up a trustline, paying a bounty—costs a tiny amount of XLM in fees.
-
-You don't need much. **$5 worth of XLM lasts months** for a typical user.
-
-{/* TODO-VERIFY: exact minimum balance and typical fee amounts */}
+Every Stellar transaction — adding a trustline, connecting a wallet, deploying or funding an escrow — costs a tiny XLM fee, and an account must hold a minimum XLM reserve to exist. A few dollars of XLM covers a long run of activity. {/* TODO-VERIFY: exact minimum reserve and typical per-op fee */}
 
 ---
 
-## Step 1: Find your account address
+## Fund the account
 
-Open your wallet (LOBSTR). Go to **"Settings"** or **"Profile"**.
+<Steps>
+### Copy your Stellar address
+In the wallet, find your address (starts with `G…`) and copy it. {/* TODO-VERIFY: confirm where the receive address lives in the current UI */}
 
-Look for your **Stellar address** (a long string starting with "G", like `GBZXN7PIRZGNMHGA7MUSC3KGDKBS63X647DQV5AXX6IMV4FVWQ6REVOLVE`).
+### Buy XLM
+On an exchange that lists XLM (e.g. Kraken, Coinbase, Uphold), buy a small amount — $5–$10 is plenty to start.
 
-Tap to copy it.
+### Withdraw XLM to your address
+Send the XLM to the Stellar address you copied. Double-check the address before confirming.
+
+### Wait for arrival
+Stellar settles in seconds to a few minutes. Refresh your wallet to see the balance.
+</Steps>
 
 {/* MEDIA-SLOT
   id: wallet-xlm-01
   type: image
-  file: /media/wallet/lobstr-address.png
-  show: LOBSTR profile/settings with Stellar address visible and copy button highlighted
-  caption: Copy your Stellar address. You'll use it to buy XLM.
-  alt: Stellar address in LOBSTR
+  file: /media/wallet/receive-xlm.png
+  show: Split image — exchange withdrawal form with a Stellar G-address pasted and a small XLM amount, and the wallet home showing the received XLM balance
+  caption: Send a small amount of XLM to your Stellar address
+  alt: Exchange withdrawal to a Stellar address and the resulting balance
 */}
 
----
-
-## Step 2: Buy XLM from an exchange
-
-Go to a crypto exchange (Coinbase, Kraken, Uphold, or similar). Log in or create an account.
-
-In the buy section:
-1. Search for **"XLM"** or **"Stellar"**
-2. Enter an amount: **$5–$10** (enough for a few months of fees)
-3. Complete the purchase
-
-You now have XLM. Next, you'll send it to your wallet.
-
-<Callout type="info">
-  **Never used a crypto exchange?** Try [Uphold](https://uphold.com) or [Coinbase](https://coinbase.com). Both are beginner-friendly. You'll need to verify your ID.
+<Callout type="warning">
+Send to the correct Stellar address. On-chain sends are irreversible — a wrong address means the funds are gone. If your exchange asks for a **memo**, a personal Stellar wallet address usually doesn't need one, but confirm in your wallet's receive screen. {/* TODO-VERIFY: memo guidance for the recommended wallet */}
 </Callout>
 
 ---
 
-## Step 3: Send XLM to your wallet
+## Running low later
 
-In the exchange, find **"Send"** or **"Withdraw"**.
-
-Paste your Stellar address (from Step 1). Confirm the amount ($5–$10).
-
-The exchange will ask for a confirmation. Tap **"Send"** or **"Confirm"**.
-
-{/* MEDIA-SLOT
-  id: wallet-xlm-02
-  type: image
-  file: /media/wallet/exchange-send-xlm.png
-  show: Exchange send/withdraw form with Stellar address pasted and amount entered
-  caption: Paste your Stellar address and the XLM amount. Double-check the address before sending.
-  alt: Exchange withdrawal form
-*/}
+If fees ever fail for lack of XLM, repeat this: buy a little more and send it to the same address.
 
 ---
 
-## Step 4: Wait for arrival
+## Done when
 
-XLM typically arrives in 1–5 minutes. Go back to LOBSTR and refresh your home screen.
+Your wallet shows an XLM balance. With USDC (trustline) and XLM (fees) in place, your wallet is ready.
 
-You should see XLM in your balance.
-
-{/* MEDIA-SLOT
-  id: wallet-xlm-03
-  type: image
-  file: /media/wallet/lobstr-xlm-received.png
-  show: LOBSTR home screen showing XLM balance (e.g., "5.00 XLM")
-  caption: Your XLM has arrived! You're all set.
-  alt: LOBSTR with XLM balance
-*/}
-
----
-
-## Done
-
-You now have:
-- ✅ USDC enabled (trustline)
-- ✅ XLM for fees
-- ✅ A fully working wallet
-
-**Your wallet is ready to use.**
-
----
-
-## What if you run low on fees?
-
-If you run out of XLM, just repeat this process: buy a bit more on an exchange and send it to your wallet.
-
----
-
-**Next:** Pick your path:
-- [I'm a maintainer → Sign in with GitHub](/m-01-sign-in)
-- [I'm a contributor → Find a bounty](/c-01-find-bounty)
-
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Keep it safe](/keep-wallet-safe), then pick a path — [Maintainer](/m-01-sign-in) · [Contributor](/c-01-find-bounty)

@@ -1,49 +1,64 @@
 ---
-title: How money flows
-description: Visual diagram of the money flow in Trustless OSS.
+title: How payouts work
+description: The full lifecycle of a bounty, from label to automatic release, and the rules that guard the money.
 ---
 
-# How money flows
+# How payouts work
 
-<TimeEstimate minutes={2} />
+
+A bounty advances **on its own**. You and your contributors do ordinary GitHub and wallet actions — label, assign, connect a wallet, merge — and the platform's background workers handle every on-chain step, retrying transient failures automatically. Nobody presses a "release" button.
 
 {/* MEDIA-SLOT
   id: money-flow-diagram
   type: image
   file: /media/diagrams/money-flow.png
-  show: Diagram with three columns (Maintainer, Escrow, Contributor) and arrows showing: USDC flows in → waits → releases on merge
-  caption: Money goes from maintainer's wallet → escrow contract → contributor's wallet
-  alt: Flow diagram showing money entering escrow and releasing to contributor
+  show: Horizontal lifecycle diagram with lanes for GitHub, TOSS backend (queue/workers), and Stellar escrow. Nodes: label → fund reserved → assign → wallet connect → milestone pushed on-chain → PR merged → payout released. Show the "parks until wallet connects" branch.
+  caption: A bounty moves itself through each state as the required pieces arrive.
+  alt: Bounty lifecycle diagram across GitHub, backend, and Stellar
 */}
 
-## Step by step
+## The lifecycle
 
-### Before work starts
+<Steps>
+### Deploy and fund the escrow
+Each repository gets its own escrow contract on Stellar. You deploy it once, then fund it with USDC. Every bounty in the repo draws from this shared balance.
 
-1. **Maintainer funds escrow.** Sends USDC from their wallet to a smart contract on Stellar. Money is now locked and can't be spent.
-2. **Maintainer labels the issue** with `rewarded` + a tier (`low`, `medium`, `high`, or `custom`).
-3. **Contributor sees the bounty.** Gets assigned, clicks the link to connect their wallet. Now they know money is real (it's in escrow).
+### Create a bounty
+Label an issue `rewarded` plus a tier (`low`/`medium`/`high`) or `manual`. The bot reserves the reward amount from the escrow balance and comments to confirm. The amount is still editable at this point.
 
-### When work is done
+### Assign a contributor
+Assign someone on GitHub. The bot links them a page to connect a Stellar wallet. If no wallet is connected yet, the bounty **parks** and waits — no error, no timeout.
 
-4. **Contributor opens a PR** with `Closes #123` in the description (links to the issue).
-5. **Maintainer merges the PR.** GitHub records the merge timestamp.
-6. **Escrow releases USDC** to the contributor's wallet automatically. (This happens on the Stellar blockchain.)
+### Lock the milestone
+Once the contributor connects a wallet, a worker pushes the milestone to the escrow contract. The reward amount is now locked on-chain against that wallet.
 
-### If something goes wrong
+### Merge the PR
+The contributor opens a PR whose body links the issue (`Closes #123`). When you merge it, GitHub fires an event and the automation re-checks every rule.
 
-- **PR is rejected** (`@Trustless-OSS /reject`): Money stays in escrow. Maintainer can retry or return it.
-- **PR is only partially merged** or needs more work (`@Trustless-OSS /pay 50`): Maintainer pays 50% now; remaining 50% waits.
-- **Contributor never merged PR**: Money stays in escrow; maintainer can hold, retry, or withdraw.
+### Release automatically
+If the live rules pass — PR merged, issue closed, milestone on-chain, receiver matches the contributor's wallet, not already paid — the escrow releases the USDC to the contributor. Typically within seconds.
+</Steps>
 
-## The escrow (what is it?)
+## What "trustless" actually means here
 
-An **escrow** is a locked container for money. It sits on the Stellar blockchain. The rules are:
-- Money can only be released when the PR is merged and the contract's conditions are met.
-- Maintainer can't touch the money once locked (except to withdraw all of it, which cancels bounties).
-- Only the Trustless OSS system can trigger the release (automatically when it detects a merge).
+The platform never holds your keys. You sign the deploy and fund transactions in your own wallet; the contributor signs their wallet connection. The escrow contract — not a company — decides when funds release, based on on-chain state.
 
-This is why it's "trustless"—you don't need to trust a company to hold or release the money. The blockchain and code do it for you.
+## The rules that protect the money
+
+Every release re-reads GitHub **and** the escrow contract before acting. A job queued minutes ago never acts on stale state. Specifically:
+
+- **The chain is read first.** If the milestone already shows released, the only thing the system will do is fix its own database. It will never pay twice.
+- **Receiver must match.** If the contributor changed wallets after the milestone was pushed, the stale milestone is re-pushed to the new wallet *before* any payout. A wallet change can't wedge a bounty.
+- **Amount must match.** If the on-chain amount doesn't equal the recorded reward, the payout is blocked and logged — not force-paid.
+- **Author must match.** The merged PR's author must be the assigned contributor, verified live against GitHub, not just a recorded webhook.
+
+## When things park instead of failing
+
+- **Contributor hasn't connected a wallet yet** → the bounty parks and resumes the moment they connect.
+- **Trustless Work or GitHub returns a timeout or 5xx** → the job retries with backoff until it succeeds.
+- **Issue closed before the milestone was pushed** → the worker pushes it, then re-evaluates and releases.
+
+This is why `@trustless-oss retry` is almost never needed. It only asks the state machine to run *now* against the same rules — it can't force a payout the automation would otherwise refuse.
 
 ---
 

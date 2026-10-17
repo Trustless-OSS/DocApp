@@ -1,75 +1,53 @@
 ---
 title: Remove a repository
-description: Unlink a repository from Trustless OSS.
+description: Disconnect a repo from TOSS and revoke its GitHub App access.
 ---
 
 # Remove a repository
 
-<TimeEstimate minutes={1} forRole="Maintainers" needs="Repository with 0 USDC escrow balance" />
 
-**What you'll do:** Remove a repository from Trustless OSS and revoke the GitHub App connection.
-
----
-
-## When to remove
-
-- You're archiving the repository
-- You no longer want to offer bounties
-- You want to start fresh with a new repository
+**What you'll do:** Disconnect a repository from TOSS and clean up its GitHub App connection.
 
 ---
 
-## Requirements
+## Requirement: zero balance
 
-**The escrow must be empty (0 USDC).** If there's any USDC left, [withdraw it first](/m-withdraw).
+You can only remove a repo when its escrow balance is **0 USDC**. If there's any balance, [withdraw it first](/m-withdraw) — the backend refuses deletion while funds remain.
 
 ---
 
-## Step 1: Click "Remove"
+## What removal does
 
-On your repository page, click the **"Delete"** or **"Remove"** button.
+<Steps>
+### Deletes TOSS records for the repo
+Tracked issues, bounty records, and reward tiers for this repo are removed.
+
+### Revokes GitHub App access
+If this was the **last** repo on the installation, the GitHub App is uninstalled entirely. Otherwise, just this repo is removed from the installation.
+
+### Leaves your code untouched
+Your issues, PRs, and remaining labels stay on GitHub. TOSS simply stops watching the repo.
+</Steps>
 
 {/* MEDIA-SLOT
   id: m-remove-01
   type: image
-  file: /media/maintainer/repo-remove-button.png
-  show: Repository page with "Remove" or "Delete" button (may be in a menu or disabled if balance > 0)
-  caption: Click to remove the repository
-  alt: Remove repository button
+  file: /media/maintainer/remove-repo.png
+  show: Repo page with a Remove/Delete action; a confirmation dialog listing what will be deleted; the Delete button disabled/greyed when balance > 0 with a hint to withdraw first
+  caption: Removal requires a zero escrow balance
+  alt: Remove repository confirmation dialog
 */}
 
----
-
-## Step 2: Confirm removal
-
-A confirmation dialog appears:
-
 <Callout type="warning">
-  **This will:**
-  - Remove the repository from Trustless OSS
-  - Delete all tracked bounty records and issue data
-  - Revoke the GitHub App connection for this repository
-  - Refund any active bounties (funds return to escrow or contributor accounts)
-
-  **This cannot be undone.**
-
-  Type "yes" or click "Confirm" to proceed.
+Removal deletes TOSS's bounty records and reward tiers for the repo and revokes App access. It doesn't touch your code, issues, or PRs, but the bounty history inside TOSS for this repo is gone. This can't be undone — you'd reconnect from scratch.
 </Callout>
-
----
-
-## Step 3: Done
-
-The repository is removed from your dashboard and Trustless OSS no longer monitors it.
-
-GitHub labels and issues remain, but Trustless OSS will no longer react to them.
 
 ---
 
 ## Reconnecting later
 
-If you change your mind, you can reinstall the GitHub App and reconnect the repository. This creates a new escrow (fresh start).
+Reinstall the GitHub App and connect the repo again. You'll deploy a fresh escrow and set up tiers from scratch.
 
 ---
 
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Dashboard tour](/m-dashboard-tour) · **Stuck?** [Troubleshooting](/troubleshooting)

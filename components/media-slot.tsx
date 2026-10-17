@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { Camera } from 'lucide-react'
 
 interface MediaSlotProps {
   id: string
@@ -12,7 +13,7 @@ interface MediaSlotProps {
 }
 
 /**
- * Development-mode placeholder that shows a dashed box with the slot ID.
+ * Development-mode placeholder that shows a subtle box with the slot ID.
  * In production (when file is provided), renders the actual image/video.
  */
 export function MediaSlot({
@@ -27,7 +28,7 @@ export function MediaSlot({
   if (file) {
     if (type === 'video') {
       return (
-        <figure className="my-6 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+        <figure className="my-5 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
           <video
             controls
             preload="metadata"
@@ -38,7 +39,7 @@ export function MediaSlot({
             Your browser does not support the video tag.
           </video>
           {caption && (
-            <figcaption className="p-3 text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900">
+            <figcaption className="p-2 text-xs text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900">
               {caption}
             </figcaption>
           )}
@@ -48,7 +49,7 @@ export function MediaSlot({
 
     // Image
     return (
-      <figure className="my-6 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+      <figure className="my-5 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         <Image
           src={file}
           alt={alt || caption || id}
@@ -57,7 +58,7 @@ export function MediaSlot({
           className="w-full h-auto"
         />
         {caption && (
-          <figcaption className="p-3 text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900">
+          <figcaption className="p-2 text-xs text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900">
             {caption}
           </figcaption>
         )}
@@ -65,25 +66,22 @@ export function MediaSlot({
     )
   }
 
-  // Development mode: show placeholder
+  // Development mode: show subtle placeholder
   return (
-    <div className="my-6 rounded-lg border-2 border-dashed border-yellow-300 dark:border-yellow-600 bg-yellow-50 dark:bg-yellow-900/20 p-6">
-      <div className="text-sm font-mono text-yellow-700 dark:text-yellow-200 mb-2">
-        MEDIA SLOT
-      </div>
-      <div className="text-sm font-semibold text-yellow-800 dark:text-yellow-100 mb-1">
-        {id}
-      </div>
-      <div className="text-xs text-yellow-600 dark:text-yellow-300 mb-3">
-        Type: {type}
+    <div className="my-5 rounded-lg border border-dashed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 p-4">
+      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-2">
+        <Camera size={13} className="flex-shrink-0" />
+        <span className="font-mono">{id}</span>
+        <span className="text-gray-400 dark:text-gray-600">—</span>
+        <span>{type}</span>
       </div>
       {show && (
-        <div className="text-xs text-yellow-700 dark:text-yellow-200">
+        <div className="text-xs text-gray-500 dark:text-gray-400">
           <span className="font-semibold">Show:</span> {show}
         </div>
       )}
       {caption && (
-        <div className="text-xs text-yellow-700 dark:text-yellow-200 mt-2">
+        <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
           <span className="font-semibold">Caption:</span> {caption}
         </div>
       )}

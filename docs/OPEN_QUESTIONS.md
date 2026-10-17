@@ -1,45 +1,37 @@
-# Open Questions for Trustless OSS Docs
+# Open Questions
 
-These are items that need verification or clarification from the product team before finalizing.
+Updated after reading the Toss-Backend source. Most prior guesses are now resolved from code; what remains are a few facts that live outside the backend (wallet UIs, Stellar constants) plus product decisions.
 
-| # | Question | Impact | Status | Notes |
-|---|----------|--------|--------|-------|
-| 1 | **Bot mention:** Is it `@Trustless-OSS`, `@trustless-oss-bot`, or `@toss`? | All command pages | ✅ RESOLVED | Using `@Trustless-OSS` in all docs. Verified correct. |
-| 2 | **Network:** Testnet (play money) or mainnet (real money)? | Wallet setup, escrow, payout docs | ✅ RESOLVED | Mainnet (real money). Wallet docs reflect this. |
-| 3 | **USDC issuer address** (Stellar mainnet) | Wallet setup security | ⚠️ TODO-VERIFY | Currently documented as `GA5ZSEJYB37JRC5AVCIA5MOP4IC2BTNXYVYCYRDLW34RBWXVLCNQO5P`. Need official confirmation. Docs link to this; users should verify. |
-| 4 | **XLM minimum balance** for Stellar account | Wallet setup estimation | ⚠️ TODO-VERIFY | Docs say "a few dollars" (~$5 in XLM lasts months). Need exact minimum balance and typical fee amounts. |
-| 5 | **Wallet UI labels** (button names, field labels) | Wallet setup steps | ⚠️ TODO-VERIFY | Steps are generic ("click Fund", "enter amount"). Marked with `TODO-VERIFY` comments for exact UI labels. Needs screenshots. |
-| 6 | **`/pay` percentage semantics** | Manage bounty page | ⚠️ TODO-VERIFY | Docs assume `/pay 75` = "75% of bounty". Need to confirm if it's a percentage or flat USDC amount. |
-| 7 | **Partial payout behavior** | Manage bounty page | ⚠️ TODO-VERIFY | If bounty is 100 USDC and you `/pay 60`, what happens to the remaining 40? Does it auto-release on merge, or does maintainer have to manually release? |
-| 8 | **Dispute resolution flow** after `/reject` | Troubleshooting + manage bounty page | ⚠️ TODO-VERIFY | Exact steps when maintainer rejects work. Who can appeal? What's the timeline? Can contributor request manual review? |
-| 9 | **Full withdrawal consequence** | Withdraw funds page | ⚠️ TODO-VERIFY | When maintainer withdraws all funds, do active bounties immediately fail? Do contributors get refunded automatically? Exact flow? |
-| 10 | **Bot mention consistency** | All pages | ⚠️ PRODUCT BUG | Dashboard docs say `@trustless-oss-bot`, repo page says `@toss`, command docs say `@Trustless-OSS`. Standardize product-side. |
-| 11 | **Cross-chain (CCTP) payouts** | FAQ + features | ⚠️ NOT YET AVAILABLE | Docs do not mention cross-chain. It's not available to users yet; treating as future roadmap. |
-| 12 | **Support email or contact** | Troubleshooting + FAQ | ⚠️ TODO-VERIFY | Currently docs reference `support@trustless-oss.xyz`. Confirm this is correct. |
-| 13 | **Video hosting platform** | Media slots | ⚠️ TODO | Prefer self-hosted `/media/` (next to public/) or YouTube embeds? |
-| 14 | **Refund flow on full withdrawal** | Withdraw funds page + FAQ | ⚠️ TODO-VERIFY | When maintainer does full withdrawal mid-bounty, where does the contributor's refunded USDC go? |
+## Resolved from backend source
 
----
+| # | Was | Now (confirmed in code) |
+|---|-----|--------------------------|
+| 1 | Bot mention unclear (`@Trustless-OSS` / `@trustless-oss-bot` / `@toss`) | **`@trustless-oss`**, case-insensitive, optional leading slash. Source: `handlers/helpers.rs` regexes. Docs updated throughout. |
+| 2 | `custom` label | **Removed.** The per-issue tier is now `manual`. Difficulty labels: `low`, `medium`, `high`, `manual`. Source: `bounty/labels.rs`. |
+| 3 | Reward tiers model | `(label, amount)` pairs per repo; editable, deletable; `PUT /repos/{id}/rewards`, `DELETE` with `alsoDeleteGithubLabel`. Three defaults low/med/high; new tier names create the GitHub label. Source: `repo/handlers.rs`, `repo/service.rs`, `repo/datatypes.rs`. Docs rewritten in `m-05-reward-amounts`. |
+| 4 | `/pay` semantics | **Percentage, 1–99.** Contributor gets the %, maintainer gets the remainder on merge. Saved as an intent pre-merge. Source: `issue_comment.rs`, `helpers.rs::split_amounts`. |
+| 5 | Reject flow | Disputes the milestone on-chain, resolves back to the maintainer wallet, refunds escrow, cancels bounty. Also triggered by the `rejected` label. Source: `issue_comment.rs`, `issue_labeled.rs`, `helpers.rs`. |
+| 6 | Full withdrawal consequence | Withdrawal = refund that cancels **all active bounties** and returns reservations; response reports `refundedAmount` + `cancelledIssues`. Source: `escrow/dto.rs::RefundResponse`, `repo/service.rs`. |
+| 7 | Retry | Not part of the happy path. Automation parks/resumes/retries on its own; `@trustless-oss retry` only re-runs checks. Source: `docs/jobs.md`, `issue_comment.rs`. |
+| 8 | Payout trigger & guards | Merge of a PR whose body links the issue, by the assigned author; release re-verifies merged+closed+milestone+receiver+amount live. Source: `pull_request.rs`, `docs/jobs.md`. |
+| 9 | Command aliases | `pay`={pay,split,work,work-completion,completion}; `reject`={reject,rejected,no,invalid}; `wallet`={wallet,address,connect,change-address,ch-wallet,ch-address,ch-add}; `help`={help,h,--h}. Docs show one primary each, aliases noted. Source: `helpers.rs`. |
+| 10 | Privilege | Payout/reject/retry/manual-amount require OWNER/MEMBER/COLLABORATOR; wallet/help open to all. Source: `issue_comment.rs::is_privileged_association`. |
+| 11 | Repo sync | Only public, non-fork repos sync; `Sync` button; install via GitHub App. Source: `repo/service.rs`. |
 
-## Resolved
+## Still open — need your input or external facts
 
-✅ #1 — Bot mention: `@Trustless-OSS` (confirmed by user)
-✅ #2 — Network: Mainnet, real money (confirmed by user)
+| # | Question | Where it matters | Current doc state |
+|---|----------|------------------|-------------------|
+| A | **USDC issuer address** on Stellar mainnet (Circle) | `add-usdc` warning, troubleshooting | `TODO-VERIFY` placeholder. Please provide the exact issuer `G...` address to publish. |
+| B | **XLM minimum reserve + typical fee** figures | `get-xlm`, FAQ | Described as "a few dollars"; needs exact numbers. `TODO-VERIFY`. |
+| C | **Wallet UI labels** (LOBSTR button/field names) | wallet setup pages | Steps written generically with `TODO-VERIFY` on each UI label, as requested. Confirm from screenshots. |
+| D | **Explorer/escrow viewer URL** shown to users | several | Bot uses `viewer.trustlesswork.com/{contractId}` and `stellar.expert/explorer/{public|testnet}`. Confirm which to surface in docs. Mainnet assumed. |
+| E | **App/dashboard URLs** (sign-in, connect, dashboard) | maintainer/contributor pages | Written generically ("the TOSS app"). Confirm canonical hostnames to hardcode. |
+| F | **Cross-chain (CCTP) payouts** | FAQ | Not documented. Backend payout chain is Stellar USDC. Confirm it stays omitted. |
+| G | **Video hosting** (self-hosted `/media`, YouTube, Loom) | all MEDIA-SLOTs | MediaSlot supports mp4 + embeds. Pick one. |
+| H | **`bonus` label** | labels reference | Appears in the `issue_labeled` trigger list but not in reward parsing (`labels.rs` only maps low/med/high/manual). Clarify whether `bonus` is a real tier or dead code — currently omitted from docs. |
 
----
+## Notes
 
-## Blocked on answers to build/finalize
-
-- **Media slots:** Can't finalize until video hosting decision (#13)
-- **Wallet UI steps:** Can't confirm exact button names until screenshots reviewed (#5)
-- **Bot command semantics:** Can't finalize manage bounty page until `/pay` and `/work` exact behavior confirmed (#6, #7)
-
----
-
-## Notes for content review
-
-1. All `TODO-VERIFY` comments in `.mdx` files should be resolved before launch
-2. `MEDIA-SLOT` placeholders show where screenshots/videos are needed
-3. Docs use plain language (no jargon without explanation); all crypto terms in Glossary
-4. Pages follow template: TimeEstimate → steps → warnings → next link → stuck link
-5. Bot commands on every page are copy-paste ready (with Copy buttons)
+- Network is **mainnet (real money)** per your instruction; all wallet/escrow pages reflect that.
+- Removed the old developer pages (`api`, `integrations`, `features`, `get-started`, `contributing`) — they were SDK/invented content contradicting the end-user docs. Recoverable via git if needed.

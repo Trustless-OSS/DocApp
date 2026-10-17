@@ -1,50 +1,38 @@
 ---
 title: What is Trustless OSS?
-description: 60-second explainer of how Trustless OSS works.
+description: What TOSS does, who it's for, and how it differs from traditional bounty platforms.
 ---
 
 # What is Trustless OSS?
 
-<TimeEstimate minutes={2} />
 
-**Trustless OSS** is an escrow-backed bounty system that runs on GitHub. It replaces the job board middle-man and lets maintainers fund open source issues with stablecoins (USDC). When a contributor's PR merges, the money releases automatically.
+**Trustless OSS (TOSS)** lets maintainers attach USDC rewards to GitHub issues and have them pay out automatically when the work merges — without a bounty platform sitting in the middle of the money.
+
+Funds live in a per-repository escrow contract on Stellar. A merged PR that closes a labeled issue triggers an on-chain release to the contributor. You keep working in issues and PRs exactly as you do today; the automation handles everything on-chain.
 
 ## The problem it solves
 
-- **Maintainers** want to pay for work but don't trust payment platforms, and contributors don't trust them either.
-- **Contributors** don't know if money is real until they've already done the work.
-- **Most bounty platforms** take a cut and add friction (new logins, new UI, delays).
+Traditional bounty platforms custody your money, take a cut, and ask everyone to trust their payout process. Contributors often can't tell whether a bounty is actually funded until they've done the work. TOSS removes the custodian: the escrow contract holds the funds, and its rules — not a company — decide when they release.
 
 ## How it's different
 
-Trustless OSS keeps bounties on GitHub where they already live. You use labels to mark an issue as a bounty, comment bot commands to manage it, and merge PRs as normal. Behind the scenes, USDC is held in escrow on Stellar (a blockchain) and released when the maintainer merges.
+- **GitHub-native.** Labels create bounties, assignment and merge drive the lifecycle, and a bot handles edge cases through comment commands. No separate workspace to manage work in.
+- **Non-custodial.** You sign deploy and fund transactions in your own wallet. The platform never holds keys. Releases are on-chain operations gated by verified state.
+- **Automatic.** A bounty advances itself: it parks when a wallet is missing, resumes when it arrives, retries transient failures with backoff, and never double-pays. Manual retry is an escape hatch, not part of the flow.
+- **Verifiable.** Every bounty's state is on-chain. A contributor can confirm the escrow is funded before starting.
 
-- **GitHub-native:** No new websites. All work happens in PRs and issues.
-- **Trustless:** Money is locked in a smart contract. Contributor can verify it's there before starting.
-- **Direct:** Your USDC goes straight to the contributor's wallet. No platform company in between.
-- **Fast:** Payouts settle in seconds. No waiting for the company to process transfers.
+## Who it's for
 
-## Who uses it?
+Open source maintainers who want to fund specific issues, and contributors who want to get paid in USDC for merged work. Both sides need a Stellar wallet; everything else happens through GitHub.
 
-- Open source maintainers who want to fund specific issues
-- Contributors who want to earn money for their PRs
-- Organizations building in public and rewarding community
+## The lifecycle in one paragraph
 
-## The money flow
-
-1. **Maintainer** signs in with GitHub → connects a repo → deploys an escrow contract → funds it with USDC
-2. **Maintainer** labels an issue as a bounty (e.g., `rewarded` + `medium`)
-3. **Contributor** is assigned → clicks the link → connects their wallet
-4. **Contributor** opens a PR with `Closes #issue` in the description
-5. **Maintainer** reviews and merges the PR
-6. **USDC** releases to the contributor's wallet automatically (within seconds)
-
-That's it. No dispute resolution UI, no withdrawal forms. GitHub is the arbiter; merging is the trigger.
+A maintainer connects a repo (installs the GitHub App), deploys an escrow contract, and funds it with USDC. They label an issue `rewarded` + a tier (or `manual` with an amount). A contributor is assigned and connects a Stellar wallet, which locks the reward as an on-chain milestone. The contributor opens a PR that closes the issue; the maintainer merges it; the escrow releases the USDC automatically. For a detailed walkthrough with the money-safety rules, see [How payouts work](/how-money-flows).
 
 ---
 
-**Ready to start?** Pick your role:
-- [I'm a maintainer](/m-01-sign-in)
-- [I'm a contributor](/c-01-find-bounty)
+**Pick your path:**
+- Maintainer → [Sign in with GitHub](/m-01-sign-in)
+- Contributor → [Find a bounty](/c-01-find-bounty)
 
-**New to crypto?** Read the [Glossary](/glossary) first.
+**New to Stellar/USDC?** Start with the [Glossary](/glossary).

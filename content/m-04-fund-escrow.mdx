@@ -1,112 +1,61 @@
 ---
 title: 4. Fund escrow
-description: Add USDC to your repository's escrow contract.
+description: Move USDC into the repository escrow by signing a funding transaction.
 ---
 
 # 4. Fund escrow
 
-<TimeEstimate minutes={2} forRole="Maintainers" needs="Wallet with USDC + XLM for fees" />
 
-**What you'll do:** Transfer USDC from your wallet to the escrow contract.
+**What you'll do:** Transfer USDC from your wallet into the repo's escrow. This is the balance every bounty draws from.
 
 ---
 
-## Step 1: Click "Fund" on the repository page
+## Fund it
 
-On your repository page, click the **"Fund"** button (or look for a balance card with a "+" button).
+<Steps>
+### Open the repository and click "Fund"
+The escrow balance card has a **Fund** action.
+
+### Enter an amount
+Use a quick amount or type a custom one. You can fund repeatedly — amounts add to the same contract.
+
+### Approve in your wallet
+TOSS builds the unsigned transfer; your wallet signs and broadcasts it. A tiny XLM fee applies.
+
+### Watch the balance update
+Stellar confirms in seconds, and the repo's escrow balance increases.
+</Steps>
 
 {/* MEDIA-SLOT
   id: m-fund-01
-  type: image
-  file: /media/maintainer/repo-fund-button.png
-  show: Repository page with "Fund" button or "Escrow balance: 0.00 USDC" card with a fund action
-  caption: Click to fund the escrow
-  alt: Fund button on repo page
+  type: video
+  file: /media/maintainer/fund-escrow.mp4
+  show: Click Fund, enter 100, confirm, wallet signs USDC transfer, balance updates from 0 to 100 USDC
+  length: 25
+  script:
+    - Repo page, escrow balance 0.00 USDC, click Fund
+    - Enter 100 in the amount field, click Continue
+    - Review dialog shows amount 100 USDC, destination escrow, XLM fee
+    - Wallet opens; approve the USDC transfer
+    - Balance updates to 100.00 USDC
+  caption: Funding is a signed USDC transfer into the escrow
+  alt: Screen recording of funding the escrow with USDC
 */}
-
----
-
-## Step 2: Choose an amount
-
-A dialog will appear with quick options: **+$25, +$50, +$100**, or **Custom**.
-
-{/* MEDIA-SLOT
-  id: m-fund-02
-  type: image
-  file: /media/maintainer/fund-dialog.png
-  show: Fund dialog with amount buttons (+$25, +$50, +$100, Custom) and "Continue" button
-  caption: Pick an amount or enter a custom one
-  alt: Fund dialog
-*/}
-
-Pick an amount or type a custom USDC amount.
-
-Click **"Continue"**.
-
----
-
-## Step 3: Review the transfer
-
-The dialog will show:
-- **Amount:** USDC you're sending (e.g., 50 USDC)
-- **Destination:** Your escrow address
-- **Fee:** A small fee in XLM (~$0.01)
-
-Review, then click **"Confirm"**.
-
-{/* MEDIA-SLOT
-  id: m-fund-03
-  type: image
-  file: /media/maintainer/fund-review.png
-  show: Fund review dialog showing amount, destination, and fee with "Confirm" button
-  caption: Review the transfer details
-  alt: Fund confirmation dialog
-*/}
-
----
-
-## Step 4: Approve in wallet
-
-Your wallet will pop up asking to confirm the transaction.
-
-{/* MEDIA-SLOT
-  id: m-fund-04
-  type: image
-  file: /media/maintainer/wallet-approve-fund.png
-  show: Wallet popup showing USDC transfer (amount: 50 USDC, destination: escrow, fee: XLM)
-  caption: Approve the transfer in your wallet
-  alt: Wallet approval for fund transfer
-*/}
-
-Click **"Approve"** or **"Sign"**.
 
 <Callout type="warning">
-  **Only approve ONCE.** Do not click multiple times. If the wallet closes, wait a few seconds and try again.
+Approve the wallet prompt **once**. If it seems stuck, wait a few seconds before retrying — double-approving can broadcast two transfers.
 </Callout>
 
 ---
 
-## Step 5: Wait for settlement
+## How the balance is used
 
-The USDC will transfer to the escrow (usually 3–10 seconds). The repository page will refresh and show the new balance.
-
-{/* MEDIA-SLOT
-  id: m-fund-05
-  type: image
-  file: /media/maintainer/repo-funded.png
-  show: Repository page with escrow balance updated (e.g., "50.00 USDC" instead of 0)
-  caption: Escrow is now funded with USDC
-  alt: Repository with funded escrow
-*/}
+The balance is a shared pool. Creating a bounty **reserves** its reward from the free balance; the funds aren't spent until a payout releases. If a bounty is rejected or cancelled, its reservation returns to the pool. If the free balance can't cover a new bounty, the bot asks you to top up.
 
 ---
 
-## Done
+## Done when
 
-Your escrow now holds USDC. You can fund it multiple times (each time goes to the same contract).
+The repo's escrow balance reflects the USDC you sent. You're ready to [set reward tiers](/m-05-reward-amounts) and create bounties.
 
----
-
-**Next:** [Set reward amounts](/m-05-reward-amounts)
-
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Set reward tiers](/m-05-reward-amounts) · **Stuck?** [Troubleshooting](/troubleshooting)

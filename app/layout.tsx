@@ -84,8 +84,8 @@ export default async function RootLayout({
           footer={footer}
           editLink="Edit this page on GitHub"
           darkMode={false}
-          sidebar={{ defaultMenuCollapseLevel: 1 }}
-          toc={{ title: 'On This Page' }}
+          sidebar={{ defaultMenuCollapseLevel: 1, autoCollapse: true }}
+          toc={{ title: 'On This Page', float: false }}
         >
           {children}
         </Layout>

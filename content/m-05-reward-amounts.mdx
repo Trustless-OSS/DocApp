@@ -1,101 +1,132 @@
 ---
-title: 5. Set reward amounts
-description: Configure low, medium, and high bounty tiers.
+title: 5. Set reward tiers
+description: Map GitHub labels to USDC amounts. Use the three defaults, edit them, delete them, or add your own.
 ---
 
-# 5. Set reward amounts
+# 5. Set reward tiers
 
-<TimeEstimate minutes={2} forRole="Maintainers" needs="Repository page" />
 
-**What you'll do:** Decide what "low", "medium", and "high" bounties are worth in USDC.
+**What you'll do:** Define which GitHub labels map to which USDC amounts, so labeling an issue sets its reward automatically.
 
----
-
-## Why tiers?
-
-Tiers are shortcuts. Instead of typing `@Trustless-OSS 50` every time, you label an issue with the `medium` label, and it automatically means 50 USDC.
+A reward tier is just a `(label, amount)` pair stored on the repo. Label an issue with that label and TOSS reserves that amount. The dashboard ships three defaults — `low`, `medium`, `high` — and every part of that is editable.
 
 ---
 
-## Step 1: Go to repository settings
+## The two ways to price a bounty
 
-On your repository page, click **"Settings"** or **"Reward Tiers"** (or look for a gear icon).
+| Approach | How | When to use |
+| --- | --- | --- |
+| **Tier label** | Pre-configure `low`/`medium`/`high` (or your own) with an amount, then just add the label to an issue. | Repeatable, consistent pricing across many issues. |
+| **Manual** | Label `rewarded` + `manual`, then comment `@trustless-oss <amount>`. | One-off amounts that don't fit a tier. |
+
+This page is about tiers. Manual pricing is covered in [Create a bounty](/m-06-create-bounty).
+
+---
+
+## Open the reward tiers panel
+
+<Steps>
+### Open the repository
+From the dashboard, click the repo. Reward tiers live on the repo page, below the escrow balance.
+
+### Review the three defaults
+`low`, `medium`, `high` are listed with their current USDC amounts. New repos start with placeholder amounts you'll want to set.
+</Steps>
 
 {/* MEDIA-SLOT
   id: m-tiers-01
   type: image
-  file: /media/maintainer/repo-settings-button.png
-  show: Repository page with Settings or gear icon button
-  caption: Access repository settings
-  alt: Settings button on repo page
+  file: /media/maintainer/repo-tiers-panel.png
+  show: Repo page "Reward tiers" panel listing low/medium/high rows, each with a USDC amount, an Edit (pencil) and Delete (trash) icon, plus an "Add tier" button
+  caption: The reward tiers panel on the repository page
+  alt: Reward tiers panel with low, medium, high rows and edit/delete controls
 */}
 
 ---
 
-## Step 2: Find "Reward Tiers" or "Labels"
+## Edit a tier
 
-You'll see a section for **"Reward Tiers"** or **"Reward Parameters"**.
+<Steps>
+### Click Edit on a tier
+Change the USDC amount, or change which GitHub label the tier maps to.
+
+### Save
+The new amount applies to every bounty you label *after* saving. Bounties already locked on-chain keep their original amount.
+</Steps>
 
 {/* MEDIA-SLOT
   id: m-tiers-02
   type: image
-  file: /media/maintainer/tiers-page.png
-  show: Settings page with list of tiers (low, medium, high, custom) and their USDC amounts
-  caption: Current reward tier settings
-  alt: Reward tiers configuration
+  file: /media/maintainer/tier-edit.png
+  show: Edit-tier form with a "Label" field (e.g. "medium") and an "Amount (USDC)" field, Save and Cancel buttons
+  caption: Editing a tier updates its amount or its mapped label
+  alt: Edit tier form with label and amount fields
 */}
-
----
-
-## Step 3: Edit each tier
-
-Click **"Edit"** on each tier (or create new ones). Set amounts in USDC:
-
-- **Low:** e.g., 25 USDC (quick fixes, documentation)
-- **Medium:** e.g., 50 USDC (feature work, bug fixes)
-- **High:** e.g., 100 USDC (major features, complex bugs)
-- **Custom:** e.g., any amount (type manually per issue)
-
-{/* MEDIA-SLOT
-  id: m-tiers-03
-  type: image
-  file: /media/maintainer/edit-tier.png
-  show: Edit tier dialog with label name and USDC amount field
-  caption: Edit a tier to set its USDC value
-  alt: Edit tier dialog
-*/}
-
----
-
-## Step 4: Save
-
-Click **"Save"** or **"Apply"**.
-
-The tiers are now live. When you label a GitHub issue with `low`, `medium`, or `high`, Trustless OSS knows the reward amount.
-
----
-
-## Default labels
-
-The system will automatically create GitHub labels for these tiers if they don't exist. You can:
-- **Keep the defaults** and add custom labels later
-- **Edit labels** in GitHub and re-sync here
-- **Delete a tier** (optional: also delete the GitHub label)
-
-{/* TODO-VERIFY: exact behavior when deleting a tier — does it delete the GitHub label? */}
 
 <Callout type="info">
-  **Tip:** Start with 25/50/100 USDC. You can adjust any time. Every bounty you create after the change uses the new amounts.
+Editing a tier changes it for **future** bounties only. Changing a reward never rewrites a bounty whose milestone is already locked on-chain — that would desync the database from the escrow contract, so it's refused by design.
 </Callout>
 
 ---
 
-## Done
+## Add a tier from an existing GitHub label
 
-Reward tiers are set. You're ready to create bounties.
+If your repo already uses labels like `bug`, `enhancement`, or `priority:high`, you can map any of them to an amount — no need to invent new labels.
+
+<Steps>
+### Click "Add tier"
+The dashboard fetches your repo's existing GitHub labels so you can pick one from the list.
+
+### Pick a label and set an amount
+Choose an existing label, or type a new tier name. Enter the USDC amount.
+
+### Save
+If the tier name is new, TOSS **creates that label on GitHub** for you, so it's ready to apply to issues immediately.
+</Steps>
+
+{/* MEDIA-SLOT
+  id: m-tiers-03
+  type: image
+  file: /media/maintainer/tier-add.png
+  show: Add-tier form showing a dropdown/combobox populated with the repo's existing GitHub labels, a free-text option for a new label name, an "Amount (USDC)" field, and a note that a new name creates a GitHub label
+  caption: Add a tier from an existing GitHub label, or create a new one
+  alt: Add tier form with GitHub label picker and amount field
+*/}
+
+<Callout type="info">
+**Why fetch existing labels?** So your TOSS tiers line up with the labels your project already triages by. A tier is only meaningful if the label exists on GitHub — mapping to a label you already use avoids duplicate, near-identical labels.
+</Callout>
 
 ---
 
-**Next:** [Create a bounty](/m-06-create-bounty)
+## Delete a tier
 
-**Stuck?** See [Troubleshooting](/troubleshooting).
+<Steps>
+### Click Delete on a tier
+You'll be asked whether to also delete the matching label from GitHub.
+
+### Choose what to remove
+- **Remove the tier only** — the GitHub label stays on your repo and on any issues already using it. It just no longer maps to an amount.
+- **Also delete the GitHub label** — TOSS removes the label from the repo entirely.
+</Steps>
+
+<Callout type="warning">
+**Deleting the GitHub label is permanent.** It removes the label from the repository and from every issue currently using it. The tier mapping is easy to recreate; the label and its history on issues are not. Leave "also delete GitHub label" unchecked unless you're sure.
+</Callout>
+
+{/* MEDIA-SLOT
+  id: m-tiers-04
+  type: image
+  file: /media/maintainer/tier-delete.png
+  show: Delete-tier confirmation dialog with a checkbox "Also delete the 'medium' label from GitHub (permanent)", Delete and Cancel buttons
+  caption: Deleting a tier optionally removes the GitHub label too
+  alt: Delete tier confirmation with a checkbox to also delete the GitHub label
+*/}
+
+---
+
+## Done when
+
+Your tiers list the labels and USDC amounts you want. Labeling an issue with a tier label now reserves that amount from the escrow balance automatically.
+
+**Next:** [Create a bounty](/m-06-create-bounty) · **Stuck?** [Troubleshooting](/troubleshooting)

@@ -1,51 +1,49 @@
 ---
 title: Trustless OSS
-description: Pay for open source work without middlemen. Fund the work, merge the proof, release the reward.
+description: Escrow-backed GitHub bounties on Stellar. Fund the work, merge the proof, release the reward automatically.
 ---
 
 # Trustless OSS
 
-**Escrow-backed bounties for GitHub.** Fund open source with stablecoins (USDC), release payment when the PR merges. No escrow company, no platform fees.
+**Attach USDC rewards to GitHub issues and have them pay out automatically on merge — with no bounty platform holding the money.** Funds live in a per-repo escrow contract on Stellar. A merged PR that closes a labeled issue releases the reward on-chain, in seconds.
 
-## Pick your role
+## Choose your path
 
 <div className="grid md:grid-cols-2 gap-6 my-8">
-  <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
-    <h3 className="text-xl font-bold mb-3">💰 I'm a Maintainer</h3>
-    <p className="text-gray-600 dark:text-gray-400 mb-4">I want to fund bounties on GitHub issues and pay contributors.</p>
-    <a
-      href="/m-01-sign-in"
-      className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold hover:underline"
-    >
-      Start here →
-    </a>
-  </div>
+  <a
+    href="/m-01-sign-in"
+    className="block border border-gray-200 dark:border-gray-700 rounded-xl p-6 no-underline hover:border-blue-500 hover:shadow-md transition-all"
+  >
+    <h3 className="text-xl font-bold mb-2 mt-0">I pay rewards</h3>
+    <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm">
+      Maintainer. Connect a repo, deploy and fund an escrow, label issues, merge PRs.
+    </p>
+    <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">Start as a maintainer →</span>
+  </a>
 
-  <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
-    <h3 className="text-xl font-bold mb-3">🚀 I'm a Contributor</h3>
-    <p className="text-gray-600 dark:text-gray-400 mb-4">I want to find bounties, submit work, and get paid in USDC.</p>
-    <a
-      href="/c-01-find-bounty"
-      className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold hover:underline"
-    >
-      Start here →
-    </a>
-  </div>
+  <a
+    href="/c-01-find-bounty"
+    className="block border border-gray-200 dark:border-gray-700 rounded-xl p-6 no-underline hover:border-blue-500 hover:shadow-md transition-all"
+  >
+    <h3 className="text-xl font-bold mb-2 mt-0">I earn rewards</h3>
+    <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm">
+      Contributor. Find a funded bounty, connect a wallet, open a PR, get paid in USDC.
+    </p>
+    <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">Start as a contributor →</span>
+  </a>
 </div>
 
----
-
-## How it works in 3 steps
+## The flow in three steps
 
 <Steps>
-  <Step n={1} icon="git-branch" title="Fund a bounty">
-    Maintainer labels a GitHub issue and funds it with USDC. The money is locked in escrow.
+  <Step n={1} icon="coins" title="Fund">
+    A maintainer deploys a Stellar escrow for the repo and funds it with USDC, then labels an issue `rewarded` + a tier.
   </Step>
-  <Step n={2} icon="git-merge" title="Do the work">
-    Contributor gets assigned, connects their wallet, opens a PR with `Closes #issue`.
+  <Step n={2} icon="merge" title="Build">
+    A contributor is assigned, connects a wallet (locking the reward on-chain), and opens a PR with `Closes #issue`.
   </Step>
-  <Step n={3} icon="zap" title="Release the reward">
-    Merge the PR → USDC is released to the contributor's wallet. Takes seconds.
+  <Step n={3} icon="reward" title="Release">
+    The maintainer merges. A background worker verifies the rules and the escrow releases the USDC — automatically.
   </Step>
 </Steps>
 
@@ -53,36 +51,28 @@ description: Pay for open source work without middlemen. Fund the work, merge th
   id: home-flow-overview
   type: video
   file: /media/home/flow-overview.mp4
-  show: 3-step flow animation (fund → work → pay) with USDC transfer on merge
-  length: 30
+  show: End-to-end flow — label an issue, assign, contributor connects wallet, PR with "Closes #", merge, USDC lands in the wallet
+  length: 40
   script:
-    - Maintainer labels issue with "rewarded" and "medium" labels
-    - Contributor sees bounty link, clicks "Connect wallet"
-    - Contributor opens PR with "Closes #123"
-    - Maintainer merges PR
-    - USDC appears in contributor's wallet
-  caption: The complete bounty flow from start to finish
-  alt: Animated walkthrough of bounty creation, work, and payout
+    - Maintainer adds "rewarded" + "medium" labels; bot confirms the bounty with an escrow link
+    - Maintainer assigns a contributor
+    - Contributor opens the connect link and approves their wallet
+    - Contributor opens a PR with "Closes #123"
+    - Maintainer merges; bot comments "payout released"
+    - Contributor's wallet shows the USDC balance increase
+  caption: One bounty, start to finish
+  alt: End-to-end walkthrough of a TOSS bounty
 */}
 
----
+## Why TOSS
 
-## Why Trustless OSS?
-
-- **No middleman.** Your money goes directly to contributors via Stellar escrow. No platform company touches it.
-- **On GitHub.** Issues, PRs, labels, and commands all live in your existing workflow. No new account needed.
-- **In USDC.** Fund in digital dollars. No crypto knowledge required.
-- **Transparent.** Every bounty state is visible and on-chain. Contributor can verify money is locked before starting work.
-- **Fast.** Payouts settle in seconds after merge.
+- **Non-custodial.** You sign your own deploy and fund transactions. The platform never holds keys, and the escrow — not a company — releases funds.
+- **GitHub-native.** Labels create bounties; assignment and merge drive the lifecycle; a `@trustless-oss` bot handles the edges. No separate workspace.
+- **Automatic & resilient.** Bounties park when a wallet is missing, resume when it arrives, retry transient failures with backoff, and never double-pay.
+- **Verifiable.** Every bounty's escrow is on-chain, so a contributor can confirm funding before starting.
 
 ---
 
-## Next steps
+**New to Stellar or USDC?** Read [What is Trustless OSS?](/what-is-trustless-oss) and the [Glossary](/glossary), then [set up a wallet](/choose-wallet).
 
-**New to crypto?** Start with [What is Trustless OSS?](/what-is-trustless-oss) and the [Glossary](/glossary).
-
-**Ready to go?**
-- Maintainers: [Set up your wallet](/choose-wallet), then [sign in](/m-01-sign-in)
-- Contributors: [Set up your wallet](/choose-wallet), then [find a bounty](/c-01-find-bounty)
-
-**Looking for something?** Use search (Cmd+K / Ctrl+K) or visit [Troubleshooting](/troubleshooting).
+**Just want the commands?** [Command Cheat Sheet](/command-cheat-sheet).

@@ -1,182 +1,76 @@
 ---
 title: Dashboard tour
-description: Understand the dashboard layout and features.
+description: The Repositories list, the repo page, your profile, and activity.
 ---
 
 # Dashboard tour
 
-<TimeEstimate minutes={3} forRole="Maintainers" />
 
-**What you'll do:** Learn your way around the Trustless OSS dashboard.
+**What you'll do:** Learn where everything lives, so the task pages make sense in context.
 
 ---
 
-## Main page (Repositories)
+## Repositories list
 
-The **Repositories** view is your home on the dashboard.
+Your landing page after sign-in.
+
+- **Search** by name.
+- **Filters:** All / Deployed / Not deployed / Newest / Name A–Z.
+- **Pagination:** 15 per page.
+- **Add repository:** opens the GitHub App install flow.
+- **Sync:** refreshes installation state from GitHub. Press it when a freshly installed repo hasn't appeared.
 
 {/* MEDIA-SLOT
-  id: m-dashboard-01
+  id: m-dash-01
   type: image
   file: /media/maintainer/dashboard-repos.png
-  show: Dashboard repositories page with search, filters (All, Deployed, Not deployed, etc.), pagination, repo cards
-  caption: The main dashboard showing all your repositories
-  alt: Dashboard repositories view
+  show: Repositories list with search box, filter dropdown, repo cards showing deployed/not-deployed status, pagination, Add repository and Sync buttons
+  caption: The Repositories list with search, filters, and Sync
+  alt: Dashboard repositories list
 */}
-
-**Features:**
-- **Search:** Find a repo by name
-- **Filters:** All / Deployed / Not deployed / Newest / Name A–Z
-- **Pagination:** 15 repos per page
-- **Add repository:** Button to install the GitHub App on a new repo
-- **Sync button:** Refresh repo data from GitHub
 
 ---
 
 ## Repository page
 
-Click a repository to open its detail page.
+Everything for one repo.
+
+- **Escrow balance** in USDC, with **Fund**, **Withdraw**, and an **Inspect** link to the on-chain escrow viewer.
+- **Reward tiers** — add, edit, delete `(label, amount)` pairs. See [Set reward tiers](/m-05-reward-amounts).
+- **Delete** — only enabled when the balance is `0`.
+- **Explore bounties** — a table of the repo's bounty issues: issue #, title, level, reward, status, contributor, and a per-row actions menu (Retry / Release / Approve / Reject / Hold).
 
 {/* MEDIA-SLOT
-  id: m-dashboard-02
+  id: m-dash-02
   type: image
-  file: /media/maintainer/dashboard-repo-detail.png
-  show: Repository page with escrow balance, Fund/Withdraw/Delete buttons, reward tiers, bounties table
-  caption: A single repository's management page
-  alt: Repository detail page
+  file: /media/maintainer/repo-page.png
+  show: Repo page with the escrow balance card (Fund/Withdraw/Inspect), reward tiers panel, and an Explore Bounties table with the per-row actions menu open
+  caption: The repository page: escrow, tiers, and the bounty table
+  alt: Repository page with escrow, tiers, and bounty table
 */}
 
-**Sections:**
-
-### Escrow balance
-Shows how much USDC is locked. Quick actions: **Fund**, **Withdraw**, **Delete**.
-
-### Reward tiers
-Current bounty amounts (low, medium, high, custom). Click to edit.
-
-### Bounties table
-All issues labeled as bounties. Columns: Issue #, Title, Tier, Reward, Status, Contributor, Actions.
-
-**Status values:**
-- `Open` — Not yet claimed
-- `In progress` — Contributor assigned, waiting for PR
-- `PR pending review` — PR open, awaiting merge
-- `Completed` — PR merged, payment released
-- `Rejected` — Contributor's work rejected
-- `Disputed` — Payment hold pending review
-
-**Actions menu** (for each bounty):
-- `Retry` — Retry a failed payout
-- `Release` — Manually release payment (if PR merged but bot missed it)
-- `Approve` — Approve work (manual approval before merge)
-- `Reject` — Mark work as rejected
-- `Hold` — Temporarily hold a bounty (pause it)
+<Callout type="info">
+The row actions mirror the bot commands and the automation: **Release** and **Approve** nudge a payout that's ready, **Reject** disputes and refunds, **Hold** pauses, and **Retry** re-runs the checks. In normal operation you rarely need them — merging the PR is enough.
+</Callout>
 
 ---
 
-## Profile page
+## Profile
 
-Click your avatar or name in the top right.
+Your public contributor profile and your own payout wallet.
 
-{/* MEDIA-SLOT
-  id: m-dashboard-03
-  type: image
-  file: /media/maintainer/profile-page.png
-  show: Profile page with name, bio, location, website, skills, socials, payout wallet section
-  caption: Your profile page
-  alt: Profile page in dashboard
-*/}
-
-**Edit:**
-- Name, bio, location, website
-- Skills (tags)
-- Social links (Twitter, GitHub, etc.)
-- **Payout wallet:** Your Stellar address (where bounty payouts go if you complete work)
+- Editable: name, bio, location, website, skills, and socials (Telegram, Discord, Twitter).
+- **Payout wallet:** connect, change, or copy your Stellar address. This is where you receive funds — including the maintainer's share of a split and reject refunds.
 
 ---
 
-## Activity page
+## Activity, Leaderboard, Notifications
 
-Click **"Activity"** in the main menu.
-
-{/* MEDIA-SLOT
-  id: m-dashboard-04
-  type: image
-  file: /media/maintainer/activity-page.png
-  show: Activity page with transaction ledger, filters (All, Funded, Paid out, Rejected, etc.), timestamps
-  caption: A ledger of all your transactions
-  alt: Activity ledger page
-*/}
-
-**Ledger shows:**
-- All escrow deposits (funding)
-- All payouts (PR merged → USDC released)
-- Rejections and refunds
-- Timestamps and amounts
-
-**Filters:** All, Funded, Paid out, Rejected, Pending
+- **Activity:** a ledger of funding, payouts, refunds, and rejections, with filters.
+- **Leaderboard:** contributors ranked by earnings.
+- **Notifications bell:** bounty assigned, amount missing/updated, insufficient funds, rejected, and payout events.
+- **Theme:** light/dark toggle.
 
 ---
 
-## Leaderboard page
-
-Click **"Leaderboard"** in the main menu.
-
-{/* MEDIA-SLOT
-  id: m-dashboard-05
-  type: image
-  file: /media/maintainer/leaderboard.png
-  show: Leaderboard page ranking contributors by bounties earned (name, avatar, earnings, bounties completed)
-  caption: Top contributors by earnings
-  alt: Leaderboard
-*/}
-
-Shows top contributors across all repositories. Columns:
-- Contributor name
-- Total earned (USDC)
-- Bounties completed
-- Avg reward per bounty
-
----
-
-## Notifications
-
-Click the **bell icon** in the top right.
-
-Notifies you of:
-- Bounty claimed (new contributor assigned)
-- PR opened (linked to bounty)
-- Payout failed (retry needed)
-- Contributor feedback or disputes
-
----
-
-## Settings
-
-Click the **gear icon** or **Settings**.
-
-Access:
-- Account settings (profile, email)
-- Notification preferences
-- GitHub App permissions
-- Export data
-
----
-
-## Light / Dark mode
-
-Click the **sun/moon icon** in the top right to toggle themes.
-
----
-
-## Navigation tips
-
-- **Search is global:** Use Cmd+K / Ctrl+K to search repo names, bounty issues, and contributor names
-- **Breadcrumbs:** At the top, shows your current location (Home > Repos > RepositoryName)
-- **Back button:** Sidebar collapses by default; expand it to see all pages
-
----
-
-**Done?** Start creating bounties or check [Set reward amounts](/m-05-reward-amounts).
-
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Set reward tiers](/m-05-reward-amounts) · **Stuck?** [Troubleshooting](/troubleshooting)

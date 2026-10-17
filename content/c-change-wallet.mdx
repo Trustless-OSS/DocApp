@@ -1,110 +1,61 @@
 ---
-title: Change payout wallet
-description: Update the wallet where bounty payments go.
+title: Change your payout wallet
+description: Switch the wallet that receives your bounty payouts.
 ---
 
-# Change payout wallet
+# Change your payout wallet
 
-<TimeEstimate minutes={1} forRole="Contributors" needs="New Stellar wallet" />
 
-**What you'll do:** Point future bounty payouts to a different wallet.
-
----
-
-## Why change?
-
-- You got a new wallet
-- You want to use a different wallet for different projects
-- You lost access to the old wallet
+**What you'll do:** Point future payouts — or a specific in-flight bounty — at a different wallet.
 
 ---
 
-## Step 1: Go to your profile
+## For a specific bounty
 
-On the Trustless OSS dashboard, click your avatar or name (top right).
+Comment on that bounty's issue:
+
+<CommandBlock
+  command="@trustless-oss change-address"
+  description="Returns a connect link for this bounty. Connecting a new wallet re-points the milestone to it."
+  where="Comment on the bounty issue"
+/>
+
+`@trustless-oss wallet` does the same thing — both return your connect link.
+
+<Callout type="info">
+If you switch wallets **after** the milestone is locked, the system detects the mismatch at payout time and re-pushes the milestone to your new wallet **before** releasing. Your payout follows you; it just takes an extra moment.
+</Callout>
+
+---
+
+## For your profile default
+
+Your profile stores a primary payout wallet used across bounties. Update it from the dashboard:
+
+<Steps>
+### Open your profile
+From the dashboard, go to your profile.
+
+### Find "Payout wallet"
+It shows your connected Stellar address, with options to copy it or change it.
+
+### Connect a new wallet
+Choose a wallet, approve the connection, and your primary payout address updates. TOSS verifies the new account has a USDC trustline.
+</Steps>
 
 {/* MEDIA-SLOT
   id: c-change-wallet-01
   type: image
-  file: /media/contributor/dashboard-profile.png
-  show: Dashboard top right with avatar and profile link
-  caption: Click your profile"
-  alt: Profile link in dashboard
-*/}
-
----
-
-## Step 2: Find "Payout wallet"
-
-Scroll to the **"Payout wallet"** section.
-
-{/* MEDIA-SLOT
-  id: c-change-wallet-02
-  type: image
   file: /media/contributor/profile-payout-wallet.png
-  show: Profile page with "Payout wallet" section showing current wallet address and "Change" button
-  caption: The payout wallet section
-  alt: Payout wallet in profile
+  show: Profile page "Payout wallet" section showing the current Stellar address with Copy and Change actions, and a wallet selector when Change is clicked
+  caption: Your profile holds the default payout wallet
+  alt: Profile payout wallet with copy and change actions
 */}
 
 ---
 
-## Step 3: Click "Change"
+## Done when
 
-You'll see options:
-- **Copy address:** Copy the current wallet address
-- **Change:** Switch to a new wallet
+Your profile (or the specific bounty) shows the new wallet address. Future payouts go there.
 
-Click **"Change"**.
-
----
-
-## Step 4: Connect new wallet
-
-Select your new wallet (LOBSTR, Freighter, xBull, Albedo, or Rabet).
-
-{/* MEDIA-SLOT
-  id: c-change-wallet-03
-  type: image
-  file: /media/contributor/wallet-selector.png
-  show: Wallet selector showing LOBSTR, Freighter, xBull, Albedo, Rabet options
-  caption: Choose your new wallet
-  alt: Wallet selector
-*/}
-
-Your wallet will pop up asking to approve the connection.
-
-Click **"Approve"**.
-
-{/* MEDIA-SLOT
-  id: c-change-wallet-04
-  type: image
-  file: /media/contributor/wallet-approve-change.png
-  show: Wallet popup confirming the new payout wallet connection
-  caption: Approve the new wallet in your app
-  alt: Wallet approval
-*/}
-
----
-
-## Done
-
-Your payout wallet is now updated. Future bounty payouts will go to this new wallet.
-
----
-
-## For a single bounty
-
-If you want to change the wallet for **just one bounty**, comment on that specific issue:
-
-<CommandBlock
-  command="@Trustless-OSS /change-address"
-  description="Get the wallet connection link for this specific bounty"
-  where="Comment on that bounty issue"
-/>
-
-You'll get a link to connect a different wallet for just that bounty.
-
----
-
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Find a bounty](/c-01-find-bounty) · **Stuck?** [Troubleshooting](/troubleshooting)

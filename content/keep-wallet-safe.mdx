@@ -1,102 +1,60 @@
 ---
 title: Keep it safe
-description: Protect your wallet from theft and loss.
+description: Protect your recovery phrase and avoid the common ways people lose funds.
 ---
 
 # Keep it safe
 
-<TimeEstimate minutes={3} forRole="Everyone" />
 
-**What you'll do:** Learn how to prevent losing money or getting hacked.
+**What you'll do:** Understand the one secret that matters — your recovery phrase — and the handful of mistakes that drain wallets.
 
----
-
-## Recovery phrase: the golden rules
-
-Your recovery phrase is the master key to your wallet. Treat it like cash.
-
-### ✅ Do
-
-- **Write it down** on paper. Physically.
-- **Store it safely.** In a drawer, safe, or with someone you trust.
-- **Keep it private.** Never show it to anyone.
-- **Never type it into a website.** Not even a "wallet recovery" site.
-- **Keep multiple copies** (one at home, one with a trusted friend or in a safe).
-
-### ❌ Don't
-
-- **Don't take a screenshot.** Screenshots can be hacked.
-- **Don't email it or text it.** Emails and texts are not secure.
-- **Don't type it into a document** or note app (unless the device is offline and encrypted).
-- **Don't give it to anyone.** Not your friend, not support staff, not "Trustless OSS" (they will never ask).
-- **Don't use a password manager** unless it's specifically designed for crypto recovery phrases (e.g., Bitwarden's emergency access).
+This is mainnet. Balances are real money, and on-chain transfers are irreversible. The threat model is simple: whoever holds your recovery phrase controls your funds.
 
 ---
 
-## The basic rule
+## The recovery phrase is a root key
 
-**If someone has your recovery phrase, they own your wallet.** There's no way to get it back. Treat it like a physical key.
+Your 12–24 words deterministically derive your wallet's private keys. Treat the phrase exactly as you'd treat a root private key or an unencrypted `id_rsa`.
 
----
+**Do**
+- Write it on paper and store it offline, ideally in two separate secure locations.
+- Keep it out of any system that syncs to the cloud.
 
-## On PINs and passwords
-
-Your wallet's **PIN** (or password in web wallets) just locks your local account on that device. If you lose your phone, someone could unlock it and drain your wallet—unless you have your recovery phrase.
-
-**But:** As long as you have the recovery phrase, you can recover your wallet on any device.
-
----
-
-## Before you connect to Trustless OSS
-
-Trustless OSS will ask you to connect your wallet (approve transactions) but will **never** ask for:
-- Your recovery phrase
-- Your PIN
-- Your password
-- Private keys
-
-If anyone claiming to be Trustless OSS asks for these, it's a scam. **Do not give them.**
+**Don't**
+- Screenshot it, photograph it, or paste it into notes, chat, or email.
+- Type it into any website. No legitimate site — TOSS included — ever asks for it.
+- Store it in a general password manager unless it's a vault feature designed for seed phrases.
 
 ---
 
-## If you lose your device
+## PIN vs. phrase
 
-If your phone or computer breaks:
-1. Install your wallet app on a new device
-2. Choose "Recover Wallet"
-3. Paste your recovery phrase (the 12 words)
-4. Your wallet reappears with all your money
-
-That's why the recovery phrase is so important.
+The wallet's PIN/password locks the app on one device. The recovery phrase restores the wallet on any device. Losing the device is recoverable with the phrase; losing the phrase is not recoverable at all.
 
 ---
 
-## If you suspect you've been hacked
+## What TOSS will and won't ask for
 
-**Move fast:**
-1. On any device, access your wallet
-2. Go to Settings → Security or Account
-3. Look for an option to rotate your recovery phrase or change your account
-4. Move all your money to a new wallet using your recovery phrase
-
-If someone stole your recovery phrase, they now own your wallet. You can't block them. You can only make sure they don't drain it.
+TOSS asks you to **approve transactions** in your wallet (connect, deploy, fund). It will **never** ask for your recovery phrase, PIN, or private key. Any prompt that does is a phishing attempt — stop and verify the domain.
 
 ---
 
-## Summary
+## Verify what you sign
 
-| Action | Recovery Phrase? | PIN? | Safe? |
-|--------|------------------|------|-------|
-| Write down, store safely | ✅ | ❌ | ✅ Yes |
-| Take a screenshot | ❌ | ❌ | ❌ No |
-| Email or text it | ❌ | ❌ | ❌ No |
-| Type it into a website | ❌ | ❌ | ❌ No |
-| Give to support staff | ❌ | ❌ | ❌ No |
+Before approving a sign prompt, glance at what it is: the asset, the amount, and the destination. For connecting a wallet to a bounty you'll approve an authorization; for funding you'll approve a USDC transfer with a visible network fee. If an amount or destination looks wrong, reject it.
+
+<Callout type="warning">
+On-chain transfers don't have an undo. There's no support line that can claw back funds sent to the wrong address or approved in a phishing flow. The checks above are the whole safety net.
+</Callout>
 
 ---
 
-**Next:** Pick your path:
-- [I'm a maintainer → Sign in with GitHub](/m-01-sign-in)
-- [I'm a contributor → Find a bounty](/c-01-find-bounty)
+## Recovering on a new device
 
-**Questions?** See [Troubleshooting](/troubleshooting) or [FAQ](/faq).
+Install the wallet, choose "Recover" (or "Import"), and enter your recovery phrase. The wallet and its balances reappear — which is exactly why the phrase must stay private.
+
+---
+
+**Next:** choose a path — [Maintainer](/m-01-sign-in) · [Contributor](/c-01-find-bounty)
+
+**Questions?** [FAQ](/faq) · [Troubleshooting](/troubleshooting)

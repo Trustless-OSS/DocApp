@@ -1,74 +1,74 @@
 ---
 title: Glossary
-description: Plain-English definitions of every crypto and bounty term you'll see.
+description: Precise definitions of the crypto and bounty terms used across these docs.
 ---
 
 # Glossary
 
-**Look up any term here.** Hover or tap each word to see the definition.
+You know software. This is the vocabulary that's specific to Stellar, escrow, and the TOSS bounty model, defined plainly and linked from the pages that use them.
 
 ---
 
 ## Bounty
 
-A reward (usually in USDC) that a maintainer attaches to a GitHub issue. When a contributor's PR closes the issue, they get paid.
-
-## USDC
-
-A "stablecoin"—a digital dollar. 1 USDC = 1 US dollar. It lives on Stellar (a blockchain) and moves between wallets instantly. You don't mine it or trade it; you buy it or receive it as payment.
-
-## Wallet
-
-An app that holds your money (USDC, XLM, etc.). It's like a digital bank account, except you control the keys. Examples: Freighter, LOBSTR, xBull, Albedo, Rabet.
-
-## Stellar
-
-A blockchain (like Bitcoin or Ethereum, but simpler and faster). Trustless OSS uses Stellar to hold escrow and process payments. You don't interact with Stellar directly—Trustless OSS handles it.
+A reward in USDC attached to a GitHub issue. It becomes payable when the assigned contributor's merged PR closes the issue. Internally it's a record that reserves funds from the repo's escrow balance and tracks a status (`open` → `assigned` → `paid`/`cancelled`).
 
 ## Escrow
 
-A locked container for money. In Trustless OSS, USDC sits in an escrow contract on Stellar until the PR merges. Then it's released automatically. Maintainer can't touch it; contributor can't touch it; only the system can release it.
+A per-repository smart contract on Stellar that holds the repo's USDC. Bounties reserve against its balance; releases, refunds, and splits are on-chain operations against it. Neither you nor the contributor can move the funds directly — the contract releases based on verified state.
 
-## Smart Contract
+## Milestone
 
-A program that runs on a blockchain. In Trustless OSS, the escrow is a smart contract. It has rules (if PR merges, release the money) and enforces them automatically.
+The escrow's unit of payment for a single bounty. When a contributor connects a wallet, the bounty's milestone is pushed on-chain with an amount and a receiver address. Releasing a milestone pays the contributor; disputing and resolving one refunds the maintainer.
+
+## USDC
+
+A stablecoin pegged 1:1 to the US dollar, issued on Stellar by Circle. Bounties are denominated and paid in USDC. Your wallet must add a trustline before it can hold USDC.
 
 ## Trustline
 
-A one-time permission that lets your wallet hold a particular asset (like USDC). Think of it like adding a new currency to your bank account. You set it up once, and it stays.
+A one-time, on-chain authorization that lets your Stellar account hold a specific asset — here, USDC. Without it, a USDC payout can't land in your wallet. It costs a tiny amount of XLM and persists until you remove it.
 
 ## XLM
 
-Stellar's native cryptocurrency. Used to pay network fees (like gas in Ethereum) and to keep a Stellar account open. You don't need much—usually $1–5 worth lasts months.
+Stellar's native asset (Lumens). Pays per-transaction network fees and satisfies the account's minimum reserve. You need a small balance to connect a wallet, add a trustline, deploy, or fund.
 
-## Network Fee
+## Stellar
 
-The small cost to send a transaction on Stellar (similar to Bitcoin or Ethereum's "gas"). When you move USDC or merge a bounty, a tiny amount of XLM is deducted. Trustless OSS covers most fees; you only pay a few cents per transaction.
+The blockchain TOSS settles on. Fast finality (a few seconds) and sub-cent fees. You interact with it only through your wallet's sign prompts.
 
 ## Mainnet
 
-The real Stellar network where real money lives. If you see "mainnet" in docs, it means this is not a test—the USDC is real dollars.
+Stellar's production network, where balances are real money. These docs assume mainnet throughout.
 
-## Recovery Phrase (Seed Phrase)
+## Recovery phrase (seed phrase)
 
-A list of 12–24 secret words that give full control of your wallet. Anyone with this phrase can take all your money. Never share it, never type it into a website, never take a screenshot. Trustless OSS will never ask for it.
+The 12–24 words that deterministically derive your wallet's keys. Whoever holds them controls the funds. Treat them like a root private key: offline, never pasted into a site, never shared. TOSS never asks for them.
 
-## Merge (PR Merge)
+## Reward tier
 
-When a maintainer accepts and combines a contributor's pull request into the main codebase. On Trustless OSS, merging the PR triggers the payout.
+A named `(label, amount)` pair stored on the repo. The defaults are `low`, `medium`, `high`, but tiers are fully editable — rename, delete, or add tiers mapped to any GitHub label. Labeling an issue with a tier applies that amount.
+
+## Manual bounty
+
+A bounty whose amount isn't a preset tier. You label the issue `rewarded` + `manual` and set the amount with `@trustless-oss <amount>` or by putting the amount in the issue body.
+
+## The bot (`@trustless-oss`)
+
+The GitHub App account that reacts to labels, assignments, merges, and comment commands. Mentioning `@trustless-oss` with a command triggers an action; it also posts status comments (bounty created, split saved, payout released).
+
+## Split / partial payout
+
+A pre-merge instruction (`@trustless-oss pay 70`) that divides the reward on merge: the contributor gets the percentage, the remainder returns to the maintainer. Stored as an intent; applied at release time.
+
+## Dispute / reject
+
+Rejecting work (`@trustless-oss reject` or the `rejected` label) disputes the milestone on-chain and resolves it back to the maintainer's wallet, refunding the reserved funds and cancelling the bounty.
 
 ## Closes #N
 
-A GitHub shorthand that links a PR to an issue. If a PR description says "Closes #42", GitHub marks issue #42 as closed when the PR merges. Trustless OSS uses this to detect when a bounty should pay out.
-
-## Bot
-
-An automated account that runs commands on GitHub. On Trustless OSS, the bot is `@Trustless-OSS`. You mention it in comments to trigger actions (set amount, pay out, retry, etc.).
-
-## Payout
-
-The USDC released to a contributor. "Partial payout" means the maintainer is releasing part of the reward now and saving the rest for later.
+A GitHub keyword in a PR body that links it to an issue (`Closes`, `Fixes`, `Resolves`, and their variants all work). TOSS uses this link to match a merged PR to its bounty.
 
 ---
 
-**Next:** [Choose a wallet](/choose-wallet)
+**Next:** [Set up your wallet](/choose-wallet) · [How payouts work](/how-money-flows)

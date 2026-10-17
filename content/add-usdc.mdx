@@ -1,121 +1,59 @@
 ---
 title: Add USDC (trustline)
-description: Enable your wallet to hold USDC stablecoins.
+description: Authorize your Stellar account to hold USDC by adding a trustline.
 ---
 
 # Add USDC (trustline)
 
-<TimeEstimate minutes={5} forRole="Everyone" needs="Stellar wallet (LOBSTR) + XLM (see next page)" />
 
-**What you'll do:** Add USDC to your wallet so it can receive bounty payouts.
+**What you'll do:** Add a USDC trustline so your account can receive bounty payouts.
 
----
-
-## Why a trustline?
-
-USDC lives on the Stellar blockchain. Before your wallet can hold USDC, you need to set up a **trustline**—a one-time permission that says "I allow this wallet to hold USDC."
-
-Think of it like adding a new currency to your bank account. You do it once, and it stays.
-
-Setting up a trustline costs a small amount of XLM (a few cents). We'll get that in the next step.
+On Stellar, an account must explicitly authorize each non-native asset it will hold. That authorization is a **trustline**. It's a one-time, on-chain operation that costs a tiny XLM fee and then persists. Without it, a USDC payout has nowhere to land.
 
 ---
 
-## Step 1: Open LOBSTR
+## Add the trustline
 
-Open your wallet app.
+<Steps>
+### Open your wallet's assets
+Go to the assets/currencies area and choose to add an asset. {/* TODO-VERIFY: confirm the exact navigation and labels in the current wallet UI */}
 
----
+### Search for USDC
+Select the USDC issued by **Circle** (the verified mainnet issuer), not a look-alike. {/* TODO-VERIFY: confirm how the verified issuer is labeled in the wallet */}
 
-## Step 2: Go to Assets
+### Confirm and pay the XLM fee
+Approve adding the asset. A small XLM network fee applies.
 
-Look for a tab or button labeled **"Assets"** or **"Currencies"**.
+### Verify it appears at 0.00
+USDC now shows in your asset list with a zero balance, ready to receive.
+</Steps>
 
 {/* MEDIA-SLOT
   id: wallet-usdc-01
-  type: image
-  file: /media/wallet/lobstr-assets.png
-  show: LOBSTR home screen with "Assets" tab or bottom navigation visible
-  caption: Navigate to the Assets or Currencies section
-  alt: LOBSTR assets tab
+  type: video
+  file: /media/wallet/add-usdc-trustline.mp4
+  show: Wallet add-asset flow — open assets, search USDC, pick the Circle-issued verified asset, confirm, USDC appears at 0.00
+  length: 25
+  script:
+    - Open assets/currencies in the wallet
+    - Tap add asset, search "USDC"
+    - Select the verified Circle-issued USDC; show the issuer detail
+    - Confirm; note the XLM fee
+    - USDC listed at 0.00 balance
+  caption: Adding the USDC trustline
+  alt: Screen recording of adding a USDC trustline
 */}
-
----
-
-## Step 3: Add USDC
-
-Tap **"Add Asset"** or **"+"** to add a new currency.
-
-{/* MEDIA-SLOT
-  id: wallet-usdc-02
-  type: image
-  file: /media/wallet/lobstr-add-asset.png
-  show: LOBSTR Assets page with "Add Asset" or "+" button visible
-  caption: Click to add a new asset to your wallet
-  alt: Add asset button in LOBSTR
-*/}
-
----
-
-## Step 4: Search for USDC
-
-A search box will appear. Type **"USDC"**.
-
-{/* TODO-VERIFY: exact UI — is it "Search", "Select", "Add"? */}
-
-Several USDC options may appear (different issuers). **Select the one issued by Centre** (also called "CENTRE USDC" or "native USDC").
-
-{/* MEDIA-SLOT
-  id: wallet-usdc-03
-  type: image
-  file: /media/wallet/lobstr-search-usdc.png
-  show: Search results with Centre USDC highlighted (issuer: GA5ZSEJYB37JRC5AVCIA5MOP4IC2BTNXYVYCYRDLW34RBWXVLCNQO5P)
-  caption: Select Centre USDC. Do NOT add other USDC variants.
-  alt: USDC search results in LOBSTR
-*/}
-
----
-
-## Step 5: Confirm and pay the fee
-
-LOBSTR will show you the issuer address and ask you to confirm. Tap **"Add"** or **"Continue"**.
-
-{/* TODO-VERIFY: exact button text and fee amount (should be < $1 XLM) */}
-
-A fee of a few cents (in XLM) will be deducted from your account.
 
 <Callout type="warning">
-  **Double-check the issuer.** The USDC issuer on Stellar mainnet is:
-  `GA5ZSEJYB37JRC5AVCIA5MOP4IC2BTNXYVYCYRDLW34RBWXVLCNQO5P`
+**Verify the issuer.** On mainnet, Circle issues USDC from a specific account. Anyone can mint a token called "USDC" from a different issuer — adding the wrong one means payouts won't arrive and you could be handling a worthless look-alike. Add only the wallet's **verified** USDC.
 
-  If the address doesn't match, do NOT add it. Scammers sometimes create fake USDC. Copy/paste the address from [this link](#) to be sure.
-
-  {/* TODO-VERIFY: provide official issuer link or documentation */}
+Mainnet USDC issuer: {/* TODO-VERIFY: publish the exact Circle USDC issuer address for Stellar mainnet */} `TODO-VERIFY`
 </Callout>
 
 ---
 
-## Step 6: Check your balance
+## Done when
 
-Once confirmed, you'll see USDC in your Assets list with a balance of **0 USDC** (until you receive or buy some).
+USDC appears in your wallet with a `0.00` balance. Your account can now receive USDC.
 
-{/* MEDIA-SLOT
-  id: wallet-usdc-04
-  type: image
-  file: /media/wallet/lobstr-usdc-added.png
-  show: Assets list with USDC showing 0.00 balance
-  caption: USDC is now enabled. You're ready to receive payments.
-  alt: USDC added to LOBSTR wallet
-*/}
-
----
-
-## Done
-
-You've successfully set up a USDC trustline. Your wallet can now:
-- ✅ Receive USDC bounty payouts
-- ✅ Hold USDC stablecoins
-
-**Next step:** [Get XLM for fees](/get-xlm)
-
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Get XLM for fees](/get-xlm) · **Stuck?** [Troubleshooting](/troubleshooting)

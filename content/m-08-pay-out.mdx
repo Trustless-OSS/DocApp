@@ -1,135 +1,91 @@
 ---
 title: 8. Pay out
-description: Merge the PR and release the bounty.
+description: Merge the PR. The escrow releases the reward automatically.
 ---
 
 # 8. Pay out
 
-<TimeEstimate minutes={3} forRole="Maintainers" needs="PR ready for merge + issue labeled as bounty" />
 
-**What you'll do:** Merge the PR. The bounty releases automatically.
-
----
-
-## Prerequisites
-
-Before merging, confirm:
-
-- ✅ Issue is labeled `rewarded` + a tier (or `rewarded` + `custom` with amount set)
-- ✅ PR is open and linked to the issue (description says `Closes #123`, `Fixes #123`, or `Resolves #123`)
-- ✅ Contributor is assigned to the issue
-- ✅ Contributor has connected their wallet (they received the wallet link when assigned)
-- ✅ Escrow has USDC (check the dashboard)
-- ✅ PR passes your tests and checks
+**What you'll do:** Merge the PR. There is no separate "release" step — the automation does it.
 
 ---
 
-## Step 1: Review the PR
+## Pre-merge checklist
 
-Check the PR code as you normally would.
+The release only fires when every rule passes, so confirm these first:
 
-In the PR description, **verify the link to the issue**:
+- The issue is a priced bounty (`rewarded` + tier, or `manual` with an amount).
+- A contributor is **assigned** and has **connected a wallet** (the milestone is locked on-chain).
+- The PR body links the issue: `Closes #123` (or `Fixes` / `Resolves`).
+- The PR author **is** the assigned contributor.
+- The escrow still holds the reserved amount.
 
-- `Closes #123` ✅
-- `Fixes #456` ✅
-- `Resolves #789` ✅
+<Callout type="warning">
+If the PR author is **not** the assigned contributor, the bot aborts the payout and comments to say so. The reward is only released to the assignee, verified live against GitHub at merge time.
+</Callout>
 
-If the PR doesn't link the issue, add a comment asking the contributor to update the description.
+---
+
+## Merge the PR
+
+<Steps>
+### Review as usual
+Your normal code review. TOSS doesn't change how you review or what checks must pass.
+
+### Confirm the issue link
+The PR body must contain `Closes #<issue>`. Without it, TOSS can't match the PR to the bounty and nothing releases.
+
+### Merge
+Use any merge strategy. GitHub fires the merge event and the automation re-checks every rule.
+</Steps>
 
 {/* MEDIA-SLOT
   id: m-payout-01
   type: image
-  file: /media/maintainer/pr-closes-issue.png
-  show: GitHub PR with "Closes #123" in the description
-  caption: PR must link the issue with "Closes", "Fixes", or "Resolves"
-  alt: PR with issue link
+  file: /media/maintainer/pr-closes-and-merge.png
+  show: GitHub PR with "Closes #123" visible in the description and the green "Merge pull request" button
+  caption: A linked, merged PR triggers the release
+  alt: GitHub PR showing Closes #123 and the merge button
 */}
 
 ---
 
-## Step 2: Approve the PR
+## What happens next
 
-Give your standard approval (code review, comments, etc.).
+Within seconds, a background worker:
 
----
-
-## Step 3: Merge the PR
-
-Click **"Merge pull request"** on GitHub.
+1. Re-reads the PR and issue from GitHub (merged + closed + author matches).
+2. Confirms the on-chain milestone exists, matches the amount, and targets the contributor's current wallet.
+3. Releases the USDC — applying your split if you saved one.
+4. Comments the confirmation on the issue.
 
 {/* MEDIA-SLOT
   id: m-payout-02
   type: image
-  file: /media/maintainer/pr-merge-button.png
-  show: GitHub PR page with "Merge pull request" button and dropdown
-  caption: Click to merge the PR
-  alt: Merge button on GitHub PR
-*/}
-
-Select your merge strategy (Squash, Rebase, or Merge commit) and confirm.
-
----
-
-## Step 4: Wait for the payout
-
-Within 10–30 seconds:
-1. The bot detects the merge
-2. Escrow releases the USDC
-3. Contributor's wallet receives it
-
-{/* MEDIA-SLOT
-  id: m-payout-03
-  type: image
-  file: /media/maintainer/pr-merged.png
-  show: GitHub PR showing "Merged" status with contributor's wallet address in bot comment
-  caption: PR is merged; payout is processing
-  alt: Merged PR status
+  file: /media/maintainer/payout-confirmation.png
+  show: Bot comment confirming payout released, with amount, contributor handle, and an escrow viewer link
+  caption: The bot confirms the on-chain release
+  alt: Bot payout confirmation comment
 */}
 
 ---
 
-## Verify the payout
+## If it doesn't release
 
-The bot will comment on the issue with confirmation:
-
-```
-✅ **Payout released**
-Amount: 50 USDC
-To: contributor's wallet address
-Time: 2:34 PM (3 seconds)
-```
-
-The contributor will also see USDC in their wallet.
-
----
-
-## What if the payout failed?
-
-If you don't see confirmation within 30 seconds, comment:
+It almost always does, but if a transient GitHub/Stellar error occurs, the worker retries with backoff on its own. The one thing you can do manually:
 
 <CommandBlock
-  command="@Trustless-OSS /retry"
-  description="Retry the payout"
+  command="@trustless-oss retry"
+  description="Re-runs the release checks now. Only works if the rules actually pass — it won't force a refused payout."
   where="Comment on the bounty issue"
 />
 
----
-
-## Done
-
-The contributor has received their USDC. The bounty is complete.
+If it still won't release, see the payout section of [Troubleshooting](/troubleshooting).
 
 ---
 
-**Done when:**
-- PR is merged
-- Bot confirms payout in a comment
-- Contributor's wallet shows USDC balance increased
+## Done when
 
----
+The bot has commented that the payout released, and the contributor's wallet shows the USDC.
 
-**Next:** [Withdraw funds](/m-withdraw) (optional) or [Remove a repository](/m-remove-repo)
-
-**Or:** [Back to dashboard](/m-dashboard-tour)
-
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Withdraw unused funds](/m-withdraw) · [Dashboard tour](/m-dashboard-tour)

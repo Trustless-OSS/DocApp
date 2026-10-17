@@ -1,129 +1,100 @@
 ---
 title: 7. Manage a bounty
-description: Assign contributors, pay out, or reject work.
+description: Assign a contributor, split the payout, or reject the work.
 ---
 
 # 7. Manage a bounty
 
-<TimeEstimate minutes={2} forRole="Maintainers" needs="A funded bounty issue + PR" />
 
-**What you'll do:** Handle the bounty lifecycle (assign → review → pay).
-
----
-
-## Assigning a contributor
-
-Once you've labeled an issue as a bounty, contributors can comment `@Trustless-OSS /connect` (or similar) to request assignment.
-
-To assign:
-
-1. **In GitHub**, click **"Assignees"** on the right sidebar
-2. Select the contributor
-3. GitHub saves the assignment
-
-The bot will notify the contributor they're assigned and provide a wallet connection link.
+**What you'll do:** Drive a bounty through its middle stages — assignment, optional split, or rejection — before the PR merges.
 
 ---
 
-## Partial payouts (before merge)
+## Assign a contributor
 
-If work is partial or you want to pay incrementally:
+Assign someone on GitHub the normal way (the issue's **Assignees** field). TOSS reacts to the assignment:
 
-Comment on the **issue**:
+- The bot links the contributor a page to connect a Stellar wallet.
+- Until they connect, the bounty **parks** — no error, it just waits.
+- When they connect, a worker pushes the milestone on-chain and the reward locks.
 
-<CommandBlock
-  command="@Trustless-OSS /pay 50"
-  description="Release 50% of the bounty now; remaining 50% waits for merge"
-  where="Comment on the bounty issue"
-/>
-
-Alternatively, use these aliases (same effect):
-
-<CommandBlock
-  command="@Trustless-OSS /split 75"
-  description="Release 75% of the bounty"
-  where="Comment on the bounty issue"
-/>
-
-<CommandBlock
-  command="@Trustless-OSS /work 60"
-  description="Release 60% for work completion"
-  where="Comment on the bounty issue"
-/>
-
-{/* TODO-VERIFY: exact semantics — is /pay 50 "50 USDC" or "50% of bounty"? Assumed %. */}
+{/* MEDIA-SLOT
+  id: m-manage-01
+  type: image
+  file: /media/maintainer/assign-contributor.png
+  show: GitHub issue Assignees popover with one contributor selected, and the bot's follow-up comment linking the wallet-connect page
+  caption: Assigning a contributor prompts them to connect a wallet
+  alt: GitHub assignees popover and bot wallet-connect comment
+*/}
 
 <Callout type="info">
-  **What's left?** If bounty is 100 USDC and you `/pay 60`, the contributor gets 60 USDC now. The remaining 40 USDC waits for merge. When the PR merges, they get 40 USDC automatically.
+If you assign someone while the bounty has no amount, the bot says so and the flow waits. Set an amount (tier label or `@trustless-oss <amount>`) and it resumes automatically.
 </Callout>
 
 ---
 
-## Rejecting work
+## Split the payout (optional)
 
-If the PR doesn't meet your standards:
-
-Comment on the **issue**:
+By default a merge pays the contributor the full reward. If you want to keep part of it — partial work, a shared effort — save a split **before** merging.
 
 <CommandBlock
-  command="@Trustless-OSS /reject"
-  description="Reject the work; start the refund flow"
-  where="Comment on the bounty issue"
+  command="@trustless-oss pay 70"
+  description="On merge, the contributor receives 70% and the remaining 30% returns to your wallet. Percentage must be 1–99."
+  where="Comment on the bounty issue or the linked PR"
 />
 
-Or use these aliases:
+The bot confirms with the exact amounts:
+
+| Recipient | Example on a 100 USDC bounty, `pay 70` |
+| --- | --- |
+| Contributor | 70 USDC |
+| Maintainer (you) | 30 USDC |
+
+<Callout type="info">
+A split is an **intent** saved against the bounty, applied at release time. Re-comment `@trustless-oss pay <n>` anytime before merging to change it. The contributor must have a connected wallet before a split can be saved.
+</Callout>
+
+---
+
+## Reject the work
+
+If the work isn't acceptable, reject it. This disputes the on-chain milestone and refunds the reserved USDC to your wallet.
 
 <CommandBlock
-  command="@Trustless-OSS /rejected"
-  description="Same as /reject"
-  where="Comment on the bounty issue"
+  command="@trustless-oss reject"
+  description="Disputes the milestone, refunds escrow to your wallet, and cancels the bounty. The issue is marked cancelled."
+  where="Comment on the bounty issue or the linked PR"
 />
 
-<CommandBlock
-  command="@Trustless-OSS /no"
-  description="Same as /reject"
-  where="Comment on the bounty issue"
-/>
+You can also apply the `rejected` label to the issue for the same effect.
 
 <Callout type="warning">
-  **What happens:** The bounty moves to a "disputed" state. The contributor can contest the rejection, or you can provide feedback to reopen the bounty.
-
-  {/* TODO-VERIFY: exact dispute resolution flow */}
+**Rejecting is irreversible and moves funds.** It cancels the bounty, refunds the reserved reward to your wallet via an on-chain dispute resolution, and notifies the contributor. The milestone cannot be un-rejected — you'd create a new bounty to try again.
 </Callout>
 
 ---
 
-## Retrying a failed payout
+## Force a re-check (rarely needed)
 
-If a payout failed (network error, timeout, etc.):
-
-Comment on the **issue**:
+The automation parks and resumes on its own, and retries transient failures with backoff. If you ever want to nudge it:
 
 <CommandBlock
-  command="@Trustless-OSS /retry"
-  description="Retry the last payout transaction"
+  command="@trustless-oss retry"
+  description="Re-runs the state machine now against the live rules. It cannot force a payout the automation would otherwise refuse."
   where="Comment on the bounty issue"
 />
 
 ---
 
-## Did I get assigned?
+## State reference
 
-If a contributor commented asking to be assigned, you can:
-- **Assign them in GitHub** (click "Assignees", select their name)
-- **Or assign via bot** in a comment `@Trustless-OSS /assign @username` {/* TODO-VERIFY: exact bot command */}
-
----
-
-## Before the PR merges
-
-- ✅ Bounty is labeled (`rewarded` + tier)
-- ✅ Money is in escrow (bot confirmed)
-- ✅ Contributor is assigned
-- ✅ Contributor has connected their wallet (they got the link from the bot)
+| Status | Meaning |
+| --- | --- |
+| `open` | Priced, not yet assigned. Amount still editable. |
+| `assigned` | Contributor assigned. Locks once their wallet connects. |
+| `paid` | Released to the contributor. Terminal. |
+| `cancelled` | Rejected or closed. Funds refunded. Terminal. |
 
 ---
 
-**Next:** [Pay out (merge the PR)](/m-08-pay-out)
-
-**Stuck?** See [Troubleshooting](/troubleshooting).
+**Next:** [Pay out (merge the PR)](/m-08-pay-out) · **Stuck?** [Troubleshooting](/troubleshooting)
