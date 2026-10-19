@@ -96,7 +96,8 @@ export default async function RootLayout({
           docsRepositoryBase="https://github.com/Trustless-OSS/trustless-oss-docs/tree/main"
           footer={footer}
           editLink="Edit this page on GitHub"
-          darkMode={false}
+          darkMode={true}
+          nextThemes={{ defaultTheme: 'dark' }}
           sidebar={{ defaultMenuCollapseLevel: 1, autoCollapse: true }}
           toc={{ title: 'On This Page', float: false }}
         >

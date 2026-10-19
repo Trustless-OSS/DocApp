@@ -1,17 +1,18 @@
 /*
  * Trustless OSS — brand theme on top of nextra-theme-docs.
  *
- * Design source: trustless-oss-xyz-DESIGN.md (www.trustless-oss.xyz).
- *   material : material-you (soft radii, tinted/colored elevation)
- *   surface  : warm cream  #f2f0e4  (page)  /  #061fd4 (raised/brand)
- *   primary  : blue        #061fd4  (brand, actions, links)  — 68 uses
- *   secondary: orange-red  #ff4000
- *   accent   : green       #00a849
- *   text     : near-black  #000000 / #5a5a5a (muted) / #ffffff on blue
+ * Light theme design source: trustless-oss-xyz-DESIGN.md
+ *   material : material-you · surface cream #f2f0e4 · primary blue #061fd4
+ *   secondary orange-red #ff4000 · accent green #00a849
  *   fonts    : Uncut Sans (body) · JetBrains Mono (code)
  *   radii    : md 8px · xl 20px · full 9999px (pills)
- *   headings : Title Case, balanced, heavy weights (800/900)
- *   voice    : playful, third-person
+ *
+ * Dark theme follows the "dark-mode" design skill:
+ *   - Never pure black — neutral dark grey base (#121212).
+ *   - Elevation via lightness — raised surfaces are LIGHTER, not shadowed.
+ *   - Desaturated accents — tone the brand blue down so it doesn't vibrate.
+ *   - Dimmed text (rgba white 87% / 60%) and one weight thinner body.
+ *   - Pure-black shadows at low opacity + subtle white hairline borders.
  *
  * The docs theme owns navbar / sidebar / footer / code / typography; we
  * drive its CSS variables and add brand touches so nothing fights it.
@@ -51,7 +52,7 @@
   --toss-neutral-300: #cac6b0;
   --toss-neutral-700: #5a5746;
 
-  /* --- Semantic roles -------------------------------------------- */
+  /* --- Semantic roles (light) ------------------------------------ */
   --toss-primary: var(--toss-primary-800); /* blue brand / actions */
   --toss-primary-hover: var(--toss-primary-900);
   --toss-link: var(--toss-primary-800);
@@ -82,13 +83,76 @@
   --toss-shadow-lg: 0 18px 36px -22px rgba(6, 31, 212, 0.55);
 }
 
+/* ------------------------------------------------------------------ */
+/*  Dark mode — "dark-mode" design skill                               */
+/*  Nextra (next-themes) toggles the `.dark` class on <html>.          */
+/* ------------------------------------------------------------------ */
+
+html.dark {
+  /* Neutral grey elevation ladder (base → elevated-1 → elevated-2). */
+  --dm-bg-base: #121212;
+  --dm-bg-elevated-1: #1e1e1e;
+  --dm-bg-elevated-2: #242424;
+  --dm-hairline: rgba(255, 255, 255, 0.07);
+
+  /* Desaturated brand accents — calmer than the saturated light ramps. */
+  --toss-primary: #8ab4f8; /* soft, desaturated blue */
+  --toss-primary-hover: #a7c7fa;
+  --toss-link: #8ab4f8;
+  --toss-link-hover: #a7c7fa;
+  --toss-secondary: #ff9a76; /* softened orange-red    */
+  --toss-accent: #6fcf97; /* softened green         */
+
+  /* Semantic surfaces → neutral grey ladder (elevation via lightness). */
+  --toss-page: var(--dm-bg-base);
+  --toss-surface: var(--dm-bg-elevated-1);
+  --toss-raised: var(--dm-bg-elevated-2);
+
+  /* Text: high / medium emphasis per Material dark guidance. */
+  --toss-ink: rgba(255, 255, 255, 0.87);
+  --toss-muted: rgba(255, 255, 255, 0.6);
+  --toss-border: var(--dm-hairline);
+
+  /* Pure-black shadows at low opacity — only to separate grey shades. */
+  --toss-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --toss-shadow-md: 0 4px 12px 0 rgba(0, 0, 0, 0.55);
+  --toss-shadow-lg: 0 12px 28px 0 rgba(0, 0, 0, 0.6);
+
+  /*
+   * Nextra drives its own chrome (search focus ring, kbd hint, active
+   * links, scrollbar) from these --nextra-primary-* HSL variables, set
+   * by the <Head color> prop (vivid blue hue 230). In dark mode that
+   * reads as a loud blue, so desaturate + lighten to match the soft
+   * accent and stop the search box / Ctrl-K hint from glowing blue.
+   */
+  --nextra-primary-hue: 217;
+  --nextra-primary-saturation: 42%;
+  --nextra-primary-lightness: 72%;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Remove the redundant theme switch in the sidebar footer.           */
+/*  (A theme toggle already lives in the navbar.) The sidebar footer   */
+/*  only holds the theme + locale switch, so hide the whole footer.    */
+/* ------------------------------------------------------------------ */
+.nextra-sidebar-footer {
+  display: none !important;
+}
+
+/* Dark mode: neutralize the blue "Ctrl K" kbd hint in the search box. */
+html.dark .nextra-search kbd {
+  color: rgba(255, 255, 255, 0.6);
+  background-color: var(--dm-bg-elevated-2);
+  border-color: var(--dm-hairline);
+}
+
 /* Comfortable reading size (DESIGN.md body is 14px; docs want a touch more). */
 html {
   font-size: 16px;
 }
 
 /* ------------------------------------------------------------------ */
-/*  Surfaces — warm cream page                                         */
+/*  Surfaces                                                           */
 /* ------------------------------------------------------------------ */
 
 html,
@@ -97,9 +161,24 @@ body {
   color: var(--toss-ink);
 }
 
+/* Light text on dark reads optically thicker — drop body one weight. */
+html.dark body {
+  font-weight: 300;
+}
+
 .nextra-navbar .nextra-navbar-blur,
 .nextra-navbar nav {
   background-color: color-mix(in srgb, var(--toss-page) 82%, transparent);
+}
+
+/* In dark mode, lift the navbar onto the elevated-1 grey for depth. */
+html.dark .nextra-navbar .nextra-navbar-blur,
+html.dark .nextra-navbar nav {
+  background-color: color-mix(
+    in srgb,
+    var(--dm-bg-elevated-1) 88%,
+    transparent
+  );
 }
 
 .nextra-sidebar,
@@ -127,7 +206,16 @@ aside.nextra-sidebar {
   font-weight: 700;
 }
 
-/* Inline links use the brand blue. */
+/* Dark mode: headings use high-emphasis white, one weight lighter. */
+html.dark .nextra-content h1,
+html.dark .nextra-content h2 {
+  font-weight: 700;
+}
+html.dark .nextra-content h3 {
+  font-weight: 600;
+}
+
+/* Inline links use the brand blue (desaturated in dark). */
 .nextra-content a:not(.nextra-card) {
   color: var(--toss-link);
   text-underline-offset: 2px;
@@ -145,6 +233,12 @@ kbd {
     'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
+/* Dark mode: inline code sits on an elevated grey chip. */
+html.dark .nextra-content :not(pre) > code {
+  background-color: var(--dm-bg-elevated-2);
+  border-color: var(--dm-hairline);
+}
+
 /* ------------------------------------------------------------------ */
 /*  Tables                                                             */
 /* ------------------------------------------------------------------ */
@@ -159,7 +253,7 @@ kbd {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Material-you — rounded, softly glowing cards / callouts            */
+/*  Cards / callouts — material-you (light) · elevation-grey (dark)    */
 /* ------------------------------------------------------------------ */
 
 .nextra-content blockquote {
@@ -176,9 +270,35 @@ kbd {
   box-shadow: var(--toss-shadow-md);
 }
 
+/* Dark: elevated grey surface + hairline; hover lightens (moves closer). */
+html.dark .nextra-callout,
+html.dark .nextra-card {
+  background-color: var(--toss-surface);
+  border: 1px solid var(--dm-hairline);
+}
+html.dark .nextra-card:hover {
+  background-color: var(--toss-raised);
+}
+
 /* Keep the logo text from wrapping on narrow navbars. */
 .nextra-navbar a span {
   white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Mobile navbar — hide the GitHub project link when it shrinks.      */
+/* ------------------------------------------------------------------ */
+
+/*
+ * Nextra renders the project link as an <a> wrapping an <svg> that carries
+ * aria-label="Project repository". Below the mobile breakpoint the navbar
+ * shrinks, so drop that link. :has() targets the anchor by its icon child.
+ */
+@media (max-width: 767px) {
+  .nextra-navbar a:has(> svg[aria-label='Project repository']),
+  .nextra-navbar a:has(> [aria-label='Project repository']) {
+    display: none !important;
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -208,12 +328,16 @@ aside.nextra-sidebar {
   border-radius: var(--toss-radius-full);
 }
 
-/* Active sidebar item picks up the brand blue tint. */
+/* Active sidebar item picks up the brand tint (desaturated in dark). */
 .nextra-sidebar li > a.x\:active,
 .nextra-sidebar li > a[data-active='true'] {
   background-color: color-mix(in srgb, var(--toss-primary) 12%, transparent);
   color: var(--toss-primary);
   font-weight: 600;
+}
+html.dark .nextra-sidebar li > a.x\:active,
+html.dark .nextra-sidebar li > a[data-active='true'] {
+  background-color: color-mix(in srgb, var(--toss-primary) 18%, transparent);
 }
 
 /*
