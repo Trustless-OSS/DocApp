@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, ChevronRight } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 
 interface NextStepProps {
   href: string
@@ -8,13 +8,29 @@ interface NextStepProps {
 
 export function NextStep({ href, label }: NextStepProps) {
   return (
-    <div className="flex gap-3 items-center text-xs mt-6 pt-5 border-t border-gray-200 dark:border-gray-700">
+    <div
+      style={{
+        display: 'flex',
+        gap: '0.75rem',
+        alignItems: 'center',
+        fontSize: '0.85rem',
+        marginTop: '1.5rem',
+        paddingTop: '1.25rem',
+        borderTop: '1px solid var(--toss-border, #cac6b0)',
+      }}
+    >
       <Link
         href={href}
-        className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400 hover:underline transition-colors"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.375rem',
+          color: 'var(--toss-primary, #061fd4)',
+          fontWeight: 700,
+        }}
       >
         Next: {label}
-        <ChevronRight size={14} className="flex-shrink-0" />
+        <ChevronRight size={14} style={{ flexShrink: 0 }} />
       </Link>
     </div>
   )
@@ -22,10 +38,16 @@ export function NextStep({ href, label }: NextStepProps) {
 
 export function StuckLink() {
   return (
-    <div className="text-xs text-gray-500 dark:text-gray-400 mt-3">
+    <div
+      style={{
+        fontSize: '0.85rem',
+        color: 'var(--toss-muted, #5a5a5a)',
+        marginTop: '0.75rem',
+      }}
+    >
       <Link
         href="/troubleshooting"
-        className="text-blue-600 dark:text-blue-400 hover:underline transition-colors"
+        style={{ color: 'var(--toss-link, #061fd4)' }}
       >
         Stuck? Check Troubleshooting
       </Link>

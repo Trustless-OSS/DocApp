@@ -6,31 +6,46 @@ interface TimeEstimateProps {
   needs?: string
 }
 
+const dotStyle = { color: 'var(--toss-border, #cac6b0)', flexShrink: 0 }
+const itemStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.25rem',
+  flexShrink: 0,
+} as const
+
 export function TimeEstimate({ minutes, forRole, needs }: TimeEstimateProps) {
   return (
-    <div className="flex items-center gap-3 text-xs text-gray-600 dark:text-gray-400 mb-5 whitespace-nowrap overflow-x-auto">
-      <div className="flex items-center gap-1 flex-shrink-0">
-        <Clock size={14} className="flex-shrink-0" />
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.75rem',
+        fontSize: '0.75rem',
+        color: 'var(--toss-muted, #5a5a5a)',
+        marginBottom: '1.25rem',
+        whiteSpace: 'nowrap',
+        overflowX: 'auto',
+      }}
+    >
+      <div style={itemStyle}>
+        <Clock size={14} style={{ flexShrink: 0 }} />
         <span>{minutes} min</span>
       </div>
       {forRole && (
         <>
-          <span className="text-gray-400 dark:text-gray-600 flex-shrink-0">
-            ·
-          </span>
-          <div className="flex items-center gap-1 flex-shrink-0">
-            <Users size={14} className="flex-shrink-0" />
+          <span style={dotStyle}>·</span>
+          <div style={itemStyle}>
+            <Users size={14} style={{ flexShrink: 0 }} />
             <span>{forRole}</span>
           </div>
         </>
       )}
       {needs && (
         <>
-          <span className="text-gray-400 dark:text-gray-600 flex-shrink-0">
-            ·
-          </span>
-          <div className="flex items-center gap-1 flex-shrink-0">
-            <Package size={14} className="flex-shrink-0" />
+          <span style={dotStyle}>·</span>
+          <div style={itemStyle}>
+            <Package size={14} style={{ flexShrink: 0 }} />
             <span>{needs}</span>
           </div>
         </>

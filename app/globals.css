@@ -1,31 +1,179 @@
 /*
- * Trustless OSS — minimal theme tweaks on top of nextra-theme-docs.
+ * Trustless OSS — brand theme on top of nextra-theme-docs.
  *
- * The docs theme already handles light/dark mode, navbar, sidebar, footer,
- * code blocks and typography. We only add a few brand touches here and let
- * the theme's own CSS variables (driven by the <Head color> prop) do the
- * heavy lifting so nothing fights the built-in theme.
+ * Design source: trustless-oss-xyz-DESIGN.md (www.trustless-oss.xyz).
+ *   material : material-you (soft radii, tinted/colored elevation)
+ *   surface  : warm cream  #f2f0e4  (page)  /  #061fd4 (raised/brand)
+ *   primary  : blue        #061fd4  (brand, actions, links)  — 68 uses
+ *   secondary: orange-red  #ff4000
+ *   accent   : green       #00a849
+ *   text     : near-black  #000000 / #5a5a5a (muted) / #ffffff on blue
+ *   fonts    : Uncut Sans (body) · JetBrains Mono (code)
+ *   radii    : md 8px · xl 20px · full 9999px (pills)
+ *   headings : Title Case, balanced, heavy weights (800/900)
+ *   voice    : playful, third-person
+ *
+ * The docs theme owns navbar / sidebar / footer / code / typography; we
+ * drive its CSS variables and add brand touches so nothing fights it.
  */
 
+/* JetBrains Mono for code (DESIGN.md mono family). */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
 :root {
-  --toss-blue: #1d6ff2;
-  --toss-blue-dark: #0066cc;
+  /* --- Primary ramp (blue) — brand ------------------------------- */
+  --toss-primary-50: #c2f3ff;
+  --toss-primary-100: #b1e6ff;
+  --toss-primary-200: #99d4ff;
+  --toss-primary-300: #78b7ff;
+  --toss-primary-400: #5090ff;
+  --toss-primary-500: #316dff;
+  --toss-primary-600: #2155f8;
+  --toss-primary-700: #143fd2;
+  --toss-primary-800: #061fd4;
+  --toss-primary-900: #062397;
+  --toss-primary-950: #010e5f;
+
+  /* --- Secondary ramp (orange-red) ------------------------------- */
+  --toss-secondary-300: #ff8863;
+  --toss-secondary-400: #ff4000;
+  --toss-secondary-500: #ec2a00;
+
+  /* --- Accent ramp (green) --------------------------------------- */
+  --toss-accent-400: #3abc60;
+  --toss-accent-500: #00a849;
+  --toss-accent-600: #00852c;
+
+  /* --- Neutral / cream ramp -------------------------------------- */
+  --toss-neutral-50: #f8f6e8;
+  --toss-neutral-100: #edeadb;
+  --toss-neutral-200: #dddac9;
+  --toss-neutral-300: #cac6b0;
+  --toss-neutral-700: #5a5746;
+
+  /* --- Semantic roles -------------------------------------------- */
+  --toss-primary: var(--toss-primary-800); /* blue brand / actions */
+  --toss-primary-hover: var(--toss-primary-900);
+  --toss-link: var(--toss-primary-800);
+  --toss-link-hover: var(--toss-primary-600);
+  --toss-secondary: var(--toss-secondary-400);
+  --toss-accent: var(--toss-accent-500);
+
+  --toss-page: #f2f0e4; /* page background        */
+  --toss-raised: #061fd4; /* brand/raised surface   */
+  --toss-surface: #ffffff; /* neutral raised surface */
+  --toss-ink: #000000; /* foreground text        */
+  --toss-muted: #5a5a5a; /* secondary text         */
+  --toss-border: #cac6b0; /* hairline borders       */
+
+  /* Back-compat alias — components reference --toss-blue as the brand. */
+  --toss-blue: var(--toss-primary);
+  --toss-blue-dark: var(--toss-primary-hover);
+
+  /* Radii (material-you: generous rounding + pills). */
+  --toss-radius-md: 8px;
+  --toss-radius-xl: 20px;
+  --toss-radius-full: 9999px;
+
+  /* Elevation — tinted/colored (the signature blue glow). */
+  --toss-shadow-sm:
+    0 0 10px 0 rgba(255, 255, 255, 0.65), 0 0 18px 0 rgba(63, 91, 255, 0.24);
+  --toss-shadow-md: 0 0 28px 0 rgba(6, 31, 212, 0.25);
+  --toss-shadow-lg: 0 18px 36px -22px rgba(6, 31, 212, 0.55);
 }
 
-/* Slightly larger, comfortable reading size for docs content. */
+/* Comfortable reading size (DESIGN.md body is 14px; docs want a touch more). */
 html {
   font-size: 16px;
 }
 
-/* Brand-blue accent bar under the main page title. */
+/* ------------------------------------------------------------------ */
+/*  Surfaces — warm cream page                                         */
+/* ------------------------------------------------------------------ */
+
+html,
+body {
+  background-color: var(--toss-page);
+  color: var(--toss-ink);
+}
+
+.nextra-navbar .nextra-navbar-blur,
+.nextra-navbar nav {
+  background-color: color-mix(in srgb, var(--toss-page) 82%, transparent);
+}
+
+.nextra-sidebar,
+aside.nextra-sidebar {
+  background-color: transparent;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Typography — heavy Title Case headings, brand underline on H1      */
+/* ------------------------------------------------------------------ */
+
 .nextra-content h1 {
-  border-bottom: 2px solid var(--toss-blue);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  border-bottom: 3px solid var(--toss-primary);
   padding-bottom: 0.4rem;
 }
 
-/* Make table headers use the brand blue for a bit of identity. */
+.nextra-content h2 {
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+.nextra-content h3 {
+  font-weight: 700;
+}
+
+/* Inline links use the brand blue. */
+.nextra-content a:not(.nextra-card) {
+  color: var(--toss-link);
+  text-underline-offset: 2px;
+}
+.nextra-content a:not(.nextra-card):hover {
+  color: var(--toss-link-hover);
+}
+
+/* Code uses JetBrains Mono. */
+.nextra-content code,
+.nextra-content pre,
+pre code,
+kbd {
+  font-family:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Tables                                                             */
+/* ------------------------------------------------------------------ */
+
 .nextra-content table th {
-  background-color: color-mix(in srgb, var(--toss-blue) 12%, transparent);
+  background-color: color-mix(in srgb, var(--toss-primary) 10%, transparent);
+  color: var(--toss-ink);
+}
+.nextra-content table td,
+.nextra-content table th {
+  border-color: var(--toss-border);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Material-you — rounded, softly glowing cards / callouts            */
+/* ------------------------------------------------------------------ */
+
+.nextra-content blockquote {
+  border-left-color: var(--toss-primary);
+}
+
+.nextra-callout,
+.nextra-card {
+  border-radius: var(--toss-radius-xl);
+  border-color: var(--toss-border);
+  box-shadow: var(--toss-shadow-sm);
+}
+.nextra-card:hover {
+  box-shadow: var(--toss-shadow-md);
 }
 
 /* Keep the logo text from wrapping on narrow navbars. */
@@ -37,42 +185,39 @@ html {
 /*  Wider sidebar                                                      */
 /* ------------------------------------------------------------------ */
 
-/*
- * Nextra's docs sidebar is 16rem (w-64) when expanded and 5rem (w-20) when
- * collapsed. We widen both so the icon + label items (and the collapsed
- * icon rail) have more breathing room.
- */
-
-/* Expanded sidebar + its layout spacer. */
 .nextra-sidebar.x\:w-64,
 aside.nextra-sidebar {
   width: 19rem !important;
 }
 
-/* The invisible spacer div that reserves sidebar space in the grid. */
 .nextra-sidebar-container,
 .x\:w-64:not(.nextra-sidebar) {
   width: 19rem !important;
 }
 
-/* Collapsed (icon-only) sidebar — make the icon rail noticeably larger. */
 .nextra-sidebar.x\:w-20 {
   width: 7rem !important;
 }
 
-/* Give sidebar links a bit more vertical padding for the icon layout. */
+/* Pill-shaped sidebar links (material-you rounding). */
 .nextra-sidebar li > a,
 .nextra-sidebar li > button {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   font-size: 0.93rem;
+  border-radius: var(--toss-radius-full);
+}
+
+/* Active sidebar item picks up the brand blue tint. */
+.nextra-sidebar li > a.x\:active,
+.nextra-sidebar li > a[data-active='true'] {
+  background-color: color-mix(in srgb, var(--toss-primary) 12%, transparent);
+  color: var(--toss-primary);
+  font-weight: 600;
 }
 
 /*
- * Section separator (group heading) styling.
- * Nextra renders separators as an <li> whose direct text uses these utility
- * classes; we target that element to give the headings an uppercase,
- * tracked-out look like "INTRODUCTION" / "API REST".
+ * Section separator (group heading) styling — uppercase, tracked out.
  */
 .nextra-sidebar li.x\:not-first\:mt-5,
 .nextra-sidebar li > span.x\:font-semibold,

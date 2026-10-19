@@ -80,8 +80,13 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
+      {/*
+        Trustless OSS brand theme: warm cream surface, blue primary.
+        hue ~230 / high saturation maps to the #061fd4 primary ramp.
+      */}
       <Head
-        color={{ hue: 212, saturation: 90, lightness: { light: 45, dark: 60 } }}
+        backgroundColor={{ light: '#f2f0e4', dark: '#010e5f' }}
+        color={{ hue: 230, saturation: 95, lightness: { light: 43, dark: 68 } }}
       />
       <body>
         <Layout

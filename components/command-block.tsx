@@ -23,29 +23,84 @@ export function CommandBlock({
   }
 
   return (
-    <div className="my-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-3">
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">
-            <Terminal size={13} className="flex-shrink-0" />
+    <div
+      style={{
+        margin: '0.75rem 0',
+        borderRadius: 'var(--toss-radius-xl, 20px)',
+        border: '1px solid var(--toss-border, #cac6b0)',
+        background: 'var(--toss-surface, #fff)',
+        boxShadow: 'var(--toss-shadow-sm, 0 0 18px 0 rgba(63,91,255,0.24))',
+        padding: '0.75rem',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.375rem',
+              fontSize: '0.75rem',
+              fontWeight: 500,
+              color: 'var(--toss-muted, #5a5a5a)',
+              marginBottom: '0.375rem',
+            }}
+          >
+            <Terminal size={13} style={{ flexShrink: 0 }} />
             {where}
           </div>
-          <code className="block bg-gray-900 dark:bg-gray-950 text-green-400 p-2 rounded font-mono text-xs overflow-x-auto break-words">
+          <code
+            style={{
+              display: 'block',
+              background: '#010e5f',
+              color: 'var(--toss-primary-200, #99d4ff)',
+              padding: '0.5rem',
+              borderRadius: 'var(--toss-radius-md, 8px)',
+              fontFamily:
+                "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace",
+              fontSize: '0.75rem',
+              overflowX: 'auto',
+              wordBreak: 'break-word',
+            }}
+          >
             {command}
           </code>
-          <div className="text-xs text-gray-600 dark:text-gray-300 mt-1.5">
+          <div
+            style={{
+              fontSize: '0.75rem',
+              color: 'var(--toss-ink, #000)',
+              opacity: 0.8,
+              marginTop: '0.375rem',
+            }}
+          >
             ↳ {description}
           </div>
         </div>
         <button
           onClick={handleCopy}
-          className="flex-shrink-0 p-1.5 rounded hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
           aria-label="Copy command"
+          style={{
+            flexShrink: 0,
+            padding: '0.375rem',
+            borderRadius: 'var(--toss-radius-full, 9999px)',
+            border: 'none',
+            background: 'transparent',
+            cursor: 'pointer',
+            color: 'var(--toss-muted, #5a5a5a)',
+            transition: 'background 0.2s',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background =
+              'color-mix(in srgb, var(--toss-primary) 12%, transparent)'
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'transparent'
+          }}
         >
           {copied ? (
-            <Check size={16} className="text-green-600" />
+            <Check size={16} style={{ color: 'var(--toss-accent, #00a849)' }} />
           ) : (
-            <Copy size={16} className="text-gray-600 dark:text-gray-400" />
+            <Copy size={16} />
           )}
         </button>
       </div>

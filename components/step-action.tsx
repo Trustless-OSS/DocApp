@@ -7,7 +7,7 @@ interface StepActionProps {
  */
 export function StepAction({ children }: StepActionProps) {
   return (
-    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+    <p style={{ color: 'var(--toss-ink, #000)', lineHeight: 1.6 }}>
       {children}
     </p>
   )

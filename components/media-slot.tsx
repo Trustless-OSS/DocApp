@@ -12,6 +12,21 @@ interface MediaSlotProps {
   show?: string
 }
 
+const figureStyle = {
+  margin: '1.25rem 0',
+  borderRadius: 'var(--toss-radius-xl, 20px)',
+  overflow: 'hidden',
+  border: '1px solid var(--toss-border, #cac6b0)',
+  boxShadow: 'var(--toss-shadow-sm, 0 0 18px 0 rgba(63,91,255,0.24))',
+} as const
+
+const captionStyle = {
+  padding: '0.5rem',
+  fontSize: '0.75rem',
+  color: 'var(--toss-muted, #5a5a5a)',
+  background: 'var(--toss-surface, #fff)',
+} as const
+
 /**
  * Development-mode placeholder that shows a subtle box with the slot ID.
  * In production (when file is provided), renders the actual image/video.
@@ -28,61 +43,82 @@ export function MediaSlot({
   if (file) {
     if (type === 'video') {
       return (
-        <figure className="my-5 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+        <figure style={figureStyle}>
           <video
             controls
             preload="metadata"
-            className="w-full bg-black"
+            style={{ width: '100%', background: '#000' }}
             aria-label={alt || caption}
           >
             <source src={file} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          {caption && (
-            <figcaption className="p-2 text-xs text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900">
-              {caption}
-            </figcaption>
-          )}
+          {caption && <figcaption style={captionStyle}>{caption}</figcaption>}
         </figure>
       )
     }
 
     // Image
     return (
-      <figure className="my-5 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+      <figure style={figureStyle}>
         <Image
           src={file}
           alt={alt || caption || id}
           width={800}
           height={600}
-          className="w-full h-auto"
+          style={{ width: '100%', height: 'auto' }}
         />
-        {caption && (
-          <figcaption className="p-2 text-xs text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900">
-            {caption}
-          </figcaption>
-        )}
+        {caption && <figcaption style={captionStyle}>{caption}</figcaption>}
       </figure>
     )
   }
 
   // Development mode: show subtle placeholder
   return (
-    <div className="my-5 rounded-lg border border-dashed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 p-4">
-      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-2">
-        <Camera size={13} className="flex-shrink-0" />
-        <span className="font-mono">{id}</span>
-        <span className="text-gray-400 dark:text-gray-600">—</span>
+    <div
+      style={{
+        margin: '1.25rem 0',
+        borderRadius: 'var(--toss-radius-xl, 20px)',
+        border: '1px dashed var(--toss-border, #cac6b0)',
+        background: 'color-mix(in srgb, var(--toss-primary) 5%, transparent)',
+        padding: '1rem',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          fontSize: '0.75rem',
+          color: 'var(--toss-muted, #5a5a5a)',
+          marginBottom: '0.5rem',
+        }}
+      >
+        <Camera size={13} style={{ flexShrink: 0 }} />
+        <span
+          style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}
+        >
+          {id}
+        </span>
+        <span style={{ opacity: 0.6 }}>—</span>
         <span>{type}</span>
       </div>
       {show && (
-        <div className="text-xs text-gray-500 dark:text-gray-400">
-          <span className="font-semibold">Show:</span> {show}
+        <div
+          style={{ fontSize: '0.75rem', color: 'var(--toss-muted, #5a5a5a)' }}
+        >
+          <span style={{ fontWeight: 600 }}>Show:</span> {show}
         </div>
       )}
       {caption && (
-        <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-          <span className="font-semibold">Caption:</span> {caption}
+        <div
+          style={{
+            fontSize: '0.75rem',
+            color: 'var(--toss-muted, #5a5a5a)',
+            marginTop: '0.5rem',
+          }}
+        >
+          <span style={{ fontWeight: 600 }}>Caption:</span> {caption}
         </div>
       )}
     </div>

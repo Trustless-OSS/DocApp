@@ -46,10 +46,11 @@ export function FeatureCard({
   return (
     <div
       style={{
-        border: '1px solid var(--toss-border, rgba(125,125,125,0.2))',
-        borderRadius: 12,
+        border: '1px solid var(--toss-border, #cac6b0)',
+        borderRadius: 'var(--toss-radius-xl, 20px)',
         padding: '1.25rem',
-        background: 'color-mix(in srgb, var(--toss-blue) 4%, transparent)',
+        background: 'var(--toss-surface, #fff)',
+        boxShadow: 'var(--toss-shadow-sm, 0 0 18px 0 rgba(63,91,255,0.24))',
         transition: 'transform 0.2s, box-shadow 0.2s',
       }}
     >
@@ -60,9 +61,10 @@ export function FeatureCard({
           justifyContent: 'center',
           width: 44,
           height: 44,
-          borderRadius: 10,
-          background: 'color-mix(in srgb, var(--toss-blue) 15%, transparent)',
-          color: 'var(--toss-blue)',
+          borderRadius: 'var(--toss-radius-md, 8px)',
+          background:
+            'color-mix(in srgb, var(--toss-primary) 12%, transparent)',
+          color: 'var(--toss-primary)',
           marginBottom: '0.85rem',
         }}
       >
@@ -72,6 +74,8 @@ export function FeatureCard({
         style={{
           margin: '0 0 0.4rem',
           fontSize: '1.15rem',
+          fontWeight: 800,
+          letterSpacing: '-0.01em',
           border: 'none',
           padding: 0,
         }}
@@ -133,11 +137,12 @@ export function Step({
           justifyContent: 'center',
           width: 36,
           height: 36,
-          borderRadius: '50%',
-          background: 'var(--toss-blue)',
+          borderRadius: 'var(--toss-radius-full, 9999px)',
+          background: 'var(--toss-primary, #061fd4)',
           color: '#fff',
-          fontWeight: 700,
+          fontWeight: 800,
           fontSize: '1rem',
+          boxShadow: 'var(--toss-shadow-md, 0 0 28px 0 rgba(6,31,212,0.25))',
         }}
       >
         {n}
@@ -148,12 +153,12 @@ export function Step({
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
-            fontWeight: 700,
+            fontWeight: 800,
             fontSize: '1.05rem',
           }}
         >
           {Icon ? (
-            <Icon size={18} style={{ color: 'var(--toss-blue)' }} />
+            <Icon size={18} style={{ color: 'var(--toss-primary)' }} />
           ) : null}
           {title}
         </div>
