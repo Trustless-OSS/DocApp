@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Documentation for the Trustless-OSS project to help new users learn how to integrate and use it in their repositories and organizations.",
   "scripts": {
-    "dev": "next dev",
+    "dev": "rm -rf .next && next dev",
     "build": "next build",
     "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind",
     "start": "next start",
@@ -16,7 +16,6 @@
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "lucide-react": "^1.57.0",
-    "next": "^15.1.0",
     "next-themes": "^0.4.6",
     "nextra": "^4.6.1",
     "nextra-theme-docs": "^4.6.1",
@@ -29,6 +28,7 @@
     "@types/react-dom": "^18.3.0",
     "eslint": "^8.56.0",
     "eslint-config-next": "^15.1.0",
+    "next": "^14.2.3",
     "pagefind": "^1.1.1",
     "prettier": "^3.9.10",
     "typescript": "^5.5.4",

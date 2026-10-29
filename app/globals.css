@@ -127,7 +127,7 @@ html.dark {
    */
   --nextra-primary-hue: 217;
   --nextra-primary-saturation: 42%;
-  --nextra-primary-lightness: 72%;
+  --nextra-primary-lightness: 71%; /* live edit test */
 }
 
 /* ------------------------------------------------------------------ */
