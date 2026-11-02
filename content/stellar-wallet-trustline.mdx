@@ -1,0 +1,113 @@
+---
+title: Set up a Stellar wallet and USDC trustline
+description: Connect a Stellar wallet, let Trustless OSS detect USDC support, and sign one transaction to enable the USDC asset.
+---
+
+# Set up a Stellar wallet and USDC trustline
+
+Start with a Stellar wallet and a small spendable XLM balance. Trustless OSS then checks whether the connected address is ready to receive USDC. If the USDC trustline is missing, the profile shows an **Add USDC Trustline** action and prepares the transaction for your wallet to sign.
+
+<Callout type="info">
+You do not need to add the asset manually in another application. Open the [Trustless OSS website](https://www.trustless-oss.xyz), sign in, and use the **Payout wallet** section on your profile.
+</Callout>
+
+## Before you begin
+
+You need:
+
+- A supported Stellar wallet such as **Freighter, xBull, Albedo, LOBSTR, or Rabet**.
+- Access to its recovery phrase or other recovery method, stored securely.
+- A Stellar **mainnet** public address beginning with `G`.
+- Enough XLM for the account reserve, the USDC trustline reserve, and the signing transaction fee.
+
+The [Stellar wallet guide](https://stellar.org/learn/wallets-to-store-send-and-receive-lumens) explains wallet types and the difference between custodial and non-custodial wallets.
+
+## 1. Create or import a Stellar wallet
+
+Use a wallet supported by Trustless OSS. The exact button labels vary, but the safe setup flow is the same:
+
+<Steps>
+  <Step n={1} title="Install from the official source">Use the wallet's verified website, browser-extension store listing, or mobile app listing. Avoid links from unsolicited messages.</Step>
+  <Step n={2} title="Create or import an account">Choose **Create account** for a new Stellar address, or **Import/Restore** only when you already own a recovery phrase.</Step>
+  <Step n={3} title="Back up the recovery method">Write the recovery phrase down and store it offline. Never paste it into Trustless OSS—only the wallet should handle it.</Step>
+  <Step n={4} title="Select Stellar mainnet">Use the public/main network for real USDC payouts. Testnet assets do not have real monetary value.</Step>
+  <Step n={5} title="Copy the public address">Use the wallet's Receive screen and copy the address beginning with `G`. This address is safe to share; the recovery phrase is not.</Step>
+</Steps>
+
+<MediaSlot id="stellar-wallet-create" type="image" show="Supported wallet create/import screen followed by its Receive screen with a redacted Stellar G-address." caption="Add wallet-specific screenshots here when the preferred wallet is finalized." />
+
+<Callout type="warning">
+Trustless OSS never asks for your recovery phrase, private key, or wallet PIN. Anyone with the recovery phrase can control the account and its assets.
+</Callout>
+
+## 2. Add XLM for reserves and fees
+
+XLM is Stellar's native asset. The wallet needs it for three different reasons:
+
+1. **Account reserve:** a Stellar account must maintain a minimum XLM balance to remain active.
+2. **Trustline reserve:** adding USDC creates another account entry and increases the reserved balance requirement.
+3. **Transaction fee:** the signed `changeTrust` transaction pays a small network fee in XLM.
+
+Do not plan around only the visible transaction fee. Keep a small **spendable XLM buffer above the wallet-reported minimum reserve**, because network requirements and fee conditions can change.
+
+### Send XLM to the wallet
+
+<Steps>
+  <Step n={1} title="Open Receive in the Stellar wallet">Copy the public `G...` address and confirm the wallet is on mainnet.</Step>
+  <Step n={2} title="Acquire XLM">Use a reputable exchange, on-ramp, or another Stellar wallet available in your region.</Step>
+  <Step n={3} title="Choose the Stellar network">When withdrawing from an exchange, select **Stellar**, not an unrelated network with a similarly named asset.</Step>
+  <Step n={4} title="Paste and verify the address">Compare the beginning and end of the destination address. Follow the wallet's Receive screen if the sender asks for a memo.</Step>
+  <Step n={5} title="Send a small test first">Wait for it to appear, then send the rest. The wallet should show both total XLM and an amount available to spend.</Step>
+</Steps>
+
+<MediaSlot id="stellar-wallet-add-xlm" type="image" show="Wallet Receive screen with redacted G-address, followed by the wallet showing an XLM balance and available/spendable amount." caption="Show where users copy the address and confirm that XLM arrived." />
+
+<Callout type="info">
+[Stellar's network documentation](https://developers.stellar.org/docs/learn/fundamentals/lumens) explains that transactions require XLM fees and accounts must retain a reserve. Trustless OSS cannot create the USDC trustline if the account lacks enough available XLM.
+</Callout>
+
+## 3. Connect your Stellar wallet
+
+Open your profile and find **Stellar chain → Payout wallet**. Select **Connect Stellar wallet**, choose your supported wallet, and approve the connection. Trustless OSS receives your public address only—it never receives your recovery phrase or private key.
+
+<WalletStatePreview state="disconnected" />
+
+## 4. Let the app check for USDC
+
+After connection, the app automatically reads the account through the Stellar network and looks for the configured USDC trustline.
+
+- If the trustline is missing, the wallet card shows **Connected · Action required**.
+- If the trustline already exists, the card immediately shows the current USDC balance.
+
+<WalletStatePreview state="trustline-required" />
+
+## 5. Add the USDC trustline
+
+Select **Add USDC Trustline**. Trustless OSS builds a Stellar `changeTrust` transaction for the correct USDC asset and sends it to your connected wallet for approval.
+
+<Steps>
+  <Step n={1} title="Review the request">Confirm that the wallet shows the expected Stellar network and USDC asset.</Step>
+  <Step n={2} title="Sign in your wallet">Approve the transaction. Signing stays inside the wallet; Trustless OSS never handles your private key.</Step>
+  <Step n={3} title="Wait for confirmation">The signed transaction is submitted to Stellar. The profile checks the account again after confirmation.</Step>
+</Steps>
+
+<Callout type="warning">
+Use the network selected by Trustless OSS and verify the asset before signing. If the wallet reports an insufficient balance or reserve error, add more XLM and try again—do not repeatedly submit the same failed transaction.
+</Callout>
+
+## 6. Confirm the USDC balance
+
+When the trustline is active, the action-required warning disappears and the card shows **Connected** plus the USDC balance for that address. A zero balance is valid—it means the account can receive USDC but has not received any yet.
+
+<WalletStatePreview state="ready" />
+
+## If the button still appears
+
+1. Confirm the wallet transaction was approved rather than rejected.
+2. Confirm the wallet and Trustless OSS are using the same Stellar network.
+3. Check the transaction using the **Expert** link.
+4. Refresh the profile after the transaction is confirmed.
+5. Disconnect and reconnect only if the displayed address is not the account you intended to use.
+6. If signing fails for insufficient reserve or fees, add XLM to the same address and retry once the balance is confirmed.
+
+**Next:** [Find a bounty](/c-01-find-bounty) · [Troubleshooting](/troubleshooting)

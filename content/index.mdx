@@ -3,49 +3,20 @@ title: Trustless OSS
 description: Escrow-backed GitHub bounties on Stellar. Fund the work, merge the proof, release the reward automatically.
 ---
 
-# Trustless OSS
-
-**Attach USDC rewards to GitHub issues and have them pay out automatically on merge — with no bounty platform holding the money.** Funds live in a per-repo escrow contract on Stellar. A merged PR that closes a labeled issue releases the reward on-chain, in seconds.
+<Hero />
 
 ## Choose your path
 
-<div className="grid md:grid-cols-2 gap-6 my-8">
-  <a
-    href="/m-01-sign-in"
-    className="block border border-gray-200 dark:border-gray-700 rounded-xl p-6 no-underline hover:border-blue-500 hover:shadow-md transition-all"
-  >
-    <h3 className="text-xl font-bold mb-2 mt-0">I pay rewards</h3>
-    <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm">
-      Maintainer. Connect a repo, deploy and fund an escrow, label issues, merge PRs.
-    </p>
-    <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">Start as a maintainer →</span>
-  </a>
+<PathGrid>
+  <PathCard role="maintainer" title="Fund open-source work" description="Turn GitHub issues into verifiable, escrow-backed USDC bounties." href="/m-01-sign-in" steps={['Connect a public repository', 'Deploy and fund its escrow', 'Merge verified work']} />
+  <PathCard role="contributor" title="Build and earn" description="Choose funded work, ship a linked PR, and receive USDC on approval." href="/c-01-find-bounty" steps={['Find a funded issue', 'Get assigned to the bounty', 'Open a linked pull request']} />
+</PathGrid>
 
-  <a
-    href="/c-01-find-bounty"
-    className="block border border-gray-200 dark:border-gray-700 rounded-xl p-6 no-underline hover:border-blue-500 hover:shadow-md transition-all"
-  >
-    <h3 className="text-xl font-bold mb-2 mt-0">I earn rewards</h3>
-    <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm">
-      Contributor. Find a funded bounty, connect a wallet, open a PR, get paid in USDC.
-    </p>
-    <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">Start as a contributor →</span>
-  </a>
-</div>
+## One workflow, four guarded stages
 
-## The flow in three steps
+<FlowRail />
 
-<Steps>
-  <Step n={1} icon="coins" title="Fund">
-    A maintainer deploys a Stellar escrow for the repo and funds it with USDC, then labels an issue `rewarded` + a tier.
-  </Step>
-  <Step n={2} icon="merge" title="Build">
-    A contributor is assigned, connects a wallet (locking the reward on-chain), and opens a PR with `Closes #issue`.
-  </Step>
-  <Step n={3} icon="reward" title="Release">
-    The maintainer merges. A background worker verifies the rules and the escrow releases the USDC — automatically.
-  </Step>
-</Steps>
+<MediaSlot id="home-flow-overview" type="video" show="End-to-end bounty flow: funded issue, assignment, linked PR, live verification, and USDC payout." caption="Replace this placeholder with a 30–45 second product walkthrough." />
 
 {/* MEDIA-SLOT
   id: home-flow-overview
@@ -64,15 +35,15 @@ description: Escrow-backed GitHub bounties on Stellar. Fund the work, merge the 
   alt: End-to-end walkthrough of a TOSS bounty
 */}
 
-## Why TOSS
+## Why teams use TOSS
 
 - **Non-custodial.** You sign your own deploy and fund transactions. The platform never holds keys, and the escrow — not a company — releases funds.
 - **GitHub-native.** Labels create bounties; assignment and merge drive the lifecycle; a `@trustless-oss` bot handles the edges. No separate workspace.
-- **Automatic & resilient.** Bounties park when a wallet is missing, resume when it arrives, retry transient failures with backoff, and never double-pay.
+- **Automatic & resilient.** Bounties park when a wallet is missing, resume when it arrives, retry transient failures with backoff, and reconcile already-released chain state instead of paying twice.
 - **Verifiable.** Every bounty's escrow is on-chain, so a contributor can confirm funding before starting.
 
 ---
 
-**New to Stellar or USDC?** Read [What is Trustless OSS?](/what-is-trustless-oss) and the [Glossary](/glossary), then [set up a wallet](/choose-wallet).
+**New to TOSS?** Read [What is Trustless OSS?](/what-is-trustless-oss) and the [Glossary](/glossary).
 
 **Just want the commands?** [Command Cheat Sheet](/command-cheat-sheet).

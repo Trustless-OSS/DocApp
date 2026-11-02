@@ -1,6 +1,5 @@
-'use client'
-
 import Image from 'next/image'
+import Link from 'next/link'
 
 const socials = [
   {
@@ -43,28 +42,22 @@ const socials = [
 
 export function FooterContent() {
   return (
-    <div style={{ width: '100%' }}>
-      {/* Top row: brand on the left, social icons on the right */}
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '1rem',
-          width: '100%',
-        }}
-      >
-        {/* Brand — left aligned, larger font, blue "OSS" */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-          <Image src="/logo.png" alt="Trustless OSS" width={34} height={34} />
-          <span style={{ fontSize: '1.4rem', fontWeight: 800, lineHeight: 1 }}>
-            Trustless <span style={{ color: 'var(--toss-blue)' }}>OSS</span>
-          </span>
+    <div className="toss-footer">
+      <div className="toss-footer__top">
+        <div className="toss-footer__brand">
+          <Image src="/logo.png" alt="Trustless OSS" width={40} height={40} />
+          <div>
+            <span className="toss-footer__name">
+              Trustless <span>OSS</span>
+            </span>
+            <p>Escrow-backed GitHub bounties on Stellar.</p>
+          </div>
         </div>
 
-        {/* Social icons — right aligned */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.1rem' }}>
+        <div
+          className="toss-footer__socials"
+          aria-label="Trustless OSS social links"
+        >
           {socials.map((s) => (
             <a
               key={s.label}
@@ -73,24 +66,6 @@ export function FooterContent() {
               rel="noreferrer"
               title={s.label}
               aria-label={s.label}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: 24,
-                height: 24,
-                color: 'currentColor',
-                opacity: 0.65,
-                transition: 'opacity 0.2s, transform 0.2s',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.opacity = '1'
-                e.currentTarget.style.transform = 'translateY(-2px)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.opacity = '0.65'
-                e.currentTarget.style.transform = 'translateY(0)'
-              }}
             >
               {s.icon}
             </a>
@@ -98,20 +73,13 @@ export function FooterContent() {
         </div>
       </div>
 
-      {/* Divider */}
-      <div
-        style={{
-          width: '100%',
-          height: 1,
-          margin: '1.25rem 0',
-          background: 'currentColor',
-          opacity: 0.12,
-        }}
-      />
-
-      {/* Copyright — centered */}
-      <div style={{ textAlign: 'center', fontSize: '0.9rem', opacity: 0.8 }}>
-        © {new Date().getFullYear()} Trustless OSS. All rights reserved.
+      <div className="toss-footer__bottom">
+        <span>© {new Date().getFullYear()} Trustless OSS.</span>
+        <nav aria-label="Footer navigation">
+          <Link href="/">Home</Link>
+          <Link href="/what-is-trustless-oss">About TOSS</Link>
+          <Link href="/troubleshooting">Troubleshooting</Link>
+        </nav>
       </div>
     </div>
   )

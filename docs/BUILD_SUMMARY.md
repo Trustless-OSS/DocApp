@@ -1,7 +1,10 @@
 # Trustless OSS End-User Documentation — Build Summary
 
 **Completed:** October 2026
-**Status:** ✅ Build succeeds. Ready for media capture and final review.
+**Revised:** 2 November 2026
+**Status:** ✅ Build and typecheck succeed. A focused Stellar wallet and USDC trustline guide documents the product's built-in detection and signed `changeTrust` flow.
+
+> Historical note: this file originally described the first end-user documentation pass. The current site has **25 MDX pages**, including two developer-reference pages, visible media placeholders, and a redesigned landing experience. The source-of-truth project guides are `PROJECT_GUIDE_Frontend.md` and `PROJECT_GUIDE_Backend.md`.
 
 ---
 
@@ -13,7 +16,7 @@ Complete rewrite of Trustless OSS documentation from **developer-focused** to **
 
 ---
 
-## Pages Created (37 total)
+## Pages Created (25 current MDX pages)
 
 ### Home & Navigation
 
@@ -24,14 +27,6 @@ Complete rewrite of Trustless OSS documentation from **developer-focused** to **
 - What is Trustless OSS? (60-second explainer)
 - How money flows (escrow diagram)
 - Glossary (25+ terms, plain English)
-
-### Set Up Your Wallet (5 pages)
-
-- Choose a wallet (LOBSTR recommended)
-- Create your wallet (install, recovery phrase, PIN)
-- Add USDC (trustline setup, Centre issuer verification)
-- Get XLM (buy from exchange, send to wallet)
-- Keep it safe (recovery phrase security, PINs, don't-share rules)
 
 ### For Maintainers (12 pages)
 
@@ -102,14 +97,11 @@ Home
 │   ├── What is Trustless OSS?
 │   ├── How money flows
 │   └── Glossary
-├── Set Up Your Wallet
-│   ├── Choose a wallet
-│   ├── Create your wallet
-│   ├── Add USDC (trustline)
-│   ├── Get XLM for fees
-│   └── Keep it safe
 ├── For Maintainers (12 pages)
-├── For Contributors (6 pages)
+├── For Contributors (4-step GitHub path)
+├── Developer Guide
+│   ├── Product architecture
+│   └── API & operations
 ├── Reference
 │   ├── Command Cheat Sheet
 │   ├── Troubleshooting
@@ -122,7 +114,7 @@ Home
 
 ## Media Placeholders
 
-**87 media slots** inserted (mostly screenshots, 1 hero video). All marked with `MEDIA-SLOT` MDX comments containing:
+Media positions use visible `<MediaSlot>` components plus detailed `MEDIA-SLOT` capture comments containing:
 
 - **id** (unique, kebab-case)
 - **type** (image | video | gif)
@@ -131,15 +123,15 @@ Home
 - **highlight** (which element to emphasize)
 - **(for videos) length, script** (bullet steps to record)
 
-**Development mode:** Yellow dashed box with slot ID and caption (layout reviewable without real media).
+**Without a final asset:** A responsive patterned placeholder shows the media type, slot ID, capture brief, and caption.
 
 **Production mode:** Renders real `<img>` or `<video>` once media files are provided at `/public/media/...`.
 
-**Inventory:** `docs/MEDIA_TODO.md` — complete table of all 87 slots (id, page, type, capture spec, status ☐).
+**Inventory note:** the former `docs/MEDIA_TODO.md` was removed before the November revision. Search for `MEDIA-SLOT` and `<MediaSlot` to find capture specifications and visible placeholders.
 
 ---
 
-## What Is Flagged (OPEN_QUESTIONS.md)
+## Product questions carried from the original review
 
 14 items flagged for verification/product confirmation:
 
@@ -167,7 +159,7 @@ Home
 
 ## What Works Now
 
-✅ Build succeeds (37 pages, all internal links valid)
+✅ Build succeeds (25 documentation routes, all compiled successfully)
 ✅ Search enabled (Nextra search across all content)
 ✅ Sidebar with correct order and section separators
 ✅ All components rendering without errors
@@ -180,8 +172,8 @@ Home
 
 ## What's Blocked
 
-⏳ **Media capture** — Need screenshots/video (87 slots, see MEDIA_TODO.md)
-⏳ **Product answers** — 14 open questions (see OPEN_QUESTIONS.md)
+⏳ **Media capture** — Replace the visible placeholders and remaining `MEDIA-SLOT` specifications with final screenshots/video
+⏳ **Product answers** — Resolve remaining `TODO-VERIFY` comments in MDX against the product and current wallet UI
 ⏳ **Wallet UI screenshots** — Exact button names in LOBSTR/Freighter/etc.
 
 ---
@@ -189,8 +181,8 @@ Home
 ## Next Steps
 
 1. **Review content** — Read pages 1–5 for tone/accuracy/completeness
-2. **Answer open questions** — Confirm items in OPEN_QUESTIONS.md (priority: #3–7 for wallet setup)
-3. **Capture media** — Use MEDIA_TODO.md as checklist; save to `/public/media/...`
+2. **Answer open questions** — Resolve searchable `TODO-VERIFY` comments (priority: wallet issuer/UI details)
+3. **Capture media** — Search `MediaSlot`/`MEDIA-SLOT`; save final assets to `/public/media/...`
 4. **Update TODO-VERIFY comments** — Replace placeholder `TODO-VERIFY` with real values once product confirms
 5. **Final link check** — Run build again; verify no broken links
 6. **Deploy** — Next.js build is ready (`npm run build` succeeds)
@@ -199,10 +191,10 @@ Home
 
 ## File Locations
 
-**Content pages:** `/content/*.mdx` (37 files)
+**Content pages:** `/content/*.mdx` (25 files)
 **Components:** `/components/*.tsx` (5 new files)
 **Config:** `/content/_meta.tsx` (sidebar structure)
-**Tracking:** `/docs/OPEN_QUESTIONS.md`, `/docs/MEDIA_TODO.md`
+**Source guides:** `/docs/PROJECT_GUIDE_Frontend.md`, `/docs/PROJECT_GUIDE_Backend.md`
 **MDX component registry:** `/mdx-components.js`
 
 ---
@@ -214,7 +206,7 @@ Home
 3. **Bot mention:** Standardized to `@Trustless-OSS` everywhere (product has inconsistency)
 4. **`/pay` is percentage** — Assumed `/pay 75` = 75% of bounty (awaiting confirmation)
 5. **Centre USDC issuer** — Used standard mainnet issuer; marked for confirmation
-6. **No platform fee** — Docs state no fee; only Stellar network fees
+6. **Platform fee** — New escrows use the code-derived 100-basis-point (1%) TOSS platform fee; Stellar network fees are separate
 7. **Escrow is smart contract** — Simplified explanation: "locked container on blockchain"
 
 ---
@@ -223,16 +215,16 @@ Home
 
 | Requirement                                  | Status                                                      |
 | -------------------------------------------- | ----------------------------------------------------------- |
-| All pages in sidebar tree exist              | ✅ 37 pages                                                 |
+| All pages in sidebar tree exist              | ✅ 25 pages                                                 |
 | Every flow has ≥1 media slot                 | ✅ 87 slots with MEDIA-SLOT comments                        |
 | <~120 words prose per section                | ✅ Checked; used steps/tables/callouts instead              |
 | Bot commands as in spec                      | ✅ All commands exact (`@Trustless-OSS`, aliases in tables) |
 | Money-affecting actions have warning         | ✅ Withdraw, reject, full withdrawal all flagged            |
-| No invented facts                            | ✅ Uncertain items are `TODO-VERIFY` + OPEN_QUESTIONS.md    |
+| No invented facts                            | ✅ Uncertain items remain searchable as `TODO-VERIFY`       |
 | Builds without errors                        | ✅ `npm run build` succeeds                                 |
 | Responsive at 375px                          | ✅ Text readable, tables scroll, images responsive          |
 | Search works                                 | ✅ Nextra search enabled                                    |
-| Each page has front-matter title/description | ✅ All 37 pages                                             |
+| Each page has front-matter title/description | ✅ All 25 pages                                             |
 
 ---
 
@@ -241,7 +233,7 @@ Home
 ```bash
 npm run build
 # Output: .next/ (static)
-# Succeeds (37 pages, 0 errors)
+# Succeeds (25 documentation routes, 0 errors)
 ```
 
 ---
@@ -254,9 +246,9 @@ npm run build
 - Contributors: 6 pages
 - Reference: 3 pages
 - Components: 5 custom
-- Tracking: 2 docs (OPEN_QUESTIONS, MEDIA_TODO)
+- Source guides: frontend + backend complete project guides
 
-**Total:** 37 pages + 5 components + 2 tracking docs.
+**Current total:** 25 MDX pages + reusable documentation/landing components.
 
 ---
 

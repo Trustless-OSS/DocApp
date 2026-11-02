@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { Camera } from 'lucide-react'
+import { Camera, Film, ImagePlus, Upload } from 'lucide-react'
 
 interface MediaSlotProps {
   id: string
@@ -73,54 +73,32 @@ export function MediaSlot({
     )
   }
 
-  // Development mode: show subtle placeholder
+  const PlaceholderIcon = type === 'video' || type === 'gif' ? Film : ImagePlus
+
+  // Visible production-safe placeholder: tells editors exactly what belongs here.
   return (
-    <div
-      style={{
-        margin: '1.25rem 0',
-        borderRadius: 'var(--toss-radius-xl, 20px)',
-        border: '1px dashed var(--toss-border, #cac6b0)',
-        background: 'color-mix(in srgb, var(--toss-primary) 5%, transparent)',
-        padding: '1rem',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          fontSize: '0.75rem',
-          color: 'var(--toss-muted, #5a5a5a)',
-          marginBottom: '0.5rem',
-        }}
-      >
-        <Camera size={13} style={{ flexShrink: 0 }} />
-        <span
-          style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}
-        >
-          {id}
+    <figure className="toss-media-slot">
+      <div className="toss-media-slot__canvas">
+        <span className="toss-media-slot__badge">
+          <Camera size={13} /> Media placeholder · {type}
         </span>
-        <span style={{ opacity: 0.6 }}>—</span>
-        <span>{type}</span>
+        <span className="toss-media-slot__icon">
+          <PlaceholderIcon size={30} />
+        </span>
+        <strong>
+          Add{' '}
+          {type === 'image' ? 'screenshot or diagram' : 'product walkthrough'}
+        </strong>
+        <code>{id}</code>
       </div>
-      {show && (
-        <div
-          style={{ fontSize: '0.75rem', color: 'var(--toss-muted, #5a5a5a)' }}
-        >
-          <span style={{ fontWeight: 600 }}>Show:</span> {show}
-        </div>
-      )}
-      {caption && (
-        <div
-          style={{
-            fontSize: '0.75rem',
-            color: 'var(--toss-muted, #5a5a5a)',
-            marginTop: '0.5rem',
-          }}
-        >
-          <span style={{ fontWeight: 600 }}>Caption:</span> {caption}
-        </div>
-      )}
-    </div>
+      <figcaption className="toss-media-slot__meta">
+        <Upload size={15} />
+        <span>
+          <strong>{show ? 'Capture:' : 'Replace later:'}</strong>{' '}
+          {show || 'Add the final media asset when it is ready.'}
+          {caption ? ` — ${caption}` : ''}
+        </span>
+      </figcaption>
+    </figure>
   )
 }

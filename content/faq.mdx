@@ -11,7 +11,7 @@ description: Common questions about TOSS, from both sides of a bounty.
 No custodian holds your money. Funds sit in a per-repo escrow contract on Stellar, and its on-chain rules — not a company — decide when they release. You sign your own transactions; the platform never holds keys.
 
 ### Is there a platform fee?
-No platform cut. You pay only Stellar's network fees, which are fractions of a cent per transaction, in XLM.
+New escrows are configured with a **1% TOSS platform fee** (100 basis points). Stellar network fees are separate and are paid in XLM when a transaction is submitted.
 
 ### Which network and asset?
 Stellar **mainnet**, paid in **USDC**. These docs assume mainnet — balances are real money.
@@ -77,7 +77,7 @@ No. You install a wallet, add a USDC trustline, keep a little XLM for fees, and 
 XLM covers Stellar's network fees and the account's minimum reserve. A few dollars of XLM lasts a long time. {/* TODO-VERIFY: exact minimum reserve and typical fee figures */}
 
 ### What if I lose my recovery phrase?
-There's no recovery path — whoever holds the phrase controls the wallet, and losing it means losing access. Store it offline. See [Keep it safe](/keep-wallet-safe).
+There's no recovery path — whoever holds the phrase controls the wallet, and losing it means losing access. Store it securely offline.
 
 ### Will TOSS ever ask for my recovery phrase or keys?
 Never. Any request for your recovery phrase, PIN, or private key is a scam.

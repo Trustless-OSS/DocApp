@@ -1,0 +1,50 @@
+---
+title: Product architecture
+description: How the Trustless OSS frontend, backend, GitHub, queues, and Stellar escrow work together.
+---
+
+# Product architecture
+
+This page turns the frontend and backend project guides into one system-level map. Use it when you need to understand which part owns an action, where state lives, or why a payout is waiting.
+
+<MediaSlot id="architecture-system-map" type="image" show="A five-lane architecture diagram: browser, Axum API, PostgreSQL and Redis, GitHub, and Trustless Work/Stellar. Include Resend and object storage as side services." caption="Replace this placeholder with the final system architecture diagram." />
+
+## System at a glance
+
+| Layer | Owns |
+| --- | --- |
+| Next.js frontend | Supabase session, dashboard views, wallet selection/signing, forms, and status feedback |
+| Rust/Axum backend | Authorization, repository and bounty rules, OpenAPI routes, orchestration, and durable business decisions |
+| GitHub App | Repository installation, labels, assignments, issues, comments, pull-request events, and merge evidence |
+| PostgreSQL | Durable profiles, repositories, rewards, bounties, notifications, and escrow metadata |
+| Redis + BullMQ | Caching, rate limits, deduplication, coalescing, and retryable background work |
+| Trustless Work + Stellar | Escrow deployment, funding, milestones, disputes, refunds, and final USDC settlement |
+
+## The guarded payout path
+
+<Steps>
+  <Step n={1} title="Reserve">A `rewarded` issue plus a configured tier reserves the amount from the repository's available escrow pool.</Step>
+  <Step n={2} title="Assign">GitHub assignment identifies the only contributor eligible for this bounty.</Step>
+  <Step n={3} title="Prepare">A valid payout wallet lets the worker push or refresh the on-chain milestone. Missing wallet data parks the bounty safely.</Step>
+  <Step n={4} title="Prove">A merged PR must contain a closing reference and be authored by the assigned contributor.</Step>
+  <Step n={5} title="Re-check">Before releasing funds, the worker reloads database, GitHub, wallet, and on-chain state. A webhook alone never authorizes payment.</Step>
+  <Step n={6} title="Settle">If receiver, amount, merge, issue, and milestone state all agree, the escrow releases USDC and the local record is updated.</Step>
+</Steps>
+
+## Frontend responsibility boundaries
+
+The browser never handles a private key. For deploy and fund operations, it requests an unsigned Stellar XDR from the backend, asks the selected wallet to sign it, and submits only the signed XDR. Supported wallet modules include Freighter, xBull, Albedo, LOBSTR, and Rabet. Cross-chain destinations shown in product presentation are **coming soon**, not currently implemented settlement paths.
+
+## Failure is a state, not a guess
+
+- A missing wallet parks work and resumes it after connection.
+- Temporary integration failures retry with exponential backoff.
+- Stable queue identifiers and locks prevent duplicate concurrent actions.
+- If the chain already shows a release, the worker repairs stale local state instead of paying again.
+- Unsafe receiver, amount, author, or issue state blocks payout without moving funds.
+
+<Callout type="info">
+The source guides remain in `docs/PROJECT_GUIDE_Frontend.md` and `docs/PROJECT_GUIDE_Backend.md`. This page is the reader-friendly system overview; the source files remain the detailed code-derived reference.
+</Callout>
+
+**Next:** [API & operations](/api-operations)

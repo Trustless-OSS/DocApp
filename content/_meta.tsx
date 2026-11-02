@@ -1,12 +1,14 @@
 import type { MetaRecord } from 'nextra'
 import {
   BookOpen,
-  Wallet,
   Wrench,
   Code2,
   Terminal,
   HelpCircle,
   FileText,
+  Layers3,
+  ServerCog,
+  Wallet,
 } from 'lucide-react'
 import { SidebarTitle } from '../components/sidebar-title'
 
@@ -35,43 +37,15 @@ const meta: MetaRecord = {
       </SidebarTitle>
     ),
   },
+  'stellar-wallet-trustline': {
+    title: (
+      <SidebarTitle icon={<Wallet size={18} />}>
+        Stellar wallet & USDC
+      </SidebarTitle>
+    ),
+  },
   glossary: {
     title: <SidebarTitle icon={<FileText size={18} />}>Glossary</SidebarTitle>,
-  },
-
-  // --- Section: Set Up Your Wallet ---
-  '-- wallet-setup': {
-    type: 'separator',
-    title: 'Set Up Your Wallet',
-  },
-  'choose-wallet': {
-    title: (
-      <SidebarTitle icon={<Wallet size={18} />}>Choose a wallet</SidebarTitle>
-    ),
-  },
-  'create-wallet': {
-    title: (
-      <SidebarTitle icon={<Wallet size={18} />}>
-        Create your wallet
-      </SidebarTitle>
-    ),
-  },
-  'add-usdc': {
-    title: (
-      <SidebarTitle icon={<Wallet size={18} />}>
-        Add USDC (trustline)
-      </SidebarTitle>
-    ),
-  },
-  'get-xlm': {
-    title: (
-      <SidebarTitle icon={<Wallet size={18} />}>Get XLM for fees</SidebarTitle>
-    ),
-  },
-  'keep-wallet-safe': {
-    title: (
-      <SidebarTitle icon={<Wallet size={18} />}>Keep it safe</SidebarTitle>
-    ),
   },
 
   // --- Section: For Maintainers ---
@@ -158,27 +132,30 @@ const meta: MetaRecord = {
       <SidebarTitle icon={<Terminal size={18} />}>2. Get assigned</SidebarTitle>
     ),
   },
-  'c-03-connect-wallet': {
-    title: (
-      <SidebarTitle icon={<Terminal size={18} />}>
-        3. Connect payout wallet
-      </SidebarTitle>
-    ),
-  },
   'c-04-open-pr': {
     title: (
-      <SidebarTitle icon={<Terminal size={18} />}>4. Open a PR</SidebarTitle>
+      <SidebarTitle icon={<Terminal size={18} />}>3. Open a PR</SidebarTitle>
     ),
   },
   'c-05-get-paid': {
     title: (
-      <SidebarTitle icon={<Terminal size={18} />}>5. Get paid</SidebarTitle>
+      <SidebarTitle icon={<Terminal size={18} />}>4. Get paid</SidebarTitle>
     ),
   },
-  'c-change-wallet': {
+
+  // --- Section: Developer Guide ---
+  '-- developer-guide': { type: 'separator', title: 'Developer Guide' },
+  'product-architecture': {
     title: (
-      <SidebarTitle icon={<Terminal size={18} />}>
-        Change payout wallet
+      <SidebarTitle icon={<Layers3 size={18} />}>
+        Product architecture
+      </SidebarTitle>
+    ),
+  },
+  'api-operations': {
+    title: (
+      <SidebarTitle icon={<ServerCog size={18} />}>
+        API & operations
       </SidebarTitle>
     ),
   },

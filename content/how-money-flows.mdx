@@ -8,6 +8,8 @@ description: The full lifecycle of a bounty, from label to automatic release, an
 
 A bounty advances **on its own**. You and your contributors do ordinary GitHub and wallet actions — label, assign, connect a wallet, merge — and the platform's background workers handle every on-chain step, retrying transient failures automatically. Nobody presses a "release" button.
 
+<MediaSlot id="money-flow-diagram" type="image" show="GitHub, TOSS worker, database/queue, and Stellar lanes from funded issue through verified payout." caption="Replace with the final lifecycle architecture diagram." />
+
 {/* MEDIA-SLOT
   id: money-flow-diagram
   type: image
@@ -36,7 +38,7 @@ Once the contributor connects a wallet, a worker pushes the milestone to the esc
 The contributor opens a PR whose body links the issue (`Closes #123`). When you merge it, GitHub fires an event and the automation re-checks every rule.
 
 ### Release automatically
-If the live rules pass — PR merged, issue closed, milestone on-chain, receiver matches the contributor's wallet, not already paid — the escrow releases the USDC to the contributor. Typically within seconds.
+If the live rules pass — PR merged, issue closed, milestone on-chain, receiver matches the contributor's wallet, not already paid — the escrow releases the USDC to the contributor. Processing starts asynchronously and retries temporary failures.
 </Steps>
 
 ## What "trustless" actually means here
@@ -62,4 +64,4 @@ This is why `@trustless-oss retry` is almost never needed. It only asks the stat
 
 ---
 
-**Next:** [Glossary](/glossary) · [Set up your wallet](/choose-wallet)
+**Next:** [Glossary](/glossary) · [Start as a maintainer](/m-01-sign-in) · [Start as a contributor](/c-01-find-bounty)

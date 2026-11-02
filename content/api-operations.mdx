@@ -1,0 +1,48 @@
+---
+title: API & operations
+description: Authentication, queues, health, configuration, and operational rules for Trustless OSS.
+---
+
+# API & operations
+
+The backend is a Rust 2021 Axum service backed by PostgreSQL and Redis. It exposes OpenAPI JSON at `/api/v1/doc/openapi.json` and Swagger UI at `/swagger`.
+
+## Request and trust boundaries
+
+| Boundary | Verification |
+| --- | --- |
+| Browser API request | Supabase bearer token is verified remotely; GitHub numeric identity is extracted from verified identity data |
+| Maintainer action | Authentication plus repository-maintainer relationship check |
+| GitHub webhook | `X-Hub-Signature-256` HMAC over the exact raw request body |
+| Wallet action | User signs in the wallet; private keys never reach the frontend or backend |
+| Payout | Live database, GitHub, wallet, and chain state must agree |
+
+## Runtime services
+
+<FeatureGrid>
+  <FeatureCard icon="activity" title="Webhooks">Installation events can run inline; issue, comment, and pull-request events normally enter the webhook queue.</FeatureCard>
+  <FeatureCard icon="reward" title="Bounty worker">A single-concurrency state machine orders milestone and payout operations.</FeatureCard>
+  <FeatureCard icon="shield" title="Rate limits">Global IP limits and stricter Redis per-user limits protect sensitive wallet and escrow endpoints.</FeatureCard>
+</FeatureGrid>
+
+## Queue behavior
+
+Webhook, bounty, and email jobs each use bounded retry policies with exponential backoff. Validation, authentication, not-found, and malformed-webhook failures are unrecoverable; integration, database, and internal failures are retryable. PostgreSQL and on-chain state remain the durable business sources, while Redis holds operational queue and cache data.
+
+## Operations checklist
+
+- PostgreSQL must connect and migrate before startup completes.
+- Queue initialization can degrade softly, but normal asynchronous bounty automation needs Redis/BullMQ.
+- Configure exact trusted CORS origins and the public GitHub webhook URL.
+- Protect GitHub, Supabase, Trustless Work, Stellar, Resend, database, Redis, and storage credentials.
+- Never enable `AUTH_BYPASS` outside development.
+- Back up PostgreSQL and monitor health, queue depth, failed jobs, logs, and on-chain activity.
+- Treat changes to evaluator conditions, balance reservation, dispute resolution, and signing as financially sensitive.
+
+## Common route groups
+
+The API groups system health, GitHub installation and sync, repositories and reward tiers, contributor wallets, bounties, escrow, notifications, dashboard/activity, support tickets, uploads, and GitHub webhooks. Consult Swagger for exact current schemas rather than duplicating request bodies here.
+
+<MediaSlot id="operations-observability" type="image" show="Operations dashboard with API health, webhook queue, bounty queue, failure count, PostgreSQL status, and Redis status." caption="Replace this placeholder with the production observability view when available." />
+
+**Next:** [Command Cheat Sheet](/command-cheat-sheet) · [Troubleshooting](/troubleshooting)

@@ -5,6 +5,8 @@ import { MediaSlot } from './components/media-slot'
 import { CommandBlock } from './components/command-block'
 import { NextStep, StuckLink } from './components/next-step'
 import { TimeEstimate } from './components/time-estimate'
+import { Hero, PathGrid, PathCard, FlowRail } from './components/landing'
+import { WalletStatePreview } from './components/wallet-state-preview'
 
 const docsComponents = getDocsMDXComponents()
 
@@ -21,6 +23,11 @@ export function useMDXComponents(components) {
     NextStep,
     StuckLink,
     TimeEstimate,
+    Hero,
+    PathGrid,
+    PathCard,
+    FlowRail,
+    WalletStatePreview,
     Callout,
     ...components,
   }
