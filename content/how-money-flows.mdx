@@ -26,7 +26,7 @@ A bounty advances **on its own**. You and your contributors do ordinary GitHub a
 Each repository gets its own escrow contract on Stellar. You deploy it once, then fund it with USDC. Every bounty in the repo draws from this shared balance.
 
 ### Create a bounty
-Label an issue `rewarded` plus a tier (`low`/`medium`/`high`) or `manual`. The bot reserves the reward amount from the escrow balance and comments to confirm. The amount is still editable at this point.
+Label an issue `rewarded` plus a configured reward label or `manual`. The defaults are `low`, `medium`, and `high`, but a maintainer can map any existing GitHub label to a USDC amount in the repository's reward-tier settings. The bot reserves the mapped or manually entered amount from the escrow balance and comments to confirm. The amount is still editable at this point.
 
 ### Assign a contributor
 Assign someone on GitHub. The bot links them a page to connect a Stellar wallet. If no wallet is connected yet, the bounty **parks** and waits — no error, no timeout.

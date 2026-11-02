@@ -33,17 +33,16 @@ export const metadata = {
 }
 
 const TossLogo = () => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+  <div className="toss-navbar-logo">
     <Image
+      className="toss-navbar-logo__image"
       src="/logo.png"
       alt="Trustless OSS"
       width={60}
       height={60}
       priority
     />
-    <span
-      style={{ fontSize: '1.85rem', fontWeight: 800, whiteSpace: 'nowrap' }}
-    >
+    <span className="toss-navbar-logo__text">
       Trustless <span style={{ color: 'var(--toss-blue)' }}>OSS</span>
     </span>
   </div>

@@ -27,7 +27,7 @@ Open source maintainers who want to fund specific issues, and contributors who w
 
 ## The lifecycle in one paragraph
 
-A maintainer connects a repo (installs the GitHub App), deploys an escrow contract, and funds it with USDC. They label an issue `rewarded` + a tier (or `manual` with an amount). A contributor is assigned and connects a Stellar wallet, which locks the reward as an on-chain milestone. The contributor opens a PR that closes the issue; the maintainer merges it; the escrow releases the USDC automatically. For a detailed walkthrough with the money-safety rules, see [How payouts work](/how-money-flows).
+A maintainer connects a repo (installs the GitHub App), deploys an escrow contract, and funds it with USDC. They map GitHub labels to USDC amounts—using the default `low`/`medium`/`high` labels or labels that already exist in their repository—then label an issue `rewarded` plus one mapped label. For a one-off amount, they can use `manual` instead. A contributor is assigned and connects a Stellar wallet, which locks the reward as an on-chain milestone. The contributor opens a PR that closes the issue; the maintainer merges it; the escrow releases the USDC automatically. For a detailed walkthrough with the money-safety rules, see [How payouts work](/how-money-flows).
 
 ---
 

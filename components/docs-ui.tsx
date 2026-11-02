@@ -21,6 +21,7 @@ import {
 export function FeatureGrid({ children }: { children: ReactNode }) {
   return (
     <div
+      className="toss-feature-grid"
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
@@ -128,7 +129,10 @@ export function Step({
 }) {
   const Icon = icon ? iconMap[icon] : null
   return (
-    <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+    <div
+      className="toss-step"
+      style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}
+    >
       <div
         style={{
           flexShrink: 0,
@@ -147,7 +151,7 @@ export function Step({
       >
         {n}
       </div>
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, minWidth: 0 }}>
         <div
           style={{
             display: 'flex',

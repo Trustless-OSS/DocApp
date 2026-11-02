@@ -274,8 +274,59 @@ html {
 
 html,
 body {
+  max-width: 100%;
   background-color: var(--toss-page);
   color: var(--toss-ink);
+}
+
+body {
+  overflow-x: clip;
+}
+
+/* Responsive brand lockup. Keeping these dimensions in CSS lets the navbar
+ * scale without fighting Next/Image's intrinsic size on small screens. */
+.toss-navbar-logo {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.toss-navbar-logo__image {
+  width: 60px;
+  height: 60px;
+  flex: 0 0 auto;
+}
+
+.toss-navbar-logo__text {
+  min-width: 0;
+  font-size: 1.85rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.toss-theme-toggle {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--toss-border, rgba(125, 125, 125, 0.25));
+  border-radius: 10px;
+  color: currentColor;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.toss-theme-toggle:focus-visible {
+  outline: 2px solid var(--toss-primary);
+  outline-offset: 2px;
 }
 
 /* Light text on dark reads optically thicker — drop body one weight. */
@@ -412,9 +463,116 @@ html.dark .nextra-card:hover {
  * shrinks, so drop that link. :has() targets the anchor by its icon child.
  */
 @media (max-width: 767px) {
+  .nextra-banner > div:first-child {
+    padding: 0.55rem 0.25rem 0.55rem 0.5rem !important;
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .nextra-banner button[aria-label='Dismiss banner'] {
+    display: inline-grid;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 auto;
+    place-items: center;
+    padding: 0 !important;
+  }
+
   .nextra-navbar a:has(> svg[aria-label='Project repository']),
   .nextra-navbar a:has(> [aria-label='Project repository']) {
     display: none !important;
+  }
+
+  .nextra-navbar nav {
+    gap: 0.5rem;
+    padding-right: max(env(safe-area-inset-right), 1rem) !important;
+    padding-left: max(env(safe-area-inset-left), 1rem) !important;
+  }
+
+  .toss-navbar-logo {
+    gap: 0.55rem;
+  }
+
+  .toss-navbar-logo__image {
+    width: 40px;
+    height: 40px;
+  }
+
+  .toss-navbar-logo__text {
+    overflow: hidden;
+    font-size: clamp(1.05rem, 5.2vw, 1.35rem);
+    text-overflow: ellipsis;
+  }
+
+  .toss-theme-toggle,
+  .nextra-hamburger {
+    width: 40px;
+    height: 40px;
+  }
+
+  .nextra-hamburger {
+    display: inline-grid;
+    flex: 0 0 auto;
+    place-items: center;
+  }
+
+  /* The copy control is floated before the MDX body. On narrow screens that
+   * makes the first content block flow beside it and collapse to half-width. */
+  article > .x\:float-end {
+    display: none !important;
+  }
+
+  article,
+  article > main,
+  .nextra-content {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  article {
+    padding-right: max(env(safe-area-inset-right), 1rem) !important;
+    padding-left: max(env(safe-area-inset-left), 1rem) !important;
+  }
+
+  article > main {
+    clear: both;
+  }
+
+  article main > h1 {
+    margin-top: 0.7rem;
+    font-size: clamp(2rem, 9vw, 2.4rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+  }
+
+  article main h2 {
+    margin-top: 2.4rem;
+    font-size: clamp(1.55rem, 7vw, 1.85rem);
+    line-height: 1.18;
+  }
+
+  article main h3 {
+    margin-top: 2rem;
+    font-size: clamp(1.2rem, 5.5vw, 1.45rem);
+    line-height: 1.3;
+  }
+
+  article main :is(p, li) {
+    font-size: 0.98rem;
+    line-height: 1.72;
+  }
+
+  article main :is(h1, h2, h3, h4) {
+    scroll-margin-top: calc(var(--nextra-navbar-height) + 1rem);
+  }
+
+  body:has(.toss-hero) .nextra-breadcrumb {
+    display: none;
+  }
+
+  body:has(.toss-hero) article {
+    padding-top: 0 !important;
   }
 }
 
@@ -434,6 +592,73 @@ aside.nextra-sidebar {
 
 .nextra-sidebar.x\:w-20 {
   width: 7rem !important;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .nextra-sidebar.x\:w-64,
+  aside.nextra-sidebar,
+  .nextra-sidebar-container {
+    width: 15rem !important;
+  }
+
+  .x\:w-64:not(.nextra-sidebar) {
+    width: 15rem !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .nextra-sidebar.x\:w-64,
+  aside.nextra-sidebar,
+  .nextra-sidebar-container {
+    width: min(20rem, 88vw) !important;
+    max-width: 88vw;
+  }
+
+  .x\:w-64:not(.nextra-sidebar) {
+    width: auto !important;
+  }
+}
+
+/* Documentation content should never enlarge the page viewport. Wide tables
+ * and code retain horizontal scrolling inside their own containers. */
+.nextra-content img,
+.nextra-content video,
+.nextra-content iframe,
+article main img,
+article main video,
+article main iframe {
+  max-width: 100%;
+}
+
+.nextra-content pre,
+article main pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.nextra-content table,
+article main table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nextra-content :is(p, li, a, code),
+article main :is(p, li, a, code) {
+  overflow-wrap: anywhere;
+}
+
+.nextra-content table :is(td, th),
+article main table :is(td, th) {
+  overflow-wrap: break-word;
+}
+
+.nextra-content table :is(td, th):first-child,
+article main table :is(td, th):first-child {
+  min-width: 8rem;
 }
 
 /* Pill-shaped sidebar links (material-you rounding). */
@@ -765,13 +990,17 @@ a.toss-path-card h3 {
 
 @media (max-width: 560px) {
   .toss-hero {
-    padding: 3.25rem 0.25rem;
+    margin-bottom: 2.5rem;
+    padding: 2.5rem 0.75rem;
   }
   .toss-hero h1 {
-    font-size: clamp(2.65rem, 14vw, 4rem);
+    font-size: clamp(2.55rem, 13vw, 4rem);
+    line-height: 0.96;
+    letter-spacing: -0.055em;
   }
   .toss-hero__actions .toss-button {
     width: 100%;
+    min-width: 0;
   }
   .toss-trust-row {
     align-items: flex-start;
@@ -782,6 +1011,43 @@ a.toss-path-card h3 {
   }
   .toss-flow-rail {
     grid-template-columns: 1fr;
+  }
+
+  a.toss-path-card {
+    padding: 1.15rem;
+    border-radius: 20px;
+  }
+
+  .toss-feature-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .toss-step {
+    gap: 0.75rem !important;
+  }
+
+  .toss-media-slot__canvas {
+    min-height: 210px;
+    padding: 3.25rem 1rem 1.5rem;
+  }
+
+  .nextra-callout {
+    border-radius: 16px;
+  }
+
+  .toss-footer__top,
+  .toss-footer__bottom {
+    gap: 1.25rem;
+  }
+
+  .toss-footer__socials {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .toss-footer__socials a {
+    width: 44px;
+    height: 44px;
   }
 }
 

@@ -24,10 +24,10 @@ TOSS syncs **public, non-fork** repos. Private and forked repos are skipped duri
 ## For maintainers
 
 ### What's the difference between a tier and a manual bounty?
-A **tier** is a reusable `(label, amount)` pair — label an issue `rewarded` + `medium` and it uses the medium amount. **Manual** is a one-off: label `rewarded` + `manual` and set the amount with `@trustless-oss <amount>`.
+A **tier** is a reusable `(GitHub label, amount)` mapping. For example, a maintainer can map the repository's existing `bug` label to 50 USDC; an issue labeled `rewarded` + `bug` then uses that amount. **Manual** is a one-off: label the issue `rewarded` + `manual` and set the amount with `@trustless-oss <amount>`.
 
 ### Can I rename or remove the default tiers?
-Yes. `low`/`medium`/`high` are just defaults. Edit their amounts, remap them to other GitHub labels, delete them, or add new tiers. Adding a tier with a new name creates that label on GitHub. See [Set reward tiers](/m-05-reward-amounts).
+Yes. `low`, `medium`, and `high` are only defaults. You can select labels that already exist in your GitHub repository and assign USDC amounts to them, edit or delete any mapping, or create a new label. Adding a tier with a new name creates that label on GitHub. See [Set reward tiers](/m-05-reward-amounts).
 
 ### Can I change a bounty's amount after creating it?
 Only while it's still editable — `open`, or `assigned` without a connected wallet. Once the milestone locks on-chain, the amount is fixed so the database and escrow can't desync.

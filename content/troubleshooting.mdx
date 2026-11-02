@@ -26,7 +26,7 @@ Each entry is **symptom → cause → fix**. Search this page (Cmd/Ctrl+K) for a
 **Cause.** The issue isn't eligible, or it's already locked on-chain.
 
 **Fix.**
-1. The issue needs the `rewarded` label (plus `manual`, or set the amount before adding a difficulty label).
+1. The issue needs the `rewarded` label (plus `manual`, or set the amount before adding a configured reward label).
 2. You can only set/change the amount while the bounty is `open`, or `assigned` but **not yet locked** (contributor hasn't connected a wallet). After the milestone locks on-chain, the amount is fixed by design.
 3. The amount can't exceed the escrow's free balance. If it does, the bot replies "Insufficient Escrow Balance" — [fund the escrow](/m-04-fund-escrow).
 

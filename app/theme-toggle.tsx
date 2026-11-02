@@ -17,24 +17,12 @@ export function ThemeToggle() {
 
   return (
     <button
+      className="toss-theme-toggle"
       type="button"
       aria-label="Toggle dark mode"
       title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       onClick={toggle}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 34,
-        height: 34,
-        padding: 0,
-        borderRadius: 8,
-        border: '1px solid var(--toss-border, rgba(125,125,125,0.25))',
-        background: 'transparent',
-        color: 'currentColor',
-        cursor: 'pointer',
-        transition: 'background 0.2s, color 0.2s',
-      }}
+      style={{}}
       onMouseEnter={(e) => {
         e.currentTarget.style.background =
           'color-mix(in srgb, currentColor 10%, transparent)'
@@ -45,7 +33,7 @@ export function ThemeToggle() {
     >
       {/* Render a stable icon until mounted to prevent SSR mismatch. */}
       {!mounted ? (
-        <Sun size={18} style={{ opacity: 0 }} />
+        <Sun size={18} />
       ) : isDark ? (
         <Sun size={18} />
       ) : (

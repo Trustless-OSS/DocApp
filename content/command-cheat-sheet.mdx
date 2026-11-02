@@ -24,7 +24,7 @@ Only repository **owners, members, and collaborators** can run these. Comments f
 
 <CommandBlock
   command="@trustless-oss 150"
-  description="Sets a manual bounty to 150 USDC. The issue must have the 'rewarded' + 'manual' labels, or you can set the amount before adding a difficulty label."
+  description="Sets a manual bounty to 150 USDC. The issue must have the 'rewarded' + 'manual' labels, or you can set the amount before adding a configured reward label."
   where="Comment on the bounty issue"
 />
 
@@ -86,17 +86,17 @@ Labels are how an issue becomes a bounty. The bot reads them from GitHub webhook
 
 | Label | Role | Notes |
 | --- | --- | --- |
-| `rewarded` | **Required.** Turns the issue into a bounty. | Pair it with exactly one difficulty label. |
-| `low` / `medium` / `high` | Reward tier. | Uses the USDC amount you configured for that tier in the dashboard. |
+| `rewarded` | **Required.** Turns the issue into a bounty. | Pair it with exactly one configured reward label, or with `manual`. |
+| Any configured reward label | Reusable reward tier. | `low` / `medium` / `high` are defaults. A maintainer can map an existing GitHub label to a USDC amount in the dashboard. |
 | `manual` | Reward set per-issue. | Set the amount with `@trustless-oss <amount>` or by putting the amount in the issue body. |
 | `rejected` | Cancels the bounty. | Same effect as `@trustless-oss reject`: refunds escrow and cancels. |
 
 <Callout type="info">
-**Tiers are just labels with an amount.** The dashboard ships three defaults — `low`, `medium`, `high` — but you can rename them, delete them, or add your own tiers mapped to any GitHub label. See [Set reward tiers](/m-05-reward-amounts).
+**Tiers are just GitHub labels mapped to an amount.** The dashboard ships three defaults—`low`, `medium`, and `high`—but a maintainer can select a label that already exists in the repository and assign a USDC amount to it. Maintainers can also rename or delete mappings and create new labels. See [Set reward tiers](/m-05-reward-amounts).
 </Callout>
 
 <Callout type="warning">
-`rewarded` on its own, with no difficulty label and no amount, creates an **unpriced** bounty. It stays inactive until you add a tier label or set a manual amount. Funds are only reserved once the bounty has an amount.
+`rewarded` on its own, with no configured reward label and no amount, creates an **unpriced** bounty. It stays inactive until you add a mapped label or set a manual amount. Funds are only reserved once the bounty has an amount.
 </Callout>
 
 ---

@@ -12,11 +12,11 @@ description: Where TOSS bounties live and how to spot a funded one.
 
 ## Where bounties live
 
-A bounty is a GitHub issue labeled `rewarded` plus a tier (`low`/`medium`/`high`) or `manual`. The TOSS bot comments on each one confirming the reward amount and linking the on-chain escrow, so you can verify the money exists before you start.
+A bounty is a GitHub issue labeled `rewarded` plus either a configured reward label or `manual`. `low`, `medium`, and `high` are only the default reward labels—maintainers can also map any existing GitHub label, such as `bug` or `priority:high`, to a USDC amount. The TOSS bot comments on each bounty confirming the reward amount and linking the on-chain escrow, so you can verify the money exists before you start.
 
 Look for:
 
-- The `rewarded` label plus a tier/`manual` label on the issue.
+- The `rewarded` label plus a configured reward label (or `manual`) on the issue.
 - A TOSS bot comment stating the reward in USDC with an escrow viewer link.
 - Status `open` (unassigned) — an assigned bounty is already taken.
 
