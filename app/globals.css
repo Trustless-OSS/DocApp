@@ -614,6 +614,12 @@ aside.nextra-sidebar {
     max-width: 88vw;
   }
 
+  /* Production safeguard: Nextra's responsive utility can be compiled
+   * incorrectly, leaving the desktop sidebar visible on mobile. */
+  aside.nextra-sidebar {
+    display: none !important;
+  }
+
   .x\:w-64:not(.nextra-sidebar) {
     width: auto !important;
   }
